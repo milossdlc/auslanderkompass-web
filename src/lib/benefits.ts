@@ -38,8 +38,10 @@ export function computeBenefits(profile: Profile, lang: Lang): Benefit[] {
       linked: true,
     });
   } else if (profile.housing === "renting") {
-    if (profile.income && profile.rent) {
-      const ratio = profile.rent / profile.income;
+    const income = profile.income ?? 0;
+    const rent = profile.rent ?? 0;
+    if (income > 0 && rent > 0) {
+      const ratio = rent / income;
       if (ratio > 0.3) {
         out.push({
           id: "wohngeld",
