@@ -11,6 +11,7 @@ import { AreaDetail } from "./views/AreaDetail";
 import { AreaItemDetail } from "./views/AreaItemDetail";
 import { ProfileView } from "./views/Profile";
 import { PublicGuide } from "./views/PublicGuide";
+import { track } from "./lib/analytics";
 import type { Lang } from "./types";
 
 export default function App() {
@@ -22,11 +23,10 @@ export default function App() {
   useEffect(() => {
     document.documentElement.setAttribute("lang", lang);
     document.documentElement.setAttribute("dir", S.dir);
-  }, [lang, S.dir]);
+    track({ name: publicMatch ? "public_guide_view" : "app_view", path: window.location.pathname, lang, view: state.view });
+  }, [lang, S.dir, state.view, publicMatch?.[1]]);
 
-  if (publicMatch) {
-    return <PublicGuide slug={publicMatch[1]} lang={lang} />;
-  }
+  if (publicMatch) return <PublicGuide slug={publicMatch[1]} lang={lang} />;
 
   let view;
   switch (state.view) {
@@ -39,6 +39,5 @@ export default function App() {
     case "areaItem": view = <AreaItemDetail state={state} dispatch={dispatch} />; break;
     default: view = <Kompas state={state} dispatch={dispatch} />;
   }
-
   return <div id="shell" className={S.dir === "rtl" ? "rtl-font" : ""}><LangSwitcher lang={lang} onChange={(l) => dispatch({ type: "SET_LANG", lang: l })} /><div id="app">{view}</div></div>;
 }
