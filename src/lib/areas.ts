@@ -63,9 +63,16 @@ export function computeAreaData(profile: Profile, lang: Lang): AreaData[] {
 
 export function nearestObligation(areas: AreaData[]): { areaId: string; deadline: Date } | null {
   let best: { areaId: string; deadline: Date } | null = null;
+  const staleCutoff = new Date();
+  staleCutoff.setHours(0, 0, 0, 0);
+  staleCutoff.setDate(staleCutoff.getDate() - 120);
+
   areas.forEach((a) => {
     a.obligations.forEach((o) => {
-      if (o.deadline && (!best || o.deadline < best.deadline)) {
+      // Very old deadlines usually mean the stored profile is stale, not that the
+      // user has an actionable deadline today. They are handled in the profile/
+      // deadlines view instead of taking over the dashboard.
+      if (o.deadline && o.deadline >= staleCutoff && (!best || o.deadline < best.deadline)) {
         best = { areaId: a.id, deadline: o.deadline };
       }
     });

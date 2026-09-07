@@ -21,3 +21,12 @@
 
 ## Deployment note
 The source code passed a standalone TypeScript source check in the provided environment. The sandbox dependency download repeatedly stalled before Vite packages finished installing, so a full `npm run build` could not be completed here. Cloudflare Pages should run `npm ci` and `npm run build` with output directory `dist`.
+
+## Round 2 live polish
+- Dashboard is now explicitly "Heute / Today" and focuses on the next actionable item.
+- Deadlines older than 120 days no longer take over the dashboard; they trigger a profile-review notice instead.
+- Deadline page separates stale profile dates from current deadlines.
+- Desktop content uses more horizontal space and a two-column dashboard composition.
+- Life-area cards expand to four columns on wide desktop screens.
+- English navigation now uses "Knowledge" instead of "Explained".
+- Reduced repetitive "Based on your answers" messaging and strengthened profile/personalization language.
