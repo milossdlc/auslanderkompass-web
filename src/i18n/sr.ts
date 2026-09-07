@@ -38,8 +38,8 @@ export const sr: LangStrings = {
       ],
       "arrivalLabel": "Datum tvog dolaska/preseljenja",
       "arrivalHint": "Koristi se za izračun roka za Anmeldung (14 dana).",
-      "expiryLabel": "Datum isteka tvoje dozvole boravka — opciono",
-      "expiryHint": "Ako znaš — podsetićemo te na vreme za obnovu."
+      "expiryLabel": "Datum isteka tvoje dozvole boravka",
+      "expiryHint": "Potreban je da bismo izračunali tvoje lične rokove i podsetnike za pripremu."
     },
     "work": {
       "title": "Kakav je tvoj radni status?",

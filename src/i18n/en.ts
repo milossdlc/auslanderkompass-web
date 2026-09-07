@@ -38,8 +38,8 @@ export const en: LangStrings = {
       ],
       "arrivalLabel": "Date of your arrival/move",
       "arrivalHint": "Used to calculate your Anmeldung deadline (14 days).",
-      "expiryLabel": "Expiry date of your residence permit — optional",
-      "expiryHint": "If you know it — we'll remind you in time to renew."
+      "expiryLabel": "Expiry date of your residence permit",
+      "expiryHint": "Required so we can calculate your personal deadlines and preparation reminders."
     },
     "work": {
       "title": "What is your employment status?",

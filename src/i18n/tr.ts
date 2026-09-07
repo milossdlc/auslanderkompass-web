@@ -38,8 +38,8 @@ export const tr: LangStrings = {
       ],
       "arrivalLabel": "Varış/taşınma tarihin",
       "arrivalHint": "Anmeldung süresini (14 gün) hesaplamak için kullanılır.",
-      "expiryLabel": "Oturum izninin bitiş tarihi — isteğe bağlı",
-      "expiryHint": "Biliyorsan — yenileme zamanı geldiğinde seni zamanında uyarırız."
+      "expiryLabel": "Oturum izninin bitiş tarihi",
+      "expiryHint": "Kişisel son tarihlerini ve hazırlık hatırlatmalarını hesaplayabilmemiz için gereklidir."
     },
     "work": {
       "title": "Çalışma durumun nedir?",

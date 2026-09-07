@@ -38,8 +38,8 @@ export const de: LangStrings = {
       ],
       "arrivalLabel": "Datum deiner Einreise/deines Umzugs",
       "arrivalHint": "Wird genutzt, um deine Anmeldefrist zu berechnen (14 Tage).",
-      "expiryLabel": "Ablaufdatum deines Aufenthaltstitels — optional",
-      "expiryHint": "Falls bekannt — wir erinnern dich rechtzeitig an die Verlängerung."
+      "expiryLabel": "Ablaufdatum deines Aufenthaltstitels",
+      "expiryHint": "Wird benötigt, damit wir deine persönlichen Fristen und Erinnerungen berechnen können."
     },
     "work": {
       "title": "Wie ist dein Arbeitsstatus?",

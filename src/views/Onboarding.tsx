@@ -188,7 +188,7 @@ export function Onboarding({ state, dispatch }: { state: AppState; dispatch: Dis
   }
 
   const canNext =
-    (step === "boravak" && !!draft.permitType && !!draft.arrivalDate) ||
+    (step === "boravak" && !!draft.permitType && !!draft.arrivalDate && !!draft.permitExpiryDate) ||
     (step === "work" && !!draft.work) ||
     (step === "kids" && draft.kids !== null) ||
     (step === "housing" && !!draft.housing);
