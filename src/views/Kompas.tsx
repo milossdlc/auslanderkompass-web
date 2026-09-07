@@ -47,10 +47,11 @@ export function Kompas({ state, dispatch }: { state: AppState; dispatch: Dispatc
   const relevantBenefits = benefits.filter((b) => b.tone === "warn").slice(0, 2);
   const stale = isStaleProfile(state);
   const focus = getPersonalFocus(profile, state.lang!);
+  const profileLabel = de ? "Profil" : en ? "Profile" : sr ? "Profil" : S.nav.profile;
 
   return <>
     <div className="screen dashboard-screen">
-      <div className="page-heading dashboard-heading"><div><div className="eyebrow">Ausländerleben</div><h1 className="disp">{de ? "Heute" : en ? "Today" : sr ? "Danas" : S.kompas.title}</h1><p>{de ? "Dein persönlicher Überblick: zuerst das Wichtigste, dann die nächsten konkreten Schritte." : en ? "Your personal overview: what matters most first, followed by clear next actions." : sr ? "Tvoj lični pregled: prvo ono što je najvažnije, zatim jasni sledeći koraci." : S.kompas.heroText}</p></div><button className="avatar-button" aria-label="Profile" onClick={() => dispatch({ type: "NAV", view: "profile" })}><Icon name="passport" size={20}/></button></div>
+      <div className="page-heading dashboard-heading"><div><div className="eyebrow">Ausländerleben</div><h1 className="disp">{de ? "Heute" : en ? "Today" : sr ? "Danas" : S.kompas.title}</h1><p>{de ? "Dein persönlicher Überblick: zuerst das Wichtigste, dann die nächsten konkreten Schritte." : en ? "Your personal overview: what matters most first, followed by clear next actions." : sr ? "Tvoj lični pregled: prvo ono što je najvažnije, zatim jasni sledeći koraci." : S.kompas.heroText}</p></div><button className="profile-header-button" aria-label={profileLabel} title={profileLabel} onClick={() => dispatch({ type: "NAV", view: "profile" })}><Icon name="passport" size={20}/><span>{profileLabel}</span></button></div>
 
       {stale && <button className="stale-profile-card" onClick={() => dispatch({ type: "NAV", view: "profile" })}><div className="stale-icon"><Icon name="passport" size={20}/></div><div><strong>{de ? "Profil vervollständigen" : en ? "Complete your profile" : sr ? "Dopuni profil" : S.kompas.profileSaved}</strong><span>{de ? "Ergänze oder prüfe wichtige Datumsangaben, damit persönliche Fristen aktuell bleiben." : en ? "Add or review important dates so personal deadlines stay current." : sr ? "Dodaj ili proveri važne datume kako bi lični rokovi ostali ažurni." : S.kompas.noDateYet}</span></div><span className="stale-cta">{de ? "Profil prüfen" : en ? "Review profile" : sr ? "Proveri profil" : "Profile"} →</span></button>}
 
