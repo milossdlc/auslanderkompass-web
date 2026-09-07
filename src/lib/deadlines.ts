@@ -1,5 +1,5 @@
 import type { Lang, Profile } from "../types";
-import { addDays, daysUntil, parseISO } from "./dates";
+import { addDays, parseISO } from "./dates";
 
 export type DeadlineKind = "legal" | "recommended";
 export type DeadlineConfidence = "high" | "medium";
@@ -50,7 +50,7 @@ export function buildSmartDeadlines(profile: Profile, lang: Lang): SmartDeadline
 
   const expiry = parseISO(expiryRaw);
   const copy = text(lang);
-  const prep = addDays(expiry, -56); // 8 weeks: conservative planning reminder, explicitly not a legal deadline.
+  const prep = addDays(expiry, -56);
 
   out.push({
     id: "permit-prep",
