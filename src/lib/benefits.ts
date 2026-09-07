@@ -1,5 +1,6 @@
 import type { Benefit, Lang, Profile } from "../types";
 import { STRINGS, pl } from "../i18n";
+import { daysUntil, parseISO } from "./dates";
 
 const safeLabels: Record<Lang, { relevant: string; check: string; unlikely: string; housing: string; former: string }> = {
   de: { relevant: "Könnte relevant sein", check: "Prüfung empfohlen", unlikely: "Derzeit eher nicht relevant", housing: "Wohnkosten prüfen", former: "früher: Bürgergeld" },
@@ -11,6 +12,33 @@ const safeLabels: Record<Lang, { relevant: string; check: string; unlikely: stri
   ru: { relevant: "Может быть актуально", check: "Рекомендуем проверить", unlikely: "Сейчас, вероятно, неактуально", housing: "Проверить жилищную помощь", former: "ранее: Bürgergeld" },
   fa: { relevant: "ممکن است مرتبط باشد", check: "بررسی توصیه می‌شود", unlikely: "احتمالاً در حال حاضر مرتبط نیست", housing: "کمک‌هزینه مسکن را بررسی کنید", former: "نام پیشین: Bürgergeld" },
 };
+
+function recommendationPriority(profile: Profile, id: Benefit["id"]): number {
+  const expiry = profile.boravak.permitExpiryDate;
+  const permitDays = expiry ? daysUntil(parseISO(expiry)) : null;
+
+  // Urgent residence matters outrank financial-support suggestions on the dashboard.
+  // This is prioritisation only; it does not decide legal entitlement.
+  if (permitDays !== null && permitDays <= 90) {
+    if (id === "kindergeld" && profile.kids) return 45;
+    if (id === "wohngeld" && (profile.housing === "renting" || profile.housing === "shared")) return 40;
+    if (id === "burgergeld" && (profile.work === "unemployed" || profile.work === "parental_leave")) return 35;
+  }
+
+  if (profile.work === "unemployed") {
+    if (id === "burgergeld") return 100;
+    if (id === "wohngeld") return 80;
+    if (id === "kindergeld" && profile.kids) return 60;
+  }
+  if (profile.kids) {
+    if (id === "kindergeld") return 100;
+    if (id === "wohngeld" && (profile.housing === "renting" || profile.housing === "shared")) return 70;
+  }
+  if (profile.housing === "renting" || profile.housing === "shared") {
+    if (id === "wohngeld") return 90;
+  }
+  return 10;
+}
 
 export function computeBenefits(profile: Profile, lang: Lang): Benefit[] {
   const S = STRINGS[lang];
@@ -56,5 +84,5 @@ export function computeBenefits(profile: Profile, lang: Lang): Benefit[] {
     out.push({ id: "kindergeld", name: "Kindergeld", icon: "heart", status: L.unlikely, tone: "muted", note: S.benefits.kindergeld.noneNote });
   }
 
-  return out;
+  return out.sort((a, b) => recommendationPriority(profile, b.id) - recommendationPriority(profile, a.id));
 }
