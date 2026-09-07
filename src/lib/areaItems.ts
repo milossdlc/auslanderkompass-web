@@ -1,5 +1,5 @@
 import type { AreaId, AreaItemDef, BenefitId } from "../types";
-import { addDays, parseISO } from "./dates";
+import { parseISO } from "./dates";
 
 export const AREA_ORDER: AreaId[] = ["boravak", "stanovanje", "rad", "porodica"];
 
@@ -35,7 +35,9 @@ export const AREA_ITEMS: AreaItemDef[] = [
     kind: "obligation",
     icon: "passport",
     visible: () => true,
-    deadline: (p) => (p.boravak?.arrivalDate ? addDays(parseISO(p.boravak.arrivalDate), 14) : null),
+    // Arrival date does not prove that Anmeldung is still outstanding.
+    // Keep this as an obligation/info item, but never invent an overdue deadline.
+    deadline: () => null,
   },
   {
     id: "boravak_permit",
