@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import type { Lang } from "../types";
+import "../styles/actionPlan.css";
 
 type Guide = { slug: string; deTitle: string; title: string; description: string; steps: string[]; source: string; url: string };
-
 const GUIDES: Guide[] = [
   { slug: "aufenthaltstitel-verlaengern", deTitle: "Aufenthaltstitel verlängern in Deutschland", title: "Residence permit renewal in Germany", description: "Practical orientation for preparing a residence permit renewal: timing, documents and where to apply.", steps: ["Check your current residence title and expiry date.", "Prepare passport, current residence title and the documents relevant to your permit.", "Use the responsible authority's official online service where available.", "Keep proof of your application and follow any request for additional documents."], source: "Hamburg Service – Verlängerung Aufenthaltserlaubnis", url: "https://www.hamburg.de/service/info/111216647/" },
   { slug: "anmeldung-deutschland", deTitle: "Anmeldung in Deutschland", title: "Registering your address in Germany", description: "What to know about Anmeldung after moving into a home in Germany.", steps: ["Move into your new home.", "Obtain the Wohnungsgeberbestätigung from your housing provider.", "Register your address with the responsible registration authority within the statutory period.", "Keep your Meldebestätigung for later administrative procedures."], source: "Bundesportal – Anmeldung", url: "https://verwaltung.bund.de/" },
@@ -10,7 +10,6 @@ const GUIDES: Guide[] = [
   { slug: "arbeitslos-in-deutschland", deTitle: "Arbeitslos in Deutschland", title: "What to do after losing your job", description: "A practical starting point for registering as job-seeking and unemployed and checking the next steps.", steps: ["Register as job-seeking as soon as you know your employment will end.", "Register as unemployed no later than the first day without employment.", "Check which benefits and residence-related duties apply to your situation.", "Keep all employment and termination documents."], source: "Bundesagentur für Arbeit", url: "https://www.arbeitsagentur.de/arbeitslos-arbeit-finden/arbeitslosengeld" },
   { slug: "niederlassungserlaubnis-blue-card", deTitle: "Niederlassungserlaubnis mit Blue Card", title: "Permanent residence with an EU Blue Card", description: "Key orientation for Blue Card holders considering a Niederlassungserlaubnis.", steps: ["Check how long you have held a Blue Card and whether the required employment and pension conditions are met.", "Check the applicable German-language level and integration requirements.", "Prepare passport, biometric photo, housing and employment evidence and other requested documents.", "Use the official local application service and follow the authority's document requests."], source: "Hamburg Welcome Center – Blue Card", url: "https://www.hamburg.de/service/info/111204805/" },
 ];
-
 export function PublicGuide({ slug, lang }: { slug: string; lang: Lang }) {
   const guide = GUIDES.find((g) => g.slug === slug) ?? GUIDES[0];
   const de = lang === "de";
