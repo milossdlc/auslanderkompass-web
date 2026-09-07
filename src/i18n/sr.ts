@@ -133,8 +133,8 @@ export const sr: LangStrings = {
       "noteGood": "Osnovna pomoć za nezaposlene — uključuje i troškove stanovanja."
     },
     "wohngeld": {
-      "linkedStatus": "Pokriveno kroz Bürgergeld",
-      "linkedNote": "Kad Bürgergeld važi, troškovi stana se obično pokrivaju kroz njega — poseban Wohngeld obično nije potreban.",
+      "linkedStatus": "Pokriveno kroz Grundsicherungsgeld",
+      "linkedNote": "Kad Grundsicherungsgeld važi, troškovi stana se obično pokrivaju kroz njega — poseban Wohngeld obično nije potreban.",
       "warnStatus": "Proveri iznos",
       "warnNoteRatio": "Kirija ti je {pct}% prihoda — preko uobičajenog praga za proveru Wohngeld-a.",
       "mutedStatus": "Malo verovatno",
@@ -153,8 +153,8 @@ export const sr: LangStrings = {
     }
   },
   "benefitInfo": {
-    "burgergeld": "Bürgergeld je osnovna socijalna pomoć u Nemačkoj za nezaposlene ili za one čiji prihodi nisu dovoljni za život, uključujući i podršku za troškove stanovanja.",
-    "wohngeld": "Wohngeld je državna subvencija za troškove stanovanja namenjena domaćinstvima sa nižim prihodima koja ne primaju Bürgergeld.",
+    "burgergeld": "Grundsicherungsgeld je osnovna socijalna pomoć u Nemačkoj za nezaposlene ili za one čiji prihodi nisu dovoljni za život, uključujući i podršku za troškove stanovanja.",
+    "wohngeld": "Wohngeld je državna subvencija za troškove stanovanja namenjena domaćinstvima sa nižim prihodima koja ne primaju Grundsicherungsgeld.",
     "kindergeld": "Kindergeld je mesečna državna pomoć roditeljima za svako prijavljeno dete, nezavisno od visine prihoda."
   },
   "benefit": {
@@ -196,7 +196,7 @@ export const sr: LangStrings = {
     "disclaimer": "Ovi datumi su okvirni, izračunati iz opšteg pravila — ne zamenjuju datum iz tvog stvarnog rešenja (Bescheid).",
     "approx": "okvirno · ",
     "pill": "za {d} d.",
-    "bgTitle": "Bürgergeld — okvirna obnova odobrenja",
+    "bgTitle": "Grundsicherungsgeld — okvirna obnova odobrenja",
     "bgNote": "Obično 6–12 meseci — tačan datum vidi u svom rešenju (Bescheid).",
     "wgTitle": "Wohngeld — okvirna godišnja obnova",
     "wgNote": "Wohngeld zahtevi se obično obnavljaju jednom godišnje.",
@@ -276,7 +276,7 @@ export const sr: LangStrings = {
     },
     "porodica_elterngeld": {
       "name": "Elterngeld",
-      "desc": "Elterngeld pomaže roditeljima koji posle rođenja deteta smanje svoj prihod da bi se brinuli o detetu — nezavisno od Bürgergeld-a."
+      "desc": "Elterngeld pomaže roditeljima koji posle rođenja deteta smanje svoj prihod da bi se brinuli o detetu — nezavisno od Grundsicherungsgeld-a."
     },
     "porodica_birth": {
       "name": "Prijavi rođenje",
@@ -317,12 +317,12 @@ export const sr: LangStrings = {
       "term": "Mitwirkungspflicht",
       "area": "rad",
       "explain": "Tvoja obaveza da sam prijaviš promene (prihod, posao, adresa) — sistem ne saznaje sam.",
-      "institution": "Jobcenter (za Bürgergeld)"
+      "institution": "Jobcenter (za Grundsicherungsgeld)"
     },
     {
       "term": "Jobcenter naspram Agentur für Arbeit",
       "area": "rad",
-      "explain": "Jobcenter je za primaoce Bürgergeld-a; Agentur für Arbeit je za osiguranje za slučaj nezaposlenosti, ako si ranije radio i uplaćivao doprinose. Retko imaš posla sa obe.",
+      "explain": "Jobcenter je za primaoce Grundsicherungsgeld-a; Agentur für Arbeit je za osiguranje za slučaj nezaposlenosti, ako si ranije radio i uplaćivao doprinose. Retko imaš posla sa obe.",
       "institution": "zavisi od tvoje radne istorije"
     }
   ],

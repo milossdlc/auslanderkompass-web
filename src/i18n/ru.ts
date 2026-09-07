@@ -133,8 +133,8 @@ export const ru: LangStrings = {
       "noteGood": "Базовая поддержка для безработных — включает и расходы на жильё."
     },
     "wohngeld": {
-      "linkedStatus": "Покрыто через Bürgergeld",
-      "linkedNote": "Когда действует Bürgergeld, расходы на жильё обычно покрываются через него — отдельная заявка на Wohngeld обычно не нужна.",
+      "linkedStatus": "Покрыто через Grundsicherungsgeld",
+      "linkedNote": "Когда действует Grundsicherungsgeld, расходы на жильё обычно покрываются через него — отдельная заявка на Wohngeld обычно не нужна.",
       "warnStatus": "Проверь сумму",
       "warnNoteRatio": "Твоя аренда составляет {pct}% дохода — выше обычного порога для проверки Wohngeld.",
       "mutedStatus": "Маловероятно",
@@ -153,8 +153,8 @@ export const ru: LangStrings = {
     }
   },
   "benefitInfo": {
-    "burgergeld": "Bürgergeld — это базовая социальная поддержка в Германии для безработных или людей с недостаточным доходом, включая поддержку расходов на жильё.",
-    "wohngeld": "Wohngeld — это государственная субсидия на жильё для семей с более низким доходом, которые не получают Bürgergeld.",
+    "burgergeld": "Grundsicherungsgeld — это базовая социальная поддержка в Германии для безработных или людей с недостаточным доходом, включая поддержку расходов на жильё.",
+    "wohngeld": "Wohngeld — это государственная субсидия на жильё для семей с более низким доходом, которые не получают Grundsicherungsgeld.",
     "kindergeld": "Kindergeld — это ежемесячная государственная выплата родителям за каждого зарегистрированного ребёнка, независимо от уровня дохода."
   },
   "benefit": {
@@ -196,7 +196,7 @@ export const ru: LangStrings = {
     "disclaimer": "Эти даты приблизительны и рассчитаны по общему правилу — они не заменяют дату из твоего официального решения (Bescheid).",
     "approx": "прибл. · ",
     "pill": "через {d} дн.",
-    "bgTitle": "Bürgergeld — примерное продление решения",
+    "bgTitle": "Grundsicherungsgeld — примерное продление решения",
     "bgNote": "Обычно 6–12 месяцев — точную дату смотри в своём решении (Bescheid).",
     "wgTitle": "Wohngeld — примерное ежегодное продление",
     "wgNote": "Заявки на Wohngeld обычно продлеваются раз в год.",
@@ -276,7 +276,7 @@ export const ru: LangStrings = {
     },
     "porodica_elterngeld": {
       "name": "Elterngeld",
-      "desc": "Elterngeld поддерживает родителей, которые после рождения ребёнка сокращают доход, чтобы заботиться о нём — независимо от Bürgergeld."
+      "desc": "Elterngeld поддерживает родителей, которые после рождения ребёнка сокращают доход, чтобы заботиться о нём — независимо от Grundsicherungsgeld."
     },
     "porodica_birth": {
       "name": "Заяви о рождении",
@@ -317,12 +317,12 @@ export const ru: LangStrings = {
       "term": "Mitwirkungspflicht",
       "area": "rad",
       "explain": "Твоя обязанность самостоятельно сообщать об изменениях (доход, работа, адрес) — система не узнаёт об этом автоматически.",
-      "institution": "Jobcenter (для Bürgergeld)"
+      "institution": "Jobcenter (для Grundsicherungsgeld)"
     },
     {
       "term": "Jobcenter против Agentur für Arbeit",
       "area": "rad",
-      "explain": "Jobcenter отвечает за получателей Bürgergeld; Agentur für Arbeit — за страхование на случай безработицы, если ты раньше работал и платил взносы. Редко приходится иметь дело с обоими сразу.",
+      "explain": "Jobcenter отвечает за получателей Grundsicherungsgeld; Agentur für Arbeit — за страхование на случай безработицы, если ты раньше работал и платил взносы. Редко приходится иметь дело с обоими сразу.",
       "institution": "зависит от твоей трудовой истории"
     }
   ],

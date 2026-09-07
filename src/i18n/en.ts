@@ -133,8 +133,8 @@ export const en: LangStrings = {
       "noteGood": "Basic support for unemployed people — also covers housing costs."
     },
     "wohngeld": {
-      "linkedStatus": "Covered through Bürgergeld",
-      "linkedNote": "If Bürgergeld applies, housing costs are usually covered through it — a separate Wohngeld application usually isn't needed.",
+      "linkedStatus": "Covered through Grundsicherungsgeld",
+      "linkedNote": "If Grundsicherungsgeld applies, housing costs are usually covered through it — a separate Wohngeld application usually isn't needed.",
       "warnStatus": "Check amount",
       "warnNoteRatio": "Your rent is {pct}% of your income — above the usual threshold for a Wohngeld review.",
       "mutedStatus": "Rather unlikely",
@@ -152,8 +152,8 @@ export const en: LangStrings = {
     }
   },
   "benefitInfo": {
-    "burgergeld": "Bürgergeld is Germany's basic social support for unemployed people or those with insufficient income, including support for housing costs.",
-    "wohngeld": "Wohngeld is a state subsidy for housing costs for lower-income households that don't receive Bürgergeld.",
+    "burgergeld": "Grundsicherungsgeld is Germany's basic social support for unemployed people or those with insufficient income, including support for housing costs.",
+    "wohngeld": "Wohngeld is a state subsidy for housing costs for lower-income households that don't receive Grundsicherungsgeld.",
     "kindergeld": "Kindergeld is a monthly state benefit for parents for each registered child, regardless of income."
   },
   "benefit": {
@@ -195,7 +195,7 @@ export const en: LangStrings = {
     "disclaimer": "These dates are approximate, calculated from a general rule — they don't replace the date in your actual official decision (Bescheid).",
     "approx": "approx. ",
     "pill": "in {d} d.",
-    "bgTitle": "Bürgergeld — estimated approval renewal",
+    "bgTitle": "Grundsicherungsgeld — estimated approval renewal",
     "bgNote": "Usually 6–12 months — the exact date is in your Bescheid.",
     "wgTitle": "Wohngeld — estimated annual renewal",
     "wgNote": "Wohngeld applications are usually renewed once a year.",
@@ -275,7 +275,7 @@ export const en: LangStrings = {
     },
     "porodica_elterngeld": {
       "name": "Elterngeld",
-      "desc": "Elterngeld supports parents who reduce their income after the birth to take care of the child — independent of Bürgergeld."
+      "desc": "Elterngeld supports parents who reduce their income after the birth to take care of the child — independent of Grundsicherungsgeld."
     },
     "porodica_birth": {
       "name": "Report the birth",
@@ -316,12 +316,12 @@ export const en: LangStrings = {
       "term": "Mitwirkungspflicht",
       "area": "rad",
       "explain": "Your obligation to report changes (income, job, address) yourself — the system doesn't find out automatically.",
-      "institution": "Jobcenter (for Bürgergeld)"
+      "institution": "Jobcenter (for Grundsicherungsgeld)"
     },
     {
       "term": "Jobcenter vs. Agentur für Arbeit",
       "area": "rad",
-      "explain": "The Jobcenter is responsible for Bürgergeld recipients; the Agentur für Arbeit for unemployment insurance, if you previously worked and paid contributions. You usually only deal with one of the two.",
+      "explain": "The Jobcenter is responsible for Grundsicherungsgeld recipients; the Agentur für Arbeit for unemployment insurance, if you previously worked and paid contributions. You usually only deal with one of the two.",
       "institution": "depends on your employment history"
     }
   ],

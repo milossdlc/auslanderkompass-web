@@ -133,8 +133,8 @@ export const uk: LangStrings = {
       "noteGood": "Базова підтримка для безробітних — включає й витрати на житло."
     },
     "wohngeld": {
-      "linkedStatus": "Покрито через Bürgergeld",
-      "linkedNote": "Коли діє Bürgergeld, витрати на житло зазвичай покриваються через нього — окрема заявка на Wohngeld зазвичай не потрібна.",
+      "linkedStatus": "Покрито через Grundsicherungsgeld",
+      "linkedNote": "Коли діє Grundsicherungsgeld, витрати на житло зазвичай покриваються через нього — окрема заявка на Wohngeld зазвичай не потрібна.",
       "warnStatus": "Перевір суму",
       "warnNoteRatio": "Твоя оренда становить {pct}% доходу — вище звичайного порогу для перевірки Wohngeld.",
       "mutedStatus": "Малоймовірно",
@@ -153,8 +153,8 @@ export const uk: LangStrings = {
     }
   },
   "benefitInfo": {
-    "burgergeld": "Bürgergeld — це базова соціальна допомога в Німеччині для безробітних або людей з недостатнім доходом, включно з підтримкою витрат на житло.",
-    "wohngeld": "Wohngeld — це державна субсидія на витрати на житло для домогосподарств з нижчим доходом, які не отримують Bürgergeld.",
+    "burgergeld": "Grundsicherungsgeld — це базова соціальна допомога в Німеччині для безробітних або людей з недостатнім доходом, включно з підтримкою витрат на житло.",
+    "wohngeld": "Wohngeld — це державна субсидія на витрати на житло для домогосподарств з нижчим доходом, які не отримують Grundsicherungsgeld.",
     "kindergeld": "Kindergeld — це щомісячна державна допомога батькам за кожну зареєстровану дитину, незалежно від рівня доходу."
   },
   "benefit": {
@@ -196,7 +196,7 @@ export const uk: LangStrings = {
     "disclaimer": "Ці дати орієнтовні, розраховані за загальним правилом — вони не замінюють дату з твого офіційного рішення (Bescheid).",
     "approx": "орієнтовно · ",
     "pill": "через {d} дн.",
-    "bgTitle": "Bürgergeld — орієнтовне продовження рішення",
+    "bgTitle": "Grundsicherungsgeld — орієнтовне продовження рішення",
     "bgNote": "Зазвичай 6–12 місяців — точну дату дивись у своєму рішенні (Bescheid).",
     "wgTitle": "Wohngeld — орієнтовне щорічне поновлення",
     "wgNote": "Заявки на Wohngeld зазвичай поновлюються раз на рік.",
@@ -276,7 +276,7 @@ export const uk: LangStrings = {
     },
     "porodica_elterngeld": {
       "name": "Elterngeld",
-      "desc": "Elterngeld підтримує батьків, які після народження дитини зменшують дохід, щоб доглядати за нею — незалежно від Bürgergeld."
+      "desc": "Elterngeld підтримує батьків, які після народження дитини зменшують дохід, щоб доглядати за нею — незалежно від Grundsicherungsgeld."
     },
     "porodica_birth": {
       "name": "Заяви про народження",
@@ -317,12 +317,12 @@ export const uk: LangStrings = {
       "term": "Mitwirkungspflicht",
       "area": "rad",
       "explain": "Твій обов'язок самостійно повідомляти про зміни (дохід, робота, адреса) — система не дізнається про це автоматично.",
-      "institution": "Jobcenter (для Bürgergeld)"
+      "institution": "Jobcenter (для Grundsicherungsgeld)"
     },
     {
       "term": "Jobcenter проти Agentur für Arbeit",
       "area": "rad",
-      "explain": "Jobcenter відповідає за отримувачів Bürgergeld; Agentur für Arbeit — за страхування на випадок безробіття, якщо ти раніше працював і сплачував внески. Рідко доводиться мати справу з обома одразу.",
+      "explain": "Jobcenter відповідає за отримувачів Grundsicherungsgeld; Agentur für Arbeit — за страхування на випадок безробіття, якщо ти раніше працював і сплачував внески. Рідко доводиться мати справу з обома одразу.",
       "institution": "залежить від твоєї трудової історії"
     }
   ],

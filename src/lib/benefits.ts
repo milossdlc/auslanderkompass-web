@@ -1,88 +1,46 @@
 import type { Benefit, Lang, Profile } from "../types";
-import { STRINGS, t, pl } from "../i18n";
+import { STRINGS, pl } from "../i18n";
+
+const safeLabels: Record<Lang, { relevant: string; check: string; unlikely: string; housing: string; former: string }> = {
+  de: { relevant: "Könnte relevant sein", check: "Prüfung empfohlen", unlikely: "Derzeit eher nicht relevant", housing: "Wohnkosten prüfen", former: "früher: Bürgergeld" },
+  en: { relevant: "Could be relevant", check: "Check recommended", unlikely: "Probably not relevant right now", housing: "Check housing support", former: "formerly: Bürgergeld" },
+  sr: { relevant: "Može biti relevantno", check: "Preporučena provera", unlikely: "Trenutno verovatno nije relevantno", housing: "Proveri pomoć za stanovanje", former: "ranije: Bürgergeld" },
+  ar: { relevant: "قد يكون مناسبًا", check: "يُنصح بالتحقق", unlikely: "غالبًا غير مناسب حاليًا", housing: "تحقق من دعم السكن", former: "سابقًا: Bürgergeld" },
+  tr: { relevant: "İlgili olabilir", check: "Kontrol önerilir", unlikely: "Şu anda pek ilgili görünmüyor", housing: "Konut desteğini kontrol et", former: "eski adı: Bürgergeld" },
+  uk: { relevant: "Може бути актуальним", check: "Рекомендуємо перевірити", unlikely: "Ймовірно, зараз неактуально", housing: "Перевірити житлову допомогу", former: "раніше: Bürgergeld" },
+  ru: { relevant: "Может быть актуально", check: "Рекомендуем проверить", unlikely: "Сейчас, вероятно, неактуально", housing: "Проверить жилищную помощь", former: "ранее: Bürgergeld" },
+  fa: { relevant: "ممکن است مرتبط باشد", check: "بررسی توصیه می‌شود", unlikely: "احتمالاً در حال حاضر مرتبط نیست", housing: "کمک‌هزینه مسکن را بررسی کنید", former: "نام پیشین: Bürgergeld" },
+};
 
 export function computeBenefits(profile: Profile, lang: Lang): Benefit[] {
   const S = STRINGS[lang];
-  const B = S.benefits;
+  const L = safeLabels[lang];
   const out: Benefit[] = [];
 
-  const bgTone =
-    profile.work === "unemployed"
-      ? "good"
-      : profile.work === "student" || profile.work === "parental_leave"
-        ? "warn"
-        : "muted";
-
+  // We intentionally avoid an entitlement verdict here. Actual eligibility depends on
+  // residence status, household, income/assets and other legal conditions.
+  const basicRelevant = profile.work === "unemployed" || profile.work === "parental_leave";
   out.push({
     id: "burgergeld",
-    name: "Bürgergeld",
+    name: "Grundsicherungsgeld",
     icon: "coin",
-    status:
-      bgTone === "good"
-        ? B.burgergeld.statusGood
-        : bgTone === "warn"
-          ? B.burgergeld.statusWarn
-          : B.burgergeld.statusMuted,
-    tone: bgTone,
-    note: bgTone === "good" ? B.burgergeld.noteGood : null,
+    status: basicRelevant ? L.check : L.unlikely,
+    tone: basicRelevant ? "warn" : "muted",
+    note: basicRelevant ? L.former : null,
   });
 
-  if (bgTone === "good") {
+  if (profile.housing === "renting" || profile.housing === "shared") {
     out.push({
       id: "wohngeld",
       name: "Wohngeld",
       icon: "house",
-      status: B.wohngeld.linkedStatus,
-      tone: "info",
-      note: B.wohngeld.linkedNote,
-      linked: true,
+      status: L.housing,
+      tone: "warn",
+      note: profile.income == null || profile.rent == null ? S.benefits.wohngeld.warnNoteMissing : null,
+      linked: basicRelevant,
     });
-  } else if (profile.housing === "renting") {
-    const income = profile.income ?? 0;
-    const rent = profile.rent ?? 0;
-    if (income > 0 && rent > 0) {
-      const ratio = rent / income;
-      if (ratio > 0.3) {
-        out.push({
-          id: "wohngeld",
-          name: "Wohngeld",
-          icon: "house",
-          status: B.wohngeld.warnStatus,
-          tone: "warn",
-          note: t(B.wohngeld.warnNoteRatio, { pct: Math.round(ratio * 100) }),
-          linked: bgTone === "warn",
-        });
-      } else {
-        out.push({
-          id: "wohngeld",
-          name: "Wohngeld",
-          icon: "house",
-          status: B.wohngeld.mutedStatus,
-          tone: "muted",
-          note: t(B.wohngeld.mutedNoteRatio, { pct: Math.round(ratio * 100) }),
-          linked: false,
-        });
-      }
-    } else {
-      out.push({
-        id: "wohngeld",
-        name: "Wohngeld",
-        icon: "house",
-        status: B.wohngeld.warnStatus,
-        tone: "warn",
-        note: B.wohngeld.warnNoteMissing,
-        linked: bgTone === "warn",
-      });
-    }
   } else {
-    out.push({
-      id: "wohngeld",
-      name: "Wohngeld",
-      icon: "house",
-      status: B.wohngeld.mutedStatus,
-      tone: "muted",
-      note: null,
-    });
+    out.push({ id: "wohngeld", name: "Wohngeld", icon: "house", status: L.unlikely, tone: "muted", note: null });
   }
 
   if (profile.kids) {
@@ -90,19 +48,12 @@ export function computeBenefits(profile: Profile, lang: Lang): Benefit[] {
       id: "kindergeld",
       name: "Kindergeld",
       icon: "heart",
-      status: B.kindergeld.status,
-      tone: "good",
-      note: pl(lang, profile.kidsCount || 1, B.kindergeld.noteForms),
+      status: L.check,
+      tone: "warn",
+      note: pl(lang, profile.kidsCount || 1, S.benefits.kindergeld.noteForms),
     });
   } else {
-    out.push({
-      id: "kindergeld",
-      name: "Kindergeld",
-      icon: "heart",
-      status: B.kindergeld.noneStatus,
-      tone: "muted",
-      note: B.kindergeld.noneNote,
-    });
+    out.push({ id: "kindergeld", name: "Kindergeld", icon: "heart", status: L.unlikely, tone: "muted", note: S.benefits.kindergeld.noneNote });
   }
 
   return out;

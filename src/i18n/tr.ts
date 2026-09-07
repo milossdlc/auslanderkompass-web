@@ -133,8 +133,8 @@ export const tr: LangStrings = {
       "noteGood": "İşsizler için temel destek — barınma giderlerini de kapsar."
     },
     "wohngeld": {
-      "linkedStatus": "Bürgergeld ile karşılanıyor",
-      "linkedNote": "Bürgergeld geçerli olduğunda barınma giderleri genellikle onun üzerinden karşılanır — ayrı bir Wohngeld başvurusu genelde gerekmez.",
+      "linkedStatus": "Grundsicherungsgeld ile karşılanıyor",
+      "linkedNote": "Grundsicherungsgeld geçerli olduğunda barınma giderleri genellikle onun üzerinden karşılanır — ayrı bir Wohngeld başvurusu genelde gerekmez.",
       "warnStatus": "Tutarı kontrol et",
       "warnNoteRatio": "Kiran, gelirinin %{pct}'i — Wohngeld kontrolü için olağan eşiğin üzerinde.",
       "mutedStatus": "Pek olası değil",
@@ -151,8 +151,8 @@ export const tr: LangStrings = {
     }
   },
   "benefitInfo": {
-    "burgergeld": "Bürgergeld, Almanya'da işsizler veya geliri yetersiz olanlar için temel sosyal destektir; barınma giderleri desteğini de içerir.",
-    "wohngeld": "Wohngeld, Bürgergeld almayan düşük gelirli hanelere yönelik devlet barınma yardımıdır.",
+    "burgergeld": "Grundsicherungsgeld, Almanya'da işsizler veya geliri yetersiz olanlar için temel sosyal destektir; barınma giderleri desteğini de içerir.",
+    "wohngeld": "Wohngeld, Grundsicherungsgeld almayan düşük gelirli hanelere yönelik devlet barınma yardımıdır.",
     "kindergeld": "Kindergeld, gelirden bağımsız olarak kayıtlı her çocuk için ebeveynlere ödenen aylık devlet yardımıdır."
   },
   "benefit": {
@@ -194,7 +194,7 @@ export const tr: LangStrings = {
     "disclaimer": "Bu tarihler genel bir kurala göre hesaplanmış yaklaşık tarihlerdir — gerçek kararındaki (Bescheid) tarihin yerini tutmaz.",
     "approx": "yaklaşık · ",
     "pill": "{d} g.",
-    "bgTitle": "Bürgergeld — tahmini onay yenileme",
+    "bgTitle": "Grundsicherungsgeld — tahmini onay yenileme",
     "bgNote": "Genellikle 6–12 ay — kesin tarih Bescheid'inde yazar.",
     "wgTitle": "Wohngeld — tahmini yıllık yenileme",
     "wgNote": "Wohngeld başvuruları genellikle yılda bir kez yenilenir.",
@@ -274,7 +274,7 @@ export const tr: LangStrings = {
     },
     "porodica_elterngeld": {
       "name": "Elterngeld",
-      "desc": "Elterngeld, doğumdan sonra çocuğa bakmak için gelirini azaltan ebeveynleri destekler — Bürgergeld'den bağımsız olarak."
+      "desc": "Elterngeld, doğumdan sonra çocuğa bakmak için gelirini azaltan ebeveynleri destekler — Grundsicherungsgeld'den bağımsız olarak."
     },
     "porodica_birth": {
       "name": "Doğumu bildir",
@@ -315,12 +315,12 @@ export const tr: LangStrings = {
       "term": "Mitwirkungspflicht",
       "area": "rad",
       "explain": "Değişiklikleri (gelir, iş, adres) kendin bildirme yükümlülüğün — sistem bunu otomatik olarak öğrenmez.",
-      "institution": "Jobcenter (Bürgergeld için)"
+      "institution": "Jobcenter (Grundsicherungsgeld için)"
     },
     {
       "term": "Jobcenter ile Agentur für Arbeit farkı",
       "area": "rad",
-      "explain": "Jobcenter, Bürgergeld alanlar için; Agentur für Arbeit ise daha önce çalışıp prim ödediysen işsizlik sigortası için yetkilidir. Nadiren ikisiyle birden işin olur.",
+      "explain": "Jobcenter, Grundsicherungsgeld alanlar için; Agentur für Arbeit ise daha önce çalışıp prim ödediysen işsizlik sigortası için yetkilidir. Nadiren ikisiyle birden işin olur.",
       "institution": "çalışma geçmişine bağlı"
     }
   ],

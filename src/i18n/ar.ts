@@ -133,8 +133,8 @@ export const ar: LangStrings = {
       "noteGood": "دعم أساسي للعاطلين عن العمل — يشمل أيضًا تكاليف السكن."
     },
     "wohngeld": {
-      "linkedStatus": "مشمول ضمن Bürgergeld",
-      "linkedNote": "عندما ينطبق Bürgergeld، تُغطّى تكاليف السكن عادةً من خلاله — لا حاجة عادةً لطلب Wohngeld منفصل.",
+      "linkedStatus": "مشمول ضمن Grundsicherungsgeld",
+      "linkedNote": "عندما ينطبق Grundsicherungsgeld، تُغطّى تكاليف السكن عادةً من خلاله — لا حاجة عادةً لطلب Wohngeld منفصل.",
       "warnStatus": "تحقق من المبلغ",
       "warnNoteRatio": "إيجارك يمثّل {pct}% من دخلك — أعلى من الحد المعتاد لمراجعة Wohngeld.",
       "mutedStatus": "غير مرجّح",
@@ -152,8 +152,8 @@ export const ar: LangStrings = {
     }
   },
   "benefitInfo": {
-    "burgergeld": "Bürgergeld هو الدعم الاجتماعي الأساسي في ألمانيا للعاطلين عن العمل أو من لا يكفي دخلهم، ويشمل دعم تكاليف السكن.",
-    "wohngeld": "Wohngeld هو إعانة حكومية لتكاليف السكن مخصصة للأسر ذات الدخل المنخفض التي لا تتلقى Bürgergeld.",
+    "burgergeld": "Grundsicherungsgeld هو الدعم الاجتماعي الأساسي في ألمانيا للعاطلين عن العمل أو من لا يكفي دخلهم، ويشمل دعم تكاليف السكن.",
+    "wohngeld": "Wohngeld هو إعانة حكومية لتكاليف السكن مخصصة للأسر ذات الدخل المنخفض التي لا تتلقى Grundsicherungsgeld.",
     "kindergeld": "Kindergeld هو دعم حكومي شهري للوالدين عن كل طفل مسجَّل، بغضّ النظر عن مستوى الدخل."
   },
   "benefit": {
@@ -195,7 +195,7 @@ export const ar: LangStrings = {
     "disclaimer": "هذه التواريخ تقريبية ومحسوبة وفق قاعدة عامة — ولا تحل محل التاريخ الوارد في قرارك الرسمي (Bescheid).",
     "approx": "تقريبًا · ",
     "pill": "خلال {d} يوم",
-    "bgTitle": "Bürgergeld — تجديد تقريبي للموافقة",
+    "bgTitle": "Grundsicherungsgeld — تجديد تقريبي للموافقة",
     "bgNote": "عادة 6–12 شهرًا — التاريخ الدقيق موجود في قرارك (Bescheid).",
     "wgTitle": "Wohngeld — تجديد سنوي تقريبي",
     "wgNote": "عادةً ما تُجدَّد طلبات Wohngeld مرة واحدة سنويًا.",
@@ -275,7 +275,7 @@ export const ar: LangStrings = {
     },
     "porodica_elterngeld": {
       "name": "Elterngeld",
-      "desc": "يدعم Elterngeld الوالدين اللذين يقلّصان دخلهما بعد الولادة للاعتناء بالطفل — بشكل مستقل عن Bürgergeld."
+      "desc": "يدعم Elterngeld الوالدين اللذين يقلّصان دخلهما بعد الولادة للاعتناء بالطفل — بشكل مستقل عن Grundsicherungsgeld."
     },
     "porodica_birth": {
       "name": "الإبلاغ عن الولادة",
@@ -316,12 +316,12 @@ export const ar: LangStrings = {
       "term": "Mitwirkungspflicht",
       "area": "rad",
       "explain": "واجبك في الإبلاغ بنفسك عن التغييرات (الدخل، العمل، العنوان) — النظام لا يعرف ذلك تلقائيًا.",
-      "institution": "Jobcenter (لـ Bürgergeld)"
+      "institution": "Jobcenter (لـ Grundsicherungsgeld)"
     },
     {
       "term": "Jobcenter مقابل Agentur für Arbeit",
       "area": "rad",
-      "explain": "Jobcenter مسؤول عن مستفيدي Bürgergeld؛ أما Agentur für Arbeit فمسؤول عن تأمين البطالة إذا كنت تعمل سابقًا وتدفع اشتراكات. نادرًا ما تتعامل مع الاثنين معًا.",
+      "explain": "Jobcenter مسؤول عن مستفيدي Grundsicherungsgeld؛ أما Agentur für Arbeit فمسؤول عن تأمين البطالة إذا كنت تعمل سابقًا وتدفع اشتراكات. نادرًا ما تتعامل مع الاثنين معًا.",
       "institution": "يعتمد على تاريخك الوظيفي"
     }
   ],

@@ -63,6 +63,10 @@ export function BenefitDetail({ state, dispatch }: { state: AppState; dispatch: 
             {b.note}
           </div>
         )}
+        <div className="why-note card" style={{ padding: 14 }}>
+          <Icon name="book" size={16} />
+          <span>{state.lang === "de" ? `Warum sehe ich das? Wir zeigen diesen Hinweis aufgrund deiner Profilangaben. Das ist keine automatische Anspruchsentscheidung.` : `Why am I seeing this? This suggestion is based on your profile and is not an automatic eligibility decision.`}</span>
+        </div>
         {b.id === "wohngeld" && b.linked && (
           <button
             className="card"
@@ -79,7 +83,7 @@ export function BenefitDetail({ state, dispatch }: { state: AppState; dispatch: 
             onClick={() => dispatch({ type: "OPEN_BENEFIT", id: "burgergeld" })}
           >
             <span style={{ fontSize: 13.5, fontWeight: 600, color: "var(--primary)" }}>
-              {t(S.benefit.crosslink, { name: "Bürgergeld" })}
+              {t(S.benefit.crosslink, { name: "Grundsicherungsgeld" })}
             </span>
             <span className="chevron-icon" style={{ color: "var(--primary)" }}>
               <Icon name="chevron" size={16} />

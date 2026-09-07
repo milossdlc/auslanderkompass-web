@@ -116,9 +116,9 @@ export const de: LangStrings = {
     "startLabel": "Starten",
     "continueLabel": "Weiter",
     "ctaNextSteps": "Nächste Schritte ansehen",
-    "homeTagline": "Finde in drei kurzen Schritten heraus, welche Sozialleistungen in Deutschland wahrscheinlich auf dich zutreffen.",
+    "homeTagline": "Dein persönlicher Begleiter für das Leben in Deutschland: Rechte verstehen, Fristen im Blick behalten und nächste Schritte finden.",
     "areasHeading": "Deine Lebensbereiche",
-    "heroText": "Deine Rechte und Pflichten, berechnet aus deinem Profil — nach Lebensbereich.",
+    "heroText": "Sieh auf einen Blick, was jetzt wichtig ist und was du als Nächstes tun kannst.",
     "areaCounts": "{rights} Rechte · {obligations} Pflichten",
     "rightsHeading": "Deine Rechte",
     "obligationsHeading": "Deine Pflichten",
@@ -133,8 +133,8 @@ export const de: LangStrings = {
       "noteGood": "Grundsicherung für Arbeitslose — schließt auch Wohnkosten ein."
     },
     "wohngeld": {
-      "linkedStatus": "Über Bürgergeld abgedeckt",
-      "linkedNote": "Wenn Bürgergeld zutrifft, werden die Wohnkosten meist darüber abgedeckt — ein separater Wohngeld-Antrag ist normalerweise nicht nötig.",
+      "linkedStatus": "Über Grundsicherungsgeld abgedeckt",
+      "linkedNote": "Wenn Grundsicherungsgeld zutrifft, werden die Wohnkosten meist darüber abgedeckt — ein separater Wohngeld-Antrag ist normalerweise nicht nötig.",
       "warnStatus": "Betrag prüfen",
       "warnNoteRatio": "Deine Miete beträgt {pct}% deines Einkommens — über der üblichen Prüfschwelle für Wohngeld.",
       "mutedStatus": "Eher unwahrscheinlich",
@@ -152,9 +152,9 @@ export const de: LangStrings = {
     }
   },
   "benefitInfo": {
-    "burgergeld": "Bürgergeld ist die Grundsicherung in Deutschland für Arbeitslose oder Menschen mit unzureichendem Einkommen, einschließlich Unterstützung für Wohnkosten.",
-    "wohngeld": "Wohngeld ist ein staatlicher Zuschuss zu den Wohnkosten für Haushalte mit geringerem Einkommen, die kein Bürgergeld erhalten.",
-    "kindergeld": "Kindergeld ist eine monatliche staatliche Leistung für Eltern für jedes gemeldete Kind, unabhängig vom Einkommen."
+    "burgergeld": "Grundsicherungsgeld ist die Geldleistung innerhalb der Grundsicherung für Arbeitsuchende nach dem SGB II. Ob ein Anspruch besteht, hängt unter anderem von Einkommen, Vermögen, Haushalt und Aufenthaltsstatus ab. Bis 30. Juni 2026 hieß die Leistung Grundsicherungsgeld.",
+    "wohngeld": "Wohngeld ist ein staatlicher Zuschuss zu den Wohnkosten. Ob du Anspruch hast, hängt unter anderem von Haushaltsgröße, Einkommen, Miete und Wohnort ab.",
+    "kindergeld": "Kindergeld unterstützt Familien monatlich. Ob du Anspruch hast, hängt unter anderem von deiner familiären Situation und bei ausländischen Staatsangehörigen auch vom Aufenthaltsstatus ab."
   },
   "benefit": {
     "disclaimer": "Dies ist eine allgemeine Information und keine Rechtsberatung.",
@@ -195,8 +195,8 @@ export const de: LangStrings = {
     "disclaimer": "Diese Termine sind ungefähr und aus einer allgemeinen Regel berechnet — sie ersetzen nicht das Datum in deinem tatsächlichen Bescheid.",
     "approx": "ca. ",
     "pill": "in {d} T.",
-    "bgTitle": "Bürgergeld — voraussichtliche Bewilligungsverlängerung",
-    "bgNote": "Meist 6–12 Monate — das genaue Datum steht in deinem Bescheid.",
+    "bgTitle": "Grundsicherungsgeld — Bewilligungszeitraum prüfen",
+    "bgNote": "Das genaue Ende deines Bewilligungszeitraums steht in deinem Bescheid. Prüfe dieses Datum, bevor du einen Weiterbewilligungsantrag planst.",
     "wgTitle": "Wohngeld — voraussichtliche jährliche Erneuerung",
     "wgNote": "Wohngeld-Anträge werden meist einmal jährlich erneuert.",
     "needProfileTitle": "Schließe zuerst deinen Kompass ab",
@@ -275,7 +275,7 @@ export const de: LangStrings = {
     },
     "porodica_elterngeld": {
       "name": "Elterngeld",
-      "desc": "Elterngeld unterstützt Eltern, die nach der Geburt ihr Einkommen reduzieren, um sich um das Kind zu kümmern — unabhängig vom Bürgergeld."
+      "desc": "Elterngeld unterstützt Eltern, die nach der Geburt ihr Einkommen reduzieren, um sich um das Kind zu kümmern — unabhängig vom Grundsicherungsgeld."
     },
     "porodica_birth": {
       "name": "Geburt anzeigen",
@@ -316,12 +316,12 @@ export const de: LangStrings = {
       "term": "Mitwirkungspflicht",
       "area": "rad",
       "explain": "Deine Pflicht, Änderungen (Einkommen, Job, Adresse) selbst zu melden — das System erfährt es nicht automatisch.",
-      "institution": "Jobcenter (bei Bürgergeld)"
+      "institution": "Jobcenter (bei Grundsicherungsgeld)"
     },
     {
       "term": "Jobcenter vs. Agentur für Arbeit",
       "area": "rad",
-      "explain": "Das Jobcenter ist für Bürgergeld-Empfänger/innen zuständig; die Agentur für Arbeit für die Arbeitslosenversicherung, wenn du vorher gearbeitet und eingezahlt hast. Meist hast du nur mit einer der beiden zu tun.",
+      "explain": "Das Jobcenter ist für die Grundsicherung für Arbeitsuchende zuständig; die Agentur für Arbeit unter anderem für Arbeitslosengeld aus der Arbeitslosenversicherung. Welche Stelle zuständig ist, hängt von deiner Situation ab.",
       "institution": "abhängig von deiner Erwerbsbiografie"
     }
   ],

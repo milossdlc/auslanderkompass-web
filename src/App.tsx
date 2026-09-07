@@ -9,6 +9,7 @@ import { Objasnjeno } from "./views/Objasnjeno";
 import { BenefitDetail } from "./views/BenefitDetail";
 import { AreaDetail } from "./views/AreaDetail";
 import { AreaItemDetail } from "./views/AreaItemDetail";
+import { ProfileView } from "./views/Profile";
 import type { Lang } from "./types";
 
 export default function App() {
@@ -32,6 +33,9 @@ export default function App() {
     case "objasnjeno":
       view = <Objasnjeno state={state} dispatch={dispatch} />;
       break;
+    case "profile":
+      view = <ProfileView state={state} dispatch={dispatch} />;
+      break;
     case "benefit":
       view = <BenefitDetail state={state} dispatch={dispatch} />;
       break;
@@ -48,7 +52,7 @@ export default function App() {
   return (
     <div id="shell" className={S.dir === "rtl" ? "rtl-font" : ""}>
       <LangSwitcher lang={lang} onChange={(l) => dispatch({ type: "SET_LANG", lang: l })} />
-      <div id="app" style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+      <div id="app">
         {view}
       </div>
     </div>

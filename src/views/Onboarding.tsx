@@ -164,6 +164,25 @@ export function Onboarding({ state, dispatch }: { state: AppState; dispatch: Dis
             />
           </div>
         )}
+        <div className="card location-card" style={{ padding: "14px 16px", marginTop: 2 }}>
+          <label className="field-label">{state.lang === "de" ? "Stadt — optional" : "City — optional"}</label>
+          <input
+            type="text"
+            placeholder={state.lang === "de" ? "z. B. Hamburg" : "e.g. Hamburg"}
+            value={draft.city ?? ""}
+            onChange={(e) => dispatch({ type: "SET_CITY", value: e.target.value })}
+          />
+          <div className="field-hint">{state.lang === "de" ? "Hilft uns später, zuständige Behörden und lokale Informationen anzuzeigen." : "Helps us show relevant local authorities and information later."}</div>
+        </div>
+        <div className="card location-card" style={{ padding: "14px 16px", marginTop: 2 }}>
+          <label className="field-label">{state.lang === "de" ? "Bundesland — optional" : "Federal state — optional"}</label>
+          <input
+            type="text"
+            placeholder={state.lang === "de" ? "z. B. Hamburg" : "e.g. Hamburg"}
+            value={draft.bundesland ?? ""}
+            onChange={(e) => dispatch({ type: "SET_BUNDESLAND", value: e.target.value })}
+          />
+        </div>
       </>
     );
   }
@@ -202,6 +221,7 @@ export function Onboarding({ state, dispatch }: { state: AppState; dispatch: Dis
         {title}
       </div>
       <div style={{ fontSize: 13.5, color: "var(--ink-soft)", marginBottom: 4 }}>{sub}</div>
+      {idx === 0 && <div className="privacy-note"><Icon name="lock" size={17}/><span>{state.lang === "de" ? "Deine Angaben bleiben in diesem Browser auf deinem Gerät gespeichert." : "Your answers stay stored in this browser on your device."}</span></div>}
       <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>{body}</div>
       <div style={{ flex: 1 }} />
       <div style={{ padding: "14px 0 28px", display: "flex", flexDirection: "column", gap: 10, alignItems: "center" }}>

@@ -8,23 +8,20 @@ export type View =
   | "onboarding"
   | "rokovi"
   | "objasnjeno"
+  | "profile"
   | "benefit"
   | "area"
   | "areaItem";
 
 export type AreaId = "boravak" | "stanovanje" | "rad" | "porodica";
-export type PermitType =
-  | "work_permit"
-  | "family_reunification"
-  | "asylum"
-  | "student_visa";
+export type PermitType = "work_permit" | "family_reunification" | "asylum" | "student_visa";
 export type WorkStatus = "employed" | "unemployed" | "student" | "parental_leave";
 export type HousingStatus = "renting" | "owned" | "shared";
 export type BenefitId = "burgergeld" | "wohngeld" | "kindergeld";
 
 export interface BoravakProfile {
   permitType: PermitType | null;
-  arrivalDate: string | null; // ISO yyyy-mm-dd
+  arrivalDate: string | null;
   permitExpiryDate: string | null;
 }
 
@@ -36,6 +33,8 @@ export interface Profile {
   housing: HousingStatus | null;
   income: number | null;
   rent: number | null;
+  city: string | null;
+  bundesland: string | null;
   applied: Record<string, string>;
 }
 
@@ -49,6 +48,8 @@ export interface Draft {
   housing: HousingStatus | null;
   income: number | null;
   rent: number | null;
+  city: string | null;
+  bundesland: string | null;
 }
 
 export interface AppState {

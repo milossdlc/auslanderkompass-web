@@ -133,8 +133,8 @@ export const fa: LangStrings = {
       "noteGood": "کمک پایه برای بیکاران — شامل هزینه‌های مسکن نیز می‌شود."
     },
     "wohngeld": {
-      "linkedStatus": "از طریق Bürgergeld پوشش داده می‌شود",
-      "linkedNote": "وقتی Bürgergeld برقرار باشد، هزینه‌های مسکن معمولاً از طریق آن پوشش داده می‌شود — معمولاً نیازی به درخواست جداگانه برای Wohngeld نیست.",
+      "linkedStatus": "از طریق Grundsicherungsgeld پوشش داده می‌شود",
+      "linkedNote": "وقتی Grundsicherungsgeld برقرار باشد، هزینه‌های مسکن معمولاً از طریق آن پوشش داده می‌شود — معمولاً نیازی به درخواست جداگانه برای Wohngeld نیست.",
       "warnStatus": "مبلغ را بررسی کن",
       "warnNoteRatio": "اجاره‌ات {pct}٪ از درآمدت است — بالاتر از آستانه معمول برای بررسی Wohngeld.",
       "mutedStatus": "بعید است",
@@ -151,8 +151,8 @@ export const fa: LangStrings = {
     }
   },
   "benefitInfo": {
-    "burgergeld": "Bürgergeld حمایت اجتماعی پایه در آلمان برای بیکاران یا افرادی با درآمد ناکافی است که شامل کمک هزینه مسکن نیز می‌شود.",
-    "wohngeld": "Wohngeld یارانه دولتی هزینه مسکن برای خانوارهای کم‌درآمدی است که Bürgergeld دریافت نمی‌کنند.",
+    "burgergeld": "Grundsicherungsgeld حمایت اجتماعی پایه در آلمان برای بیکاران یا افرادی با درآمد ناکافی است که شامل کمک هزینه مسکن نیز می‌شود.",
+    "wohngeld": "Wohngeld یارانه دولتی هزینه مسکن برای خانوارهای کم‌درآمدی است که Grundsicherungsgeld دریافت نمی‌کنند.",
     "kindergeld": "Kindergeld کمک ماهانه دولتی به والدین برای هر فرزند ثبت‌شده است، مستقل از میزان درآمد."
   },
   "benefit": {
@@ -194,7 +194,7 @@ export const fa: LangStrings = {
     "disclaimer": "این تاریخ‌ها تقریبی و بر اساس یک قاعده کلی محاسبه شده‌اند — جایگزین تاریخ مندرج در تصمیم رسمی‌ات (Bescheid) نیستند.",
     "approx": "تقریبی · ",
     "pill": "{d} روز دیگر",
-    "bgTitle": "Bürgergeld — تمدید تقریبی تأیید",
+    "bgTitle": "Grundsicherungsgeld — تمدید تقریبی تأیید",
     "bgNote": "معمولاً ۶ تا ۱۲ ماه — تاریخ دقیق را در تصمیم خود (Bescheid) ببین.",
     "wgTitle": "Wohngeld — تمدید سالانه تقریبی",
     "wgNote": "درخواست‌های Wohngeld معمولاً هرسال یک‌بار تمدید می‌شوند.",
@@ -274,7 +274,7 @@ export const fa: LangStrings = {
     },
     "porodica_elterngeld": {
       "name": "Elterngeld",
-      "desc": "Elterngeld از والدینی که پس از تولد فرزند درآمد خود را برای مراقبت از او کاهش می‌دهند حمایت می‌کند — مستقل از Bürgergeld."
+      "desc": "Elterngeld از والدینی که پس از تولد فرزند درآمد خود را برای مراقبت از او کاهش می‌دهند حمایت می‌کند — مستقل از Grundsicherungsgeld."
     },
     "porodica_birth": {
       "name": "تولد را اعلام کن",
@@ -315,12 +315,12 @@ export const fa: LangStrings = {
       "term": "Mitwirkungspflicht",
       "area": "rad",
       "explain": "تعهد تو به اطلاع‌رسانی خودکار تغییرات (درآمد، شغل، آدرس) — سیستم به‌طور خودکار از آن باخبر نمی‌شود.",
-      "institution": "Jobcenter (برای Bürgergeld)"
+      "institution": "Jobcenter (برای Grundsicherungsgeld)"
     },
     {
       "term": "Jobcenter در برابر Agentur für Arbeit",
       "area": "rad",
-      "explain": "Jobcenter مسئول دریافت‌کنندگان Bürgergeld است؛ Agentur für Arbeit مسئول بیمه بیکاری است، اگر پیش‌تر کار کرده و حق بیمه پرداخته باشی. به‌ندرت با هر دو سروکار داری.",
+      "explain": "Jobcenter مسئول دریافت‌کنندگان Grundsicherungsgeld است؛ Agentur für Arbeit مسئول بیمه بیکاری است، اگر پیش‌تر کار کرده و حق بیمه پرداخته باشی. به‌ندرت با هر دو سروکار داری.",
       "institution": "بستگی به سابقه شغلی‌ات دارد"
     }
   ],

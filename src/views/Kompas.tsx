@@ -2,133 +2,45 @@ import type { Dispatch } from "react";
 import { Icon } from "../components/Icon";
 import { NavBar } from "../components/NavBar";
 import { AreaCard } from "../components/AreaCard";
+import { BenefitCard } from "../components/BenefitCard";
 import { STRINGS } from "../i18n";
 import { computeAreaData, nearestObligation } from "../lib/areas";
-import type { AppState, AreaId } from "../types";
+import { computeBenefits } from "../lib/benefits";
+import { daysUntil, fmtDate } from "../lib/dates";
+import type { AppState, AreaId, BenefitId } from "../types";
 import type { Action } from "../state/store";
 import { KompasHome } from "./KompasHome";
 
 export function Kompas({ state, dispatch }: { state: AppState; dispatch: Dispatch<Action> }) {
   if (!state.profile) return <KompasHome state={state} dispatch={dispatch} />;
-
   const S = STRINGS[state.lang!];
+  const de = state.lang === "de";
   const areas = computeAreaData(state.profile, state.lang!);
+  const benefits = computeBenefits(state.profile, state.lang!);
   const urgent = nearestObligation(areas);
-  const ctaTarget = urgent ? urgent.areaId : areas[0].id;
+  const urgentDays = urgent ? daysUntil(urgent.deadline) : null;
+  const relevantBenefits = benefits.filter(b => b.tone === "warn").slice(0, 2);
 
-  return (
-    <>
-      <div className="screen">
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div>
-            <div style={{ fontSize: 13, color: "var(--ink-soft)", fontWeight: 500 }}>{S.kompas.profileSaved}</div>
-            <div className="disp" style={{ fontSize: 20, fontWeight: 700 }}>
-              {S.kompas.title}
-            </div>
-          </div>
-          <button
-            className="btn-ghost"
-            style={{ border: "1px solid var(--line)", borderRadius: 10 }}
-            onClick={() => dispatch({ type: "RESET_PROFILE" })}
-          >
-            {S.kompas.reset}
-          </button>
-        </div>
-
-        <div
-          style={{
-            position: "relative",
-            background: "var(--primary)",
-            borderRadius: "6px 32px 6px 6px",
-            padding: 20,
-            overflow: "hidden",
-            flex: "none",
-          }}
-        >
-          <svg
-            width="130"
-            height="130"
-            viewBox="0 0 150 150"
-            style={{ position: "absolute", top: -25, insetInlineEnd: -25, opacity: 0.9 }}
-            fill="none"
-          >
-            <circle cx="75" cy="75" r="58" stroke="#FFFFFF" strokeOpacity="0.22" strokeWidth="1.3" />
-            <path d="M96 46L79 71L59 100L75 76L96 46Z" fill="var(--accent)" />
-          </svg>
-          <div style={{ position: "relative", maxWidth: 190 }}>
-            <div
-              className="mono"
-              style={{
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "0.04em",
-                color: "#C9BDFA",
-                textTransform: "uppercase",
-                marginBottom: 8,
-              }}
-            >
-              {S.kompas.title}
-            </div>
-            <div className="disp" style={{ fontSize: 20, fontWeight: 700, lineHeight: 1.25, color: "#fff" }}>
-              {S.kompas.heroText}
-            </div>
-          </div>
-          <button
-            className="btn"
-            style={{
-              position: "relative",
-              marginTop: 16,
-              width: "auto",
-              padding: "10px 16px",
-              fontSize: 13,
-              background: "#FFFFFF",
-              color: "var(--primary)",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 6,
-            }}
-            onClick={() => dispatch({ type: "OPEN_AREA", id: ctaTarget as AreaId })}
-          >
-            {S.kompas.ctaNextSteps}
-            <Icon name="chevron" size={14} />
-          </button>
-        </div>
-
-        <div className="disp" style={{ fontSize: 15, fontWeight: 700 }}>
-          {S.kompas.areasHeading}
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          {areas.map((a) => (
-            <AreaCard
-              key={a.id}
-              area={a}
-              lang={state.lang!}
-              onOpen={(id) => dispatch({ type: "OPEN_AREA", id: id as AreaId })}
-            />
-          ))}
-        </div>
-
-        <div
-          className="card"
-          style={{
-            padding: 16,
-            display: "flex",
-            alignItems: "center",
-            gap: 12,
-            background: "var(--surface-2)",
-            borderStyle: "dashed",
-          }}
-        >
-          <span style={{ color: "var(--ink-faint)" }}>
-            <Icon name="lock" size={20} />
-          </span>
-          <div style={{ flex: 1 }}>
-            <div style={{ fontWeight: 600, fontSize: 13.5 }}>{S.kompas.proTitle}</div>
-            <div style={{ fontSize: 11.5, color: "var(--ink-soft)" }}>{S.kompas.proSub}</div>
-          </div>
-        </div>
+  return <>
+    <div className="screen dashboard-screen">
+      <div className="page-heading">
+        <div><div className="eyebrow">{de ? "Dein persönlicher Kompass" : S.kompas.profileSaved}</div><h1 className="disp">{de ? "Hallo 👋" : S.kompas.title}</h1><p>{de ? "Das ist jetzt für dich wichtig." : S.kompas.heroText}</p></div>
+        <button className="avatar-button" aria-label="Profile" onClick={()=>dispatch({type:"NAV",view:"profile"})}><Icon name="passport" size={20}/></button>
       </div>
-      <NavBar active="kompas" lang={state.lang!} onNav={(view) => dispatch({ type: "NAV", view })} />
-    </>
-  );
+
+      <section>
+        <div className="section-title-row"><h2 className="disp">{de ? "Jetzt wichtig" : S.kompas.ctaNextSteps}</h2><button onClick={()=>dispatch({type:"NAV",view:"rokovi"})}>{de ? "Alle Fristen" : S.nav.rokovi}</button></div>
+        {urgent ? <button className="attention-card" onClick={()=>dispatch({type:"OPEN_AREA",id:urgent.areaId as AreaId})}>
+          <div className="attention-icon"><Icon name="calendar" size={22}/></div><div className="attention-copy"><span className="eyebrow">{urgentDays != null && urgentDays < 0 ? (de ? "Überfällig" : S.rokovi.overdue) : (de ? "Frist" : S.nav.rokovi)}</span><strong>{de ? (urgentDays != null && urgentDays >= 0 ? `Noch ${urgentDays} Tage` : "Jetzt prüfen") : fmtDate(urgent.deadline,state.lang!)}</strong><small>{de ? `Nächster Termin: ${fmtDate(urgent.deadline,state.lang!)}` : S.kompas.ctaNextSteps}</small></div><Icon name="chevron" size={18}/>
+        </button> : <div className="card calm-card"><Icon name="check" size={20}/><div><strong>{de ? "Keine dringende Frist erkannt" : S.rokovi.empty}</strong><span>{de ? "Ergänze dein Profil, wenn sich etwas ändert." : S.kompas.noDateYet}</span></div></div>}
+      </section>
+
+      {relevantBenefits.length > 0 && <section><div className="section-title-row"><h2 className="disp">{de ? "Mögliche Leistungen" : S.kompas.yourBenefits}</h2></div><div className="benefit-grid">{relevantBenefits.map(b=><BenefitCard key={b.id} benefit={b} onOpen={(id)=>dispatch({type:"OPEN_BENEFIT",id:id as BenefitId})}/>)}</div><div className="why-note"><Icon name="book" size={16}/><span>{de ? "Wir zeigen nur Hinweise zur Prüfung – keine automatische Anspruchsentscheidung." : S.benefit.disclaimer}</span></div></section>}
+
+      <section><div className="section-title-row"><h2 className="disp">{de ? "Dein Leben in Deutschland" : S.kompas.areasHeading}</h2></div><div className="areas-grid">{areas.map(a=><AreaCard key={a.id} area={a} lang={state.lang!} onOpen={(id)=>dispatch({type:"OPEN_AREA",id:id as AreaId})}/>)}</div></section>
+
+      <button className="profile-strip" onClick={()=>dispatch({type:"NAV",view:"profile"})}><div><span>{de ? "Dein Profil" : S.kompas.profileSaved}</span><strong>{[state.profile.city,state.profile.bundesland].filter(Boolean).join(", ") || (de ? "Angaben ansehen und ergänzen" : S.kompas.profileSaved)}</strong></div><Icon name="chevron" size={18}/></button>
+    </div>
+    <NavBar active="kompas" lang={state.lang!} onNav={(view)=>dispatch({type:"NAV",view})}/>
+  </>;
 }
