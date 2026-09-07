@@ -34,8 +34,8 @@ export function computeBenefits(profile: Profile, lang: Lang): Benefit[] {
       id: "wohngeld",
       name: "Wohngeld",
       icon: "house",
-      status: L.housing,
-      tone: "warn",
+      status: L.check,
+      tone: "muted",
       note: profile.income == null || profile.rent == null ? S.benefits.wohngeld.warnNoteMissing : null,
       linked: basicRelevant,
     });

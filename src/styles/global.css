@@ -223,3 +223,11 @@ label.field-label{ font-size:12.5px; font-weight:600; color:var(--ink-soft); dis
   .screen{max-width:1180px;padding-left:58px;padding-right:58px;}
   .dashboard-screen{max-width:1240px;}
 }
+
+/* Round 3: credibility + desktop polish */
+.profile-groups{display:grid;gap:18px}.profile-groups section h2{font-size:16px;margin:0 0 9px}.profile-missing{color:var(--ink-faint);font-weight:600}.profile-missing em{font-style:normal;color:var(--primary);font-size:11px}.profile-actions{display:grid;gap:14px}.profile-actions .btn{max-width:360px}.profile-screen{max-width:1080px}
+@media (min-width:760px){
+  .topbar{position:fixed;left:max(14px,calc((100vw - 100%)/2 + 14px));bottom:22px;top:auto;padding:0;z-index:8;width:192px}.topbar .lang-select{width:100%;padding:9px 11px;background:var(--surface-2)}
+  .navbar{padding-bottom:76px}
+  .profile-screen{max-width:1120px}.profile-groups{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:start}.profile-groups section:first-child{grid-row:span 2}.profile-card{max-width:none}.profile-actions{grid-template-columns:minmax(0,1fr) 280px;align-items:center}.profile-actions .btn{max-width:none}
+}
