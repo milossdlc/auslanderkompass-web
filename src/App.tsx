@@ -14,19 +14,28 @@ import { PublicGuide } from "./views/PublicGuide";
 import { track } from "./lib/analytics";
 import type { Lang } from "./types";
 
+function publicGuideSlug(pathname: string): string | null {
+  const normalized = pathname.replace(/\/+$/, "");
+  if (!normalized.startsWith("/guide/")) return null;
+  const slug = normalized.slice("/guide/".length).trim();
+  return slug && !slug.includes("/") ? decodeURIComponent(slug) : null;
+}
+
 export default function App() {
   const [state, dispatch] = useAppState();
-  const lang = state.lang as Lang;
+  const lang = (state.lang ?? "de") as Lang;
+  const guideSlug = publicGuideSlug(window.location.pathname);
   const S = STRINGS[lang];
-  const publicMatch = window.location.pathname.match(/^\/guide\/([^/]+)\/?$/);
 
   useEffect(() => {
     document.documentElement.setAttribute("lang", lang);
     document.documentElement.setAttribute("dir", S.dir);
-    track({ name: publicMatch ? "public_guide_view" : "app_view", path: window.location.pathname, lang, view: state.view });
-  }, [lang, S.dir, state.view, publicMatch?.[1]]);
+    track({ name: guideSlug ? "public_guide_view" : "app_view", path: window.location.pathname, lang, view: state.view });
+  }, [lang, S.dir, state.view, guideSlug]);
 
-  if (publicMatch) return <PublicGuide slug={publicMatch[1]} lang={lang} />;
+  if (guideSlug) {
+    return <PublicGuide slug={guideSlug} lang={lang} />;
+  }
 
   let view;
   switch (state.view) {
@@ -39,5 +48,6 @@ export default function App() {
     case "areaItem": view = <AreaItemDetail state={state} dispatch={dispatch} />; break;
     default: view = <Kompas state={state} dispatch={dispatch} />;
   }
+
   return <div id="shell" className={S.dir === "rtl" ? "rtl-font" : ""}><LangSwitcher lang={lang} onChange={(l) => dispatch({ type: "SET_LANG", lang: l })} /><div id="app">{view}</div></div>;
 }
