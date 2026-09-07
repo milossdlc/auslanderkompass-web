@@ -4,9 +4,10 @@ import { NavBar } from "../components/NavBar";
 import { AreaCard } from "../components/AreaCard";
 import { BenefitCard } from "../components/BenefitCard";
 import { STRINGS } from "../i18n";
-import { computeAreaData, nearestObligation } from "../lib/areas";
+import { computeAreaData } from "../lib/areas";
 import { computeBenefits } from "../lib/benefits";
 import { daysUntil, fmtDate, parseISO } from "../lib/dates";
+import { buildSmartDeadlines, daysSigned } from "../lib/deadlines";
 import type { AppState, AreaId, BenefitId } from "../types";
 import type { Action } from "../state/store";
 import { KompasHome } from "./KompasHome";
@@ -29,8 +30,12 @@ export function Kompas({ state, dispatch }: { state: AppState; dispatch: Dispatc
   const sr = state.lang === "sr";
   const areas = computeAreaData(state.profile, state.lang!);
   const benefits = computeBenefits(state.profile, state.lang!);
-  const urgent = nearestObligation(areas);
-  const urgentDays = urgent ? daysUntil(urgent.deadline) : null;
+  // One deadline engine only: Today and Deadlines must derive personal dates
+  // from the same Smart Deadline source. This prevents legacy area obligations
+  // from relabelling a permit-expiry date as Anmeldung or another item.
+  const smartDeadlines = buildSmartDeadlines(state.profile, state.lang!);
+  const nextDeadline = smartDeadlines.find((item) => daysSigned(item.date) >= -30) ?? null;
+  const nextDays = nextDeadline ? daysSigned(nextDeadline.date) : null;
   const relevantBenefits = benefits.filter((b) => b.tone === "warn").slice(0, 2);
   const stale = isStaleProfile(state);
 
@@ -54,12 +59,12 @@ export function Kompas({ state, dispatch }: { state: AppState; dispatch: Dispatc
       <div className="dashboard-columns">
         <section className="dashboard-primary">
           <div className="section-title-row"><h2 className="disp">{de ? "Als Nächstes" : en ? "Next up" : S.kompas.ctaNextSteps}</h2><button onClick={() => dispatch({ type: "NAV", view: "rokovi" })}>{de ? "Alle Fristen" : S.nav.rokovi}</button></div>
-          {urgent ? <button className="attention-card" onClick={() => dispatch({ type: "OPEN_AREA", id: urgent.areaId as AreaId })}>
+          {nextDeadline ? <button className="attention-card" onClick={() => dispatch({ type: "NAV", view: "rokovi" })}>
             <div className="attention-icon"><Icon name="calendar" size={22}/></div>
             <div className="attention-copy">
-              <span className="eyebrow">{urgentDays != null && urgentDays < 0 ? (de ? "Überfällig" : S.rokovi.overdue) : (de ? "Persönliche Frist" : en ? "Personal deadline" : S.nav.rokovi)}</span>
-              <strong>{de ? (urgentDays != null && urgentDays >= 0 ? `Noch ${urgentDays} Tage` : "Jetzt prüfen") : en ? (urgentDays != null && urgentDays >= 0 ? `${urgentDays} days left` : "Check now") : fmtDate(urgent.deadline, state.lang!)}</strong>
-              <small>{fmtDate(urgent.deadline, state.lang!)}</small>
+              <span className="eyebrow">{nextDeadline.kind === "recommended" ? (de ? "Planungshinweis" : en ? "Planning reminder" : sr ? "Preporuka za planiranje" : S.nav.rokovi) : (de ? "Gesetzlich relevant" : en ? "Legally relevant" : sr ? "Zakonski relevantno" : S.nav.rokovi)}</span>
+              <strong>{de ? (nextDays != null && nextDays >= 0 ? `Noch ${nextDays} Tage` : "Jetzt prüfen") : en ? (nextDays != null && nextDays >= 0 ? `${nextDays} days left` : "Check now") : sr ? (nextDays != null && nextDays >= 0 ? `Još ${nextDays} dana` : "Proveri sada") : fmtDate(nextDeadline.date, state.lang!)}</strong>
+              <small>{nextDeadline.title} · {fmtDate(nextDeadline.date, state.lang!)}</small>
             </div><Icon name="chevron" size={18}/>
           </button> : <div className="card calm-card"><Icon name="check" size={20}/><div><strong>{de ? "Heute nichts Dringendes" : en ? "Nothing urgent today" : S.rokovi.empty}</strong><span>{de ? "Neue persönliche Fristen erscheinen hier automatisch, sobald sie aus deinem Profil ableitbar sind." : en ? "New personal deadlines will appear here automatically when your profile provides them." : S.kompas.noDateYet}</span></div></div>}
         </section>
