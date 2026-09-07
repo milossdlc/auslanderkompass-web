@@ -1,5 +1,4 @@
 import type { AreaId, AreaItemDef, BenefitId } from "../types";
-import { parseISO } from "./dates";
 
 export const AREA_ORDER: AreaId[] = ["boravak", "stanovanje", "rad", "porodica"];
 
@@ -45,7 +44,10 @@ export const AREA_ITEMS: AreaItemDef[] = [
     kind: "obligation",
     icon: "passport",
     visible: () => true,
-    deadline: (p) => (p.boravak?.permitExpiryDate ? parseISO(p.boravak.permitExpiryDate) : null),
+    // Personal residence-permit dates are handled exclusively by the Smart Deadline engine.
+    // Keeping a second deadline source here caused the old Deadlines/Today UI to mislabel
+    // permit-expiry dates as unrelated obligations.
+    deadline: () => null,
   },
   {
     id: "boravak_integration",
