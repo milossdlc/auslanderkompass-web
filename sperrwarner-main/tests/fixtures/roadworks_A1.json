@@ -1,0 +1,28 @@
+{
+  "roadworks": [
+    {
+      "identifier": "2023-000357--vi-bs.2026-08-10_11-00-00-000.devi-zus.2024-10-01_00-00-00-000.f.de13",
+      "icon": "123",
+      "isBlocked": "false",
+      "future": false,
+      "extent": "49.38191589297737,7.002339290843191,49.41258498396637,6.993871225155498",
+      "point": "49.38191589297737,7.002339290843191",
+      "startLcPosition": "8",
+      "impact": {
+        "lower": "Eppelborn",
+        "upper": "Saarbrücken",
+        "symbols": ["BREAKDOWN_LANE", "BORDER_LEFT", "CLOSED"]
+      },
+      "display_type": "ROADWORKS",
+      "subtitle": " Saarbrücken -> Trier",
+      "title": "A1 | Saarbrücken - Eppelborn",
+      "startTimestamp": "2026-08-10T11:00:00+02:00",
+      "coordinate": {"lat": 49.38191589297737, "long": 7.002339290843191},
+      "description": ["Bauarbeiten wegen Fahrbahnsanierung", "Voraussichtliches Ende: 15.11.2026"],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {"type": "LineString", "coordinates": [[7.002339291, 49.381915893], [6.998, 49.395], [6.993871225, 49.412584984]]}
+    }
+  ]
+}

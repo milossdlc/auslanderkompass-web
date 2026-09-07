@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Prüfe deine Route auf aktuelle Sperrungen, Baustellen und Warnungen auf deutschen Autobahnen und speichere häufig gefahrene Strecken." />
+<title>Sperrwarner – Sperrungen und Baustellen auf deiner Route</title>
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#101828" />
+<link rel="icon" href="icons/icon-192.png" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="/" aria-label="Sperrwarner Startseite">
+      <span class="brand-mark" aria-hidden="true">!</span>
+      <span>Sperrwarner</span>
+    </a>
+    <div class="header-meta">
+      <span class="live-dot" aria-hidden="true"></span>
+      Aktuelle Verkehrsdaten
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Vor der Fahrt wissen, was kommt</span>
+      <h1>Stau ist ärgerlich.<br><span>Eine Vollsperrung noch mehr.</span></h1>
+      <p>Prüfe deine Route auf Sperrungen, Baustellen und Warnungen auf deutschen Autobahnen – und überwache Strecken, die du regelmäßig fährst.</p>
+      <div class="trust-row" aria-label="Vorteile">
+        <span>✓ Kostenlos</span><span>✓ Ohne Registrierung</span><span>✓ Live-Verkehrsdaten</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="app-shell" aria-label="Sperrwarner Routenprüfung">
+    <div class="workspace">
+      <aside class="control-card">
+        <div class="tabs" role="tablist" aria-label="Prüfmodus">
+          <button class="tab active" data-tab="route" role="tab" aria-selected="true">Route</button>
+          <button class="tab" data-tab="highway" role="tab" aria-selected="false">Autobahn</button>
+          <button class="tab" data-tab="saved" role="tab" aria-selected="false">Meine Strecken</button>
+        </div>
+
+        <div class="tab-panel active" id="tab-route">
+          <div class="panel-heading">
+            <span class="step-label">Route prüfen</span>
+            <h2>Wohin fährst du?</h2>
+            <p>Wir prüfen die relevante Strecke auf aktuelle Verkehrsmeldungen.</p>
+          </div>
+          <div class="route-fields">
+            <div class="field-with-marker start-marker">
+              <label for="origin-input">Start</label>
+              <input type="text" id="origin-input" autocomplete="off" placeholder="z. B. Hamburg" />
+            </div>
+            <button class="swap-btn" id="swap-route-btn" type="button" aria-label="Start und Ziel tauschen" title="Start und Ziel tauschen">⇅</button>
+            <div class="field-with-marker end-marker">
+              <label for="destination-input">Ziel</label>
+              <input type="text" id="destination-input" autocomplete="off" placeholder="z. B. Berlin" />
+            </div>
+          </div>
+          <button class="primary" id="check-route-btn"><span>Route prüfen</span><span aria-hidden="true">→</span></button>
+          <div class="status" id="route-status" aria-live="polite"></div>
+          <div class="save-box" id="route-save-box">
+            <div>
+              <strong>Fährst du diese Strecke öfter?</strong>
+              <span>Speichere sie für den nächsten Check.</span>
+            </div>
+            <div class="save-row">
+              <input type="text" id="save-route-name" placeholder="Name, z. B. Arbeit" />
+              <button id="save-route-btn" type="button">Speichern</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-highway">
+          <div class="panel-heading">
+            <span class="step-label">Autobahn prüfen</span>
+            <h2>Welche Autobahn interessiert dich?</h2>
+            <p>Wähle eine oder mehrere Autobahnen und sieh alle aktuellen Meldungen.</p>
+          </div>
+          <label for="highway-search">Autobahn suchen</label>
+          <input type="text" id="highway-search" placeholder="z. B. A7 oder A24" />
+          <div class="highway-picker" id="highway-picker" aria-label="Autobahnen"></div>
+          <button class="primary" id="check-highways-btn"><span>Autobahnen prüfen</span><span aria-hidden="true">→</span></button>
+          <div class="status" id="highway-status" aria-live="polite"></div>
+          <div class="save-box">
+            <div>
+              <strong>Auswahl merken</strong>
+              <span>Für einen schnelleren Check beim nächsten Besuch.</span>
+            </div>
+            <div class="save-row">
+              <input type="text" id="save-highways-name" placeholder="Name, z. B. Pendelstrecke" />
+              <button id="save-highways-btn" type="button">Speichern</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-saved">
+          <div class="panel-heading">
+            <span class="step-label">Meine Strecken</span>
+            <h2>Schnell prüfen. Rechtzeitig warnen.</h2>
+            <p>Öffne eine gespeicherte Strecke oder aktiviere Warnungen per E-Mail und Push.</p>
+          </div>
+          <ul class="saved-list" id="saved-list"></ul>
+          <div class="status" id="saved-status">Noch keine Strecke gespeichert.</div>
+        </div>
+      </aside>
+
+      <section class="results-card" aria-live="polite">
+        <div class="result-header" id="result-header">
+          <div class="result-intro">
+            <span class="result-kicker">Aktuelle Verkehrslage</span>
+            <h2 id="result-title">Deine Route im Blick</h2>
+            <p id="result-subtitle">Gib Start und Ziel ein. Sperrwarner zeigt dir relevante Sperrungen, Baustellen und Warnungen entlang deiner Strecke.</p>
+          </div>
+          <div class="result-score neutral" id="result-score" hidden>
+            <span class="score-icon" id="score-icon">✓</span>
+            <div><strong id="score-title"></strong><span id="score-text"></span></div>
+          </div>
+        </div>
+
+        <div class="map-wrap">
+          <div id="map"></div>
+          <div class="map-legend" aria-label="Kartenlegende">
+            <span><i class="legend-dot closure"></i>Sperrung</span>
+            <span><i class="legend-dot roadworks"></i>Baustelle</span>
+            <span><i class="legend-dot warning"></i>Warnung</span>
+          </div>
+        </div>
+
+        <div class="trip-summary" id="trip-summary"></div>
+        <div class="watch-cta" id="watch-cta" hidden>
+          <div class="watch-icon" aria-hidden="true">🔔</div>
+          <div class="watch-copy">
+            <strong>Diese Strecke regelmäßig fahren?</strong>
+            <span>Lass dich informieren, wenn eine neue relevante Meldung auftaucht.</span>
+          </div>
+          <button id="watch-route-btn" type="button">Strecke überwachen</button>
+        </div>
+        <div class="event-list" id="event-list">
+          <div class="empty-state">
+            <div class="empty-icon" aria-hidden="true">↗</div>
+            <strong>Bereit für deinen Routencheck</strong>
+            <span>Start und Ziel eingeben, Route prüfen und entspannt losfahren.</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="how-it-works">
+    <div class="section-title">
+      <span class="eyebrow">So funktioniert's</span>
+      <h2>In weniger als einer Minute informiert</h2>
+    </div>
+    <div class="steps-grid">
+      <article><span class="step-number">01</span><h3>Route eingeben</h3><p>Start und Ziel reichen. Wir ermitteln die passende Strecke und relevante Autobahnen.</p></article>
+      <article><span class="step-number">02</span><h3>Meldungen prüfen</h3><p>Sperrungen, Baustellen und Warnungen erscheinen dort, wo sie für deine Route relevant sind.</p></article>
+      <article><span class="step-number">03</span><h3>Strecke überwachen</h3><p>Speichere wichtige Strecken und erhalte auf Wunsch Warnungen bei neuen Ereignissen.</p></article>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div><strong>Sperrwarner</strong><span>Verkehrslage prüfen, bevor du losfährst.</span></div>
+  <p>Datenquellen u. a. Die Autobahn GmbH, OpenStreetMap/Nominatim und OSRM. Angaben ohne Gewähr.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

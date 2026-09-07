@@ -1,0 +1,71 @@
+{
+  "closure": [
+    {
+      "identifier": "2025-044104--vi-fbm.2026-09-05_20-00-00-000.devi-zus.2026-06-12_20-00-00-000.de24",
+      "icon": "250",
+      "isBlocked": "false",
+      "future": true,
+      "extent": "48.76924357702637,13.044757243131498,48.81769827327139,12.942637320945957",
+      "point": "48.76924357702637,13.044757243131498",
+      "startLcPosition": "22",
+      "impact": {
+        "lower": "Deggendorf",
+        "upper": "Manzing",
+        "symbols": ["SEPARATE", "CLOSED", "CLOSED", "BORDER_RIGHT", "CLOSED"]
+      },
+      "display_type": "CLOSURE",
+      "subtitle": " Passau -> Nürnberg",
+      "title": "A3 | Manzing - Deggendorf",
+      "startTimestamp": "2026-09-05T20:00:00+02:00",
+      "coordinate": {"lat": 48.76924357702637, "long": 13.044757243131498},
+      "description": ["Zeitraum dieser Bauphase:", "Beginn: 05.09.26 um 20:00 Uhr", "Ende: 06.09.26 um 14:00 Uhr", "(Ende der Gesamtmaßnahme: 14.03.27)", "", "A3: Passau -> Nürnberg, zwischen 2.1 km hinter Manzing und 0.2 km vor AK Deggendorf", "", "Länge: konnte nicht ermittelt werden", "", "A3 Vollsperrungen Brücke Deggenau und BW 149"],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {"type": "LineString", "coordinates": [[13.044757243, 48.769243577], [13.0439511, 48.769589901], [13.0426357, 48.770170601], [12.942637321, 48.817698273]]}
+    },
+    {
+      "identifier": "2026-038740--vi-fbm.2026-09-04_20-00-00-000.devi-zus.2026-08-21_19-00-00-000_002.de6",
+      "icon": "250",
+      "isBlocked": "false",
+      "future": true,
+      "extent": "51.86305991960336,6.244429531628185,51.85043373592916,6.293687796870726",
+      "point": "51.86305991960336,6.244429531628185",
+      "startLcPosition": "254",
+      "impact": {
+        "lower": "Emmerich-Ost",
+        "upper": "Emmerich",
+        "symbols": ["SEPARATE", "CLOSED", "CLOSED", "BORDER_RIGHT", "CLOSED"]
+      },
+      "display_type": "CLOSURE",
+      "subtitle": " Arnheim -> Oberhausen",
+      "title": "A3 | Emmerich - Emmerich-Ost",
+      "coordinate": {"lat": 51.86305991960336, "long": 6.244429531628185},
+      "description": ["Die Baustelle ist zu folgenden Zeiträumen gültig:", "04.09.26 20:00 bis zum 05.09.26 24:00 Uhr.", "(Ende der Gesamtmaßnahme: 04.10.26)", "", "A3: Arnheim -> Oberhausen, zwischen 0.1 km hinter AS Emmerich und 0.1 km vor AS Emmerich-Ost"],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {"type": "LineString", "coordinates": [[6.244429532, 51.86305992], [6.2453511, 51.863024301], [6.293687797, 51.850433736]]}
+    },
+    {
+      "identifier": "2025-044104--vi-fbm.2026-09-05_20-00-00-000.devi-zus.2026-06-12_20-00-00-000.de30",
+      "icon": "448",
+      "isBlocked": "false",
+      "future": true,
+      "extent": "48.817543779570116,12.944028038329137,48.82246314668053,12.943644821959312",
+      "point": "48.817543779570116,12.944028038329137",
+      "startLcPosition": "1000",
+      "impact": {"symbols": ["SEPARATE", "CLOSED", "CLOSED", "BORDER_RIGHT", "CLOSED"]},
+      "display_type": "CLOSURE_ENTRY_EXIT",
+      "subtitle": " AK Deggendorf (aus Richtung Plattling-Nord)",
+      "title": "A3 Vollsperrungen Brücke Deggenau und BW 149",
+      "startTimestamp": "2026-09-05T20:00:00+02:00",
+      "coordinate": {"lat": 48.817543779570116, "long": 12.944028038329137},
+      "description": ["Auffahrt auf die A92: AK Deggendorf (aus Richtung Plattling-Nord)"],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {"type": "LineString", "coordinates": [[12.944028038, 48.81754378], [12.9439332, 48.817589001], [12.943644822, 48.822463147]]}
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "warning": [
+    {
+      "identifier": "2026-warn-example-001",
+      "icon": "101",
+      "isBlocked": "false",
+      "future": false,
+      "extent": "49.5,7.1,49.55,7.15",
+      "point": "49.5,7.1",
+      "startLcPosition": "1000",
+      "impact": {"symbols": ["WARNING"]},
+      "display_type": "WARNING",
+      "subtitle": " Trier -> Saarbrücken",
+      "title": "A1 | Unfall - Gefahrenstelle",
+      "startTimestamp": "2026-09-04T06:00:00+02:00",
+      "coordinate": {"lat": 49.5, "long": 7.1},
+      "description": ["Unfall auf der A1, rechte Spur blockiert"],
+      "routeRecommendation": [],
+      "footer": [],
+      "lorryParkingFeatureIcons": [],
+      "geometry": {"type": "LineString", "coordinates": [[7.1, 49.5], [7.12, 49.52], [7.15, 49.55]]}
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "Sperrwarner",
+  "short_name": "Sperrwarner",
+  "description": "Sperrungen, Baustellen und Warnungen auf deiner Route prüfen.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f7f8fa",
+  "theme_color": "#101828",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
