@@ -19,6 +19,14 @@ export function PublicGuide({ slug, lang }: { slug: string; lang: Lang }) {
     if (description) description.setAttribute("content", de ? guide.deTitle + ". Praktische Orientierung, nächste Schritte und offizielle Quellen." : guide.description);
     const canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
     if (canonical) canonical.href = `${window.location.origin}/guide/${guide.slug}`;
+    const id = "auslanderleben-guide-jsonld";
+    document.getElementById(id)?.remove();
+    const script = document.createElement("script");
+    script.id = id;
+    script.type = "application/ld+json";
+    script.textContent = JSON.stringify({ "@context": "https://schema.org", "@type": "HowTo", name: de ? guide.deTitle : guide.title, description: guide.description, step: guide.steps.map((name) => ({ "@type": "HowToStep", name })), url: `${window.location.origin}/guide/${guide.slug}` });
+    document.head.appendChild(script);
+    return () => document.getElementById(id)?.remove();
   }, [de, guide]);
-  return <main className="public-guide"><header className="public-guide-hero"><div className="eyebrow">Ausländerleben</div><h1 className="disp">{de ? guide.deTitle : guide.title}</h1><p>{de ? "Praktische Orientierung für das Leben in Deutschland – mit offiziellen Quellen." : guide.description}</p></header><section className="public-guide-card"><div className="eyebrow">{de ? "Nächste Schritte" : "Next steps"}</div><ol>{guide.steps.map((step, i) => <li key={i}><span>{i + 1}</span><p>{step}</p></li>)}</ol><a className="btn btn-primary" href={guide.url} target="_blank" rel="noopener noreferrer">{de ? "Offizielle Quelle öffnen" : "Open official source"} →</a></section><footer className="public-guide-footer">{de ? "Hinweis: Ausländerleben bietet Orientierung und keine individuelle Rechtsberatung." : "Note: Ausländerleben provides general orientation, not individual legal advice."}</footer></main>;
+  return <main className="public-guide"><header className="public-guide-hero"><div className="eyebrow">Ausländerleben</div><h1 className="disp">{de ? guide.deTitle : guide.title}</h1><p>{de ? "Praktische Orientierung für das Leben in Deutschland – mit offiziellen Quellen." : guide.description}</p></header><section className="public-guide-card"><div className="eyebrow">{de ? "Nächste Schritte" : "Next steps"}</div><ol>{guide.steps.map((step, i) => <li key={i}><span>{i + 1}</span><p>{step}</p></li>)}</ol><a className="btn btn-primary" href={guide.url} target="_blank" rel="noopener noreferrer">{de ? "Offizielle Quelle öffnen" : "Open official source"} →</a><div className="public-guide-source">{de ? "Quelle: " : "Source: "}{guide.source}</div></section><footer className="public-guide-footer">{de ? "Hinweis: Ausländerleben bietet Orientierung und keine individuelle Rechtsberatung." : "Note: Ausländerleben provides general orientation, not individual legal advice."}</footer></main>;
 }
