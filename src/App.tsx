@@ -34,7 +34,7 @@ export default function App() {
   }, [lang, S.dir, state.view, guideSlug]);
 
   if (guideSlug) {
-    return <PublicGuide slug={guideSlug} lang={lang} />;
+    return <PublicGuide slug={guideSlug} lang={lang} onLangChange={(l) => dispatch({ type: "SET_LANG", lang: l })} />;
   }
 
   let view;
