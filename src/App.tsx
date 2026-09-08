@@ -11,6 +11,7 @@ import { AreaDetail } from "./views/AreaDetail";
 import { AreaItemDetail } from "./views/AreaItemDetail";
 import { ProfileView } from "./views/Profile";
 import { PublicGuide } from "./views/PublicGuide";
+import { GrowthGuide, isGrowthGuide } from "./views/GrowthGuide";
 import { track } from "./lib/analytics";
 import type { Lang } from "./types";
 
@@ -34,7 +35,10 @@ export default function App() {
   }, [lang, S.dir, state.view, guideSlug]);
 
   if (guideSlug) {
-    return <PublicGuide slug={guideSlug} lang={lang} onLangChange={(l) => dispatch({ type: "SET_LANG", lang: l })} />;
+    const onLangChange = (l: Lang) => dispatch({ type: "SET_LANG", lang: l });
+    return isGrowthGuide(guideSlug)
+      ? <GrowthGuide slug={guideSlug} lang={lang} onLangChange={onLangChange} />
+      : <PublicGuide slug={guideSlug} lang={lang} onLangChange={onLangChange} />;
   }
 
   let view;
