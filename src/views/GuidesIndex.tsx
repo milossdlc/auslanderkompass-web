@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import type { Lang } from "../types";
+import { track, trackGuideCta } from "../lib/analytics";
 import "../styles/publicGuidePolish.css";
 import "../styles/guideHub.css";
 
@@ -35,8 +36,8 @@ export function GuidesIndex({lang}:{lang:Lang}){
     <header className="public-guide-topbar"><a className="public-guide-brand" href="/">Ausländerleben</a><div className="public-guide-controls"><a className="public-home-btn" href="/">{de?"Startseite":"Home"}</a></div></header>
     <main className="public-guide public-guides-index">
       <header className="public-guide-hero"><div className="eyebrow">Ausländerleben Guides</div><h1 className="disp">{de?"Deutschland verstehen – Schritt für Schritt":"Understand life in Germany – step by step"}</h1><p>{de?"Wähle ein Thema und erhalte eine klare Orientierung mit nächsten Schritten, typischen Unterlagen, häufigen Fehlern und offiziellen Quellen.":"Choose a topic and get clear orientation with next steps, common documents, common mistakes and official sources."}</p><div className="public-guide-trust"><span>10 {de?"Guides":"guides"}</span><span>{de?"Offizielle Quellen":"Official sources"}</span><span>{de?"Kostenlos":"Free"}</span></div></header>
-      {groups.map(([key,label])=>{const items=GUIDES.filter(g=>g.group===key);return <section className="guide-hub-section" key={key}><div className="eyebrow">{label}</div><div className="guide-hub-grid">{items.map(g=><a key={g.slug} href={`/guide/${g.slug}`} className="guide-hub-card"><strong>{de?g.de:g.en}</strong><p>{de?g.descDe:g.descEn}</p><span>{de?"Guide öffnen":"Open guide"} →</span></a>)}</div></section>})}
-      <section className="public-guide-journey"><div><strong>{de?"Du willst nicht selbst herausfinden, was für dich relevant ist?":"Don't want to figure out what applies to you on your own?"}</strong><p>{de?"Erstelle deinen persönlichen Kompass und erhalte priorisierte Fristen und nächste Schritte.":"Create your personal guide and get prioritized deadlines and next steps."}</p></div><a href="/">{de?"Persönlichen Kompass starten":"Create my personal guide"} →</a></section>
+      {groups.map(([key,label])=>{const items=GUIDES.filter(g=>g.group===key);return <section className="guide-hub-section" key={key}><div className="eyebrow">{label}</div><div className="guide-hub-grid">{items.map(g=><a key={g.slug} href={`/guide/${g.slug}`} className="guide-hub-card" onClick={()=>track({name:"guide_open",path:window.location.pathname,lang,source:"guides_hub",guide:g.slug})}><strong>{de?g.de:g.en}</strong><p>{de?g.descDe:g.descEn}</p><span>{de?"Guide öffnen":"Open guide"} →</span></a>)}</div></section>})}
+      <section className="public-guide-journey"><div><strong>{de?"Du willst nicht selbst herausfinden, was für dich relevant ist?":"Don't want to figure out what applies to you on your own?"}</strong><p>{de?"Erstelle deinen persönlichen Kompass und erhalte priorisierte Fristen und nächste Schritte.":"Create your personal guide and get prioritized deadlines and next steps."}</p></div><a href="/" onClick={()=>trackGuideCta("guides-index",lang,"guides_hub")}>{de?"Persönlichen Kompass starten":"Create my personal guide"} →</a></section>
     </main>
   </div>;
 }
