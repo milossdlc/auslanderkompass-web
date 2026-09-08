@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { LANG_ORDER, STRINGS } from "../i18n";
 import type { Lang } from "../types";
+import "../styles/publicGuidePolish.css";
 
 type Guide = { slug: string; deTitle: string; title: string; description: string; steps: string[]; source: string; url: string };
 const GUIDES: Guide[] = [
@@ -42,10 +43,11 @@ export function PublicGuide({ slug, lang, onLangChange }: { slug: string; lang: 
       </div>
     </header>
     <main className="public-guide" id="top">
-      <header className="public-guide-hero"><div className="eyebrow">Ausländerleben Guide</div><h1 className="disp">{de ? guide.deTitle : guide.title}</h1><p>{de ? "Praktische Orientierung für das Leben in Deutschland – mit offiziellen Quellen." : guide.description}</p></header>
-      <section className="public-guide-card"><div className="eyebrow">{de ? "Nächste Schritte" : "Next steps"}</div><ol>{guide.steps.map((step, i) => <li key={i}><span>{i + 1}</span><p>{step}</p></li>)}</ol><a className="btn btn-primary public-primary-cta" href={guide.url} target="_blank" rel="noopener noreferrer">{de ? "Offizielle Quelle öffnen" : "Open official source"} →</a><div className="public-guide-source">{de ? "Quelle: " : "Source: "}{guide.source}</div></section>
+      <header className="public-guide-hero"><div className="eyebrow">Ausländerleben Guide</div><h1 className="disp">{de ? guide.deTitle : guide.title}</h1><p>{de ? "Praktische Orientierung für das Leben in Deutschland – mit klaren nächsten Schritten und offiziellen Quellen." : guide.description}</p><div className="public-guide-trust"><span>{de ? "Schritt für Schritt" : "Step by step"}</span><span>{de ? "Offizielle Quelle" : "Official source"}</span><span>{de ? "Kostenlos" : "Free"}</span></div></header>
+      <section className="public-guide-card"><div className="eyebrow">{de ? "Was du jetzt tun kannst" : "What you can do now"}</div><ol>{guide.steps.map((step, i) => <li key={i}><span>{i + 1}</span><p>{step}</p></li>)}</ol><a className="btn btn-primary public-primary-cta" href={guide.url} target="_blank" rel="noopener noreferrer">{de ? "Offizielle Quelle prüfen" : "Check official source"} →</a><div className="public-guide-source">{de ? "Quelle: " : "Source: "}{guide.source}</div></section>
+      <section className="public-guide-journey"><div><strong>{de ? "Möchtest du wissen, was für deine Situation als Nächstes wichtig ist?" : "Want to know what matters next for your situation?"}</strong><p>{de ? "Erstelle in wenigen Minuten deinen persönlichen Kompass mit Fristen und nächsten Schritten." : "Create your personal guide in a few minutes and see relevant deadlines and next steps."}</p></div><a href="/">{de ? "Persönlichen Kompass starten" : "Create my personal guide"} →</a></section>
       <section className="public-related"><div className="eyebrow">{de ? "Weitere Guides" : "Related guides"}</div><div className="public-related-grid">{related.map((item)=><a key={item.slug} href={`/guide/${item.slug}`}><strong>{de ? item.deTitle : item.title}</strong><span>{de ? "Guide öffnen" : "Open guide"} →</span></a>)}</div></section>
-      <footer className="public-guide-footer">{de ? "Hinweis: Ausländerleben bietet Orientierung und keine individuelle Rechtsberatung." : "Note: Ausländerleben provides general orientation, not individual legal advice."}</footer>
+      <footer className="public-guide-footer">{de ? "Hinweis: Ausländerleben bietet allgemeine Orientierung und keine individuelle Rechtsberatung. Prüfe wichtige Entscheidungen immer bei der zuständigen offiziellen Stelle." : "Note: Ausländerleben provides general orientation, not individual legal advice. Always confirm important decisions with the responsible official authority."}</footer>
     </main>
     <button className="back-to-top" onClick={()=>window.scrollTo({top:0,behavior:"smooth"})}>{de ? "Nach oben" : "Back to top"} ↑</button>
   </div>;
