@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import type { Lang } from "../types";
 import "../styles/publicGuidePolish.css";
+import "../styles/guideHub.css";
 
 type GuideCard = { slug:string; de:string; en:string; group:"aufenthalt"|"wohnen"|"arbeit"|"familie"|"alltag"; descDe:string; descEn:string };
 const GUIDES:GuideCard[]=[
@@ -25,10 +26,11 @@ export function GuidesIndex({lang}:{lang:Lang}){
     const meta=document.querySelector('meta[name="description"]'); if(meta) meta.setAttribute("content",description);
     const canonical=document.querySelector('link[rel="canonical"]') as HTMLLinkElement|null; if(canonical) canonical.href=`${window.location.origin}/guides`;
     const robots=document.querySelector('meta[name="robots"]'); if(robots) robots.setAttribute("content","index,follow,max-image-preview:large,max-snippet:-1");
+    const id="auslanderleben-guides-index-jsonld"; document.getElementById(id)?.remove();
+    const script=document.createElement("script"); script.id=id; script.type="application/ld+json"; script.textContent=JSON.stringify({"@context":"https://schema.org","@type":"ItemList",name:title,itemListElement:GUIDES.map((g,i)=>({"@type":"ListItem",position:i+1,name:de?g.de:g.en,url:`${window.location.origin}/guide/${g.slug}`}))}); document.head.appendChild(script);
+    return()=>document.getElementById(id)?.remove();
   },[de]);
-  const groups=[
-    ["aufenthalt",de?"Aufenthalt":"Residence"],["wohnen",de?"Anmeldung & Wohnen":"Registration & housing"],["arbeit",de?"Arbeit":"Work"],["familie",de?"Familie":"Family"],["alltag",de?"Alltag":"Everyday life"]
-  ] as const;
+  const groups=[["aufenthalt",de?"Aufenthalt":"Residence"],["wohnen",de?"Anmeldung & Wohnen":"Registration & housing"],["arbeit",de?"Arbeit":"Work"],["familie",de?"Familie":"Family"],["alltag",de?"Alltag":"Everyday life"]] as const;
   return <div className="public-guide-shell">
     <header className="public-guide-topbar"><a className="public-guide-brand" href="/">Ausländerleben</a><div className="public-guide-controls"><a className="public-home-btn" href="/">{de?"Startseite":"Home"}</a></div></header>
     <main className="public-guide public-guides-index">
