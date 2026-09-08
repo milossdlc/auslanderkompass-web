@@ -4,6 +4,7 @@ import "./styles/global.css";
 import "./styles/actionPlan.css";
 import "./styles/todayPolish.css";
 import "./styles/navigationPolish.css";
+import "./styles/deadlinesPolish.css";
 import App from "./App";
 
 createRoot(document.getElementById("root")!).render(
