@@ -12,6 +12,7 @@ import { AreaItemDetail } from "./views/AreaItemDetail";
 import { ProfileView } from "./views/Profile";
 import { PublicGuide } from "./views/PublicGuide";
 import { GrowthGuide, isGrowthGuide } from "./views/GrowthGuide";
+import { GuidesIndex } from "./views/GuidesIndex";
 import { track } from "./lib/analytics";
 import type { Lang } from "./types";
 
@@ -25,14 +26,18 @@ function publicGuideSlug(pathname: string): string | null {
 export default function App() {
   const [state, dispatch] = useAppState();
   const lang = (state.lang ?? "de") as Lang;
-  const guideSlug = publicGuideSlug(window.location.pathname);
+  const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
+  const guideSlug = publicGuideSlug(pathname);
+  const isGuidesIndex = pathname === "/guides";
   const S = STRINGS[lang];
 
   useEffect(() => {
     document.documentElement.setAttribute("lang", lang);
     document.documentElement.setAttribute("dir", S.dir);
-    track({ name: guideSlug ? "public_guide_view" : "app_view", path: window.location.pathname, lang, view: state.view });
-  }, [lang, S.dir, state.view, guideSlug]);
+    track({ name: guideSlug || isGuidesIndex ? "public_guide_view" : "app_view", path: window.location.pathname, lang, view: state.view });
+  }, [lang, S.dir, state.view, guideSlug, isGuidesIndex]);
+
+  if (isGuidesIndex) return <GuidesIndex lang={lang} />;
 
   if (guideSlug) {
     const onLangChange = (l: Lang) => dispatch({ type: "SET_LANG", lang: l });
