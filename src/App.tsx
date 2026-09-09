@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useAppState } from "./state/useAppState";
 import { STRINGS } from "./i18n";
 import { LangSwitcher } from "./components/LangSwitcher";
+import { AppShell } from "./components/AppShell";
 import { Kompas } from "./views/Kompas";
 import { Onboarding } from "./views/Onboarding";
 import { Rokovi } from "./views/Rokovi";
@@ -37,10 +38,11 @@ export default function App() {
     track({ name: guideSlug || isGuidesIndex ? "public_guide_view" : "app_view", path: window.location.pathname, lang, view: state.view });
   }, [lang, S.dir, state.view, guideSlug, isGuidesIndex]);
 
+  const onLangChange = (l: Lang) => dispatch({ type: "SET_LANG", lang: l });
+
   if (isGuidesIndex) return <GuidesIndex lang={lang} />;
 
   if (guideSlug) {
-    const onLangChange = (l: Lang) => dispatch({ type: "SET_LANG", lang: l });
     return isGrowthGuide(guideSlug)
       ? <GrowthGuide slug={guideSlug} lang={lang} onLangChange={onLangChange} />
       : <PublicGuide slug={guideSlug} lang={lang} onLangChange={onLangChange} />;
@@ -58,5 +60,9 @@ export default function App() {
     default: view = <Kompas state={state} dispatch={dispatch} />;
   }
 
-  return <div id="shell" className={S.dir === "rtl" ? "rtl-font" : ""}><LangSwitcher lang={lang} onChange={(l) => dispatch({ type: "SET_LANG", lang: l })} /><div id="app">{view}</div></div>;
+  return (
+    <AppShell topbar={<LangSwitcher lang={lang} onChange={onLangChange} />}>
+      {view}
+    </AppShell>
+  );
 }
