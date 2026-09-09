@@ -1,6 +1,5 @@
 import type { Dispatch } from "react";
 import { Icon } from "../components/Icon";
-import { NavBar } from "../components/NavBar";
 import { STRINGS } from "../i18n";
 import { AREA_ORDER } from "../lib/areaItems";
 import type { AppState, AreaId, Lang } from "../types";
@@ -38,9 +37,9 @@ function situationCopy(lang: Lang): { eyebrow: string; title: string; intro: str
 
 export function Objasnjeno({ state, dispatch }: { state: AppState; dispatch: Dispatch<Action> }) {
   const S=STRINGS[state.lang!]; const C=situationCopy(state.lang!); const groups:(AreaId|null)[]=[null,...AREA_ORDER];
-  return <><div className="screen knowledge-screen"><header className="knowledge-heading"><div className="eyebrow">{C.eyebrow}</div><h1 className="disp">{C.title}</h1><p>{C.intro}</p></header>
-    <div className="knowledge-start"><Icon name="compass" size={17}/><span>{C.hint}</span></div>
-    <div className="situation-grid">{C.situations.map(item=><button key={item.title} className="situation-card" onClick={()=>dispatch({type:"OPEN_AREA_ITEM",id:item.areaItemId})}><span className="situation-icon"><Icon name={item.icon as any} size={21}/></span><span className="situation-copy"><strong>{item.title}</strong><small>{item.text}</small></span><Icon name="chevron" size={18}/></button>)}</div>
-    <section className="glossary-section"><div className="knowledge-subheading"><div className="eyebrow">{C.glossary}</div><p>{S.glossaryPage.intro}</p></div>{groups.map(areaId=>{const terms=S.glossary.filter(g=>g.area===areaId);if(!terms.length)return null;const label=areaId?S.areas[areaId].name:S.glossaryPage.groupGeneral;return <div key={areaId??"general"} className="glossary-group"><div className="mono glossary-group-title">{label}</div><div className="glossary-grid">{terms.map(g=><div key={g.term} className="card glossary-card"><div className="mono glossary-term">{g.term}</div><div className="glossary-explain">{g.explain}</div><div className="glossary-institution"><Icon name="building" size={14}/><span>{g.institution}</span></div></div>)}</div></div>})}</section>
-  </div><NavBar active="objasnjeno" lang={state.lang!} onNav={view=>dispatch({type:"NAV",view})}/></>;
+  return <div className="screen knowledge-screen"><header className="knowledge-heading"><div className="eyebrow">{C.eyebrow}</div><h1 className="disp">{C.title}</h1><p>{C.intro}</p></header>
+    <div className="knowledge-start"><Icon name="compass" size={20}/><span>{C.hint}</span></div>
+    <div className="situation-grid">{C.situations.map(item=><button type="button" key={item.title} className="situation-card" onClick={()=>dispatch({type:"OPEN_AREA_ITEM",id:item.areaItemId})}><span className="situation-icon"><Icon name={item.icon as any} size={28}/></span><span className="situation-copy"><strong>{item.title}</strong><small>{item.text}</small><span className="situation-action">Open guide <Icon name="chevron" size={16}/></span></span></button>)}</div>
+    <section className="glossary-section"><div className="knowledge-subheading"><div className="eyebrow">{C.glossary}</div><p>{S.glossaryPage.intro}</p></div>{groups.map(areaId=>{const terms=S.glossary.filter(g=>g.area===areaId);if(!terms.length)return null;const label=areaId?S.areas[areaId].name:S.glossaryPage.groupGeneral;return <div key={areaId??"general"} className="glossary-group"><div className="mono glossary-group-title">{label}</div><div className="glossary-grid">{terms.map(g=><div key={g.term} className="card glossary-card"><div className="mono glossary-term">{g.term}</div><div className="glossary-explain">{g.explain}</div><div className="glossary-institution"><Icon name="building" size={16}/><span>{g.institution}</span></div></div>)}</div></div>})}</section>
+  </div>;
 }
