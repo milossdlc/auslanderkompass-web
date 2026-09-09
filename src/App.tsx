@@ -3,6 +3,7 @@ import { useAppState } from "./state/useAppState";
 import { STRINGS } from "./i18n";
 import { LangSwitcher } from "./components/LangSwitcher";
 import { AppShell } from "./components/AppShell";
+import { NavBar } from "./components/NavBar";
 import { Kompas } from "./views/Kompas";
 import { Onboarding } from "./views/Onboarding";
 import { Rokovi } from "./views/Rokovi";
@@ -60,8 +61,13 @@ export default function App() {
     default: view = <Kompas state={state} dispatch={dispatch} />;
   }
 
+  const showAppNavigation = state.view !== "onboarding";
+
   return (
-    <AppShell topbar={<LangSwitcher lang={lang} onChange={onLangChange} />}>
+    <AppShell
+      sidebar={showAppNavigation ? <NavBar active={state.view === "kompas" || state.view === "rokovi" || state.view === "objasnjeno" || state.view === "profile" ? state.view : null} lang={lang} onNav={(view) => dispatch({ type: "NAV", view })} /> : undefined}
+      topbar={<LangSwitcher lang={lang} onChange={onLangChange} />}
+    >
       {view}
     </AppShell>
   );
