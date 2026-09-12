@@ -1,272 +1,31 @@
-/* Knowledge v2 — action-first layout aligned with App Shell */
-#root .knowledge-screen {
-  width: 100%;
-  max-width: 1120px;
-  margin: 0 auto;
-  box-sizing: border-box;
-}
-
-#root .knowledge-screen .knowledge-heading {
-  max-width: 760px;
-  margin: 0 0 42px;
-}
-
-#root .knowledge-screen .knowledge-heading h1 {
-  margin: 8px 0 14px;
-  max-width: 760px;
-}
-
-#root .knowledge-screen .knowledge-heading p {
-  max-width: 720px;
-  margin: 0;
-  font-size: 17px;
-  line-height: 1.6;
-}
-
-#root .knowledge-screen .knowledge-start {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  max-width: 100%;
-  margin: 22px 0 0;
-  padding: 11px 14px;
-  border: 1px solid #e5e0f2;
-  border-radius: 14px;
-  background: #faf9fe;
-  color: #4f4964;
-  font-size: 15px;
-  line-height: 1.45;
-  box-sizing: border-box;
-}
-
-#root .knowledge-screen .knowledge-section {
-  margin: 0 0 58px;
-}
-
-#root .knowledge-screen .knowledge-section-heading {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 420px);
-  gap: 32px;
-  align-items: end;
-  margin-bottom: 22px;
-}
-
-#root .knowledge-screen .knowledge-section-heading h2 {
-  margin: 4px 0 0;
-  font-size: 24px;
-  line-height: 1.25;
-  letter-spacing: -.01em;
-}
-
-#root .knowledge-screen .knowledge-section-heading p {
-  margin: 0;
-  color: #625b76;
-  font-size: 15px;
-  line-height: 1.55;
-}
-
-#root .knowledge-screen .situation-grid {
-  display: grid !important;
-  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-  gap: 18px !important;
-  width: 100% !important;
-  max-width: none !important;
-  margin: 0 !important;
-}
-
-#root .knowledge-screen button.situation-card {
-  appearance: none !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: flex-start !important;
-  gap: 18px !important;
-  min-height: 230px !important;
-  padding: 22px !important;
-  width: 100% !important;
-  text-align: left !important;
-  background: #fff !important;
-  border: 1px solid #e5e0f2 !important;
-  border-radius: 20px !important;
-  box-sizing: border-box !important;
-  cursor: pointer !important;
-  transition: border-color .16s ease, transform .16s ease, box-shadow .16s ease !important;
-}
-
-#root .knowledge-screen button.situation-card:hover {
-  border-color: #5137e8 !important;
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(50, 35, 120, .08);
-}
-
-#root .knowledge-screen button.situation-card:focus-visible {
-  outline: 3px solid rgba(81, 55, 232, .22) !important;
-  outline-offset: 3px !important;
-}
-
-#root .knowledge-screen .situation-icon {
-  width: 56px !important;
-  height: 56px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  flex: 0 0 auto !important;
-  border-radius: 17px !important;
-  background: #ede9fc !important;
-  color: #5137e8 !important;
-}
-
-#root .knowledge-screen .situation-copy {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: flex-start !important;
-  gap: 8px !important;
-  min-width: 0 !important;
-  width: 100% !important;
-  flex: 1 1 auto !important;
-}
-
-#root .knowledge-screen .situation-copy strong {
-  display: block !important;
-  font-size: 18px !important;
-  line-height: 1.35 !important;
-  font-weight: 750 !important;
-  color: #211d35 !important;
-}
-
-#root .knowledge-screen .situation-copy small {
-  display: block !important;
-  font-size: 15px !important;
-  line-height: 1.5 !important;
-  color: #625b76 !important;
-}
-
-#root .knowledge-screen .situation-action {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 5px !important;
-  margin-top: auto !important;
-  padding-top: 7px !important;
-  color: #5137e8 !important;
-  font-size: 15px !important;
-  font-weight: 700 !important;
-}
-
-#root .knowledge-screen .knowledge-more .situation-card {
-  min-height: 190px !important;
-}
-
-#root .knowledge-screen .glossary-section {
-  width: 100% !important;
-  max-width: none !important;
-  padding-top: 4px;
-  border-top: 1px solid #eeeaf6;
-}
-
-#root .knowledge-screen .knowledge-subheading {
-  max-width: 760px;
-  margin: 42px 0 30px;
-}
-
-#root .knowledge-screen .knowledge-subheading p {
-  margin-top: 8px;
-  font-size: 16px;
-  line-height: 1.55;
-  color: #625b76;
-}
-
-#root .knowledge-screen .glossary-group {
-  margin-bottom: 36px;
-}
-
-#root .knowledge-screen .glossary-grid {
-  display: grid !important;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  gap: 18px !important;
-}
-
-#root .knowledge-screen .glossary-card {
-  padding: 22px !important;
-  min-height: 156px !important;
-  background: #fff !important;
-  border: 1px solid #e5e0f2 !important;
-  border-radius: 18px !important;
-  box-sizing: border-box !important;
-}
-
-#root .knowledge-screen .glossary-term {
-  font-size: 18px !important;
-  font-weight: 750 !important;
-  margin-bottom: 10px !important;
-  color: #211d35 !important;
-}
-
-#root .knowledge-screen .glossary-explain {
-  font-size: 15px !important;
-  line-height: 1.55 !important;
-  color: #302b42 !important;
-}
-
-#root .knowledge-screen .glossary-institution {
-  display: flex !important;
-  align-items: center !important;
-  gap: 7px !important;
-  margin-top: 15px !important;
-  font-size: 14px !important;
-  line-height: 1.4 !important;
-  color: #6b6380 !important;
-}
-
-@media(max-width:980px){
-  #root .knowledge-screen .knowledge-section-heading {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-
-  #root .knowledge-screen .situation-grid,
-  #root .knowledge-screen .glossary-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  }
-}
-
-@media(max-width:700px){
-  #root .knowledge-screen {
-    max-width: none;
-  }
-
-  #root .knowledge-screen .knowledge-heading {
-    margin-bottom: 34px;
-  }
-
-  #root .knowledge-screen .knowledge-heading h1 {
-    font-size: 36px;
-    line-height: 1.12;
-  }
-
-  #root .knowledge-screen .knowledge-heading p {
-    font-size: 16px;
-  }
-
-  #root .knowledge-screen .knowledge-section {
-    margin-bottom: 46px;
-  }
-
-  #root .knowledge-screen .situation-grid,
-  #root .knowledge-screen .glossary-grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  #root .knowledge-screen button.situation-card,
-  #root .knowledge-screen .knowledge-more .situation-card {
-    min-height: 0 !important;
-    padding: 18px !important;
-  }
-
-  #root .knowledge-screen .situation-icon {
-    width: 50px !important;
-    height: 50px !important;
-  }
-
-  #root .knowledge-screen .situation-copy strong {
-    font-size: 17px !important;
-  }
-}
+/* Knowledge v2 — action-first, mobile-first layout aligned with App Shell */
+#root .knowledge-screen{width:100%;max-width:1120px;margin:0 auto;box-sizing:border-box}
+#root .knowledge-screen .knowledge-heading{max-width:760px;margin:0 0 40px}
+#root .knowledge-screen .knowledge-heading h1{margin:8px 0 14px;max-width:760px;font-size:clamp(36px,5vw,58px);line-height:1.08;letter-spacing:-.035em}
+#root .knowledge-screen .knowledge-heading p{max-width:700px;margin:0;font-size:17px;line-height:1.6;color:#514b62}
+#root .knowledge-screen .knowledge-start{display:inline-flex;align-items:center;gap:10px;max-width:100%;margin:22px 0 0;padding:11px 14px;border:1px solid #e5e0f2;border-radius:14px;background:#faf9fe;color:#4f4964;font-size:15px;line-height:1.45;box-sizing:border-box}
+#root .knowledge-screen .knowledge-section{width:100%;margin:0 0 54px}
+#root .knowledge-screen .knowledge-section-heading{display:flex;justify-content:space-between;gap:32px;align-items:flex-end;margin:0 0 20px;padding:0}
+#root .knowledge-screen .knowledge-section-heading h2{margin:5px 0 0;font-size:25px;line-height:1.25;letter-spacing:-.02em;color:#211d35}
+#root .knowledge-screen .knowledge-section-heading p{max-width:410px;margin:0;color:#625b76;font-size:15px;line-height:1.55}
+#root .knowledge-screen .situation-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:18px!important;width:100%!important;margin:0!important}
+#root .knowledge-screen button.situation-card{appearance:none!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-start!important;gap:16px!important;width:100%!important;min-width:0!important;min-height:226px!important;margin:0!important;padding:22px!important;text-align:left!important;background:#fff!important;border:1px solid #e5e0f2!important;border-radius:20px!important;box-shadow:0 2px 8px rgba(35,25,80,.035)!important;box-sizing:border-box!important;cursor:pointer!important;overflow:hidden!important;transition:border-color .16s ease,transform .16s ease,box-shadow .16s ease!important}
+#root .knowledge-screen button.situation-card:hover{border-color:#7563e8!important;transform:translateY(-2px);box-shadow:0 10px 28px rgba(50,35,120,.09)!important}
+#root .knowledge-screen button.situation-card:focus-visible{outline:3px solid rgba(81,55,232,.22)!important;outline-offset:3px!important}
+#root .knowledge-screen .situation-icon{display:flex!important;align-items:center!important;justify-content:center!important;width:52px!important;height:52px!important;min-width:52px!important;flex:0 0 52px!important;border-radius:16px!important;background:#f0edff!important;color:#5137e8!important}
+#root .knowledge-screen .situation-copy{display:flex!important;flex:1 1 auto!important;flex-direction:column!important;align-items:flex-start!important;gap:8px!important;width:100%!important;min-width:0!important;text-align:left!important}
+#root .knowledge-screen .situation-copy strong{display:block!important;width:100%!important;margin:0!important;font-size:18px!important;line-height:1.3!important;font-weight:750!important;color:#211d35!important;overflow-wrap:anywhere!important}
+#root .knowledge-screen .situation-copy small{display:block!important;width:100%!important;margin:0!important;font-size:15px!important;line-height:1.5!important;font-weight:400!important;color:#625b76!important;overflow-wrap:anywhere!important}
+#root .knowledge-screen .situation-action{display:inline-flex!important;align-items:center!important;gap:5px!important;margin-top:auto!important;padding-top:8px!important;color:#5137e8!important;font-size:14px!important;line-height:1.3!important;font-weight:750!important;text-align:left!important}
+#root .knowledge-screen .knowledge-more .situation-card{min-height:205px!important}
+#root .knowledge-screen .glossary-section{width:100%!important;margin:0!important;padding-top:40px!important;border-top:1px solid #eeeaf6!important}
+#root .knowledge-screen .knowledge-subheading{max-width:760px;margin:0 0 28px}
+#root .knowledge-screen .knowledge-subheading p{margin:9px 0 0;font-size:16px;line-height:1.55;color:#625b76}
+#root .knowledge-screen .glossary-group{margin-bottom:36px}
+#root .knowledge-screen .glossary-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:18px!important}
+#root .knowledge-screen .glossary-card{padding:22px!important;min-height:156px!important;background:#fff!important;border:1px solid #e5e0f2!important;border-radius:18px!important;box-sizing:border-box!important}
+#root .knowledge-screen .glossary-term{font-size:18px!important;font-weight:750!important;margin-bottom:10px!important;color:#211d35!important}
+#root .knowledge-screen .glossary-explain{font-size:15px!important;line-height:1.55!important;color:#302b42!important}
+#root .knowledge-screen .glossary-institution{display:flex!important;align-items:center!important;gap:7px!important;margin-top:15px!important;font-size:14px!important;line-height:1.4!important;color:#6b6380!important}
+@media(max-width:980px){#root .knowledge-screen .knowledge-section-heading{display:block}#root .knowledge-screen .knowledge-section-heading p{max-width:620px;margin-top:8px}#root .knowledge-screen .situation-grid,#root .knowledge-screen .glossary-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:700px){#root .knowledge-screen{width:100%!important;max-width:none!important;margin:0!important;padding:0!important}#root .knowledge-screen .knowledge-heading{width:100%!important;margin:0 0 32px!important}#root .knowledge-screen .knowledge-heading h1{max-width:none!important;margin:7px 0 12px!important;font-size:36px!important;line-height:1.08!important;letter-spacing:-.035em!important}#root .knowledge-screen .knowledge-heading p{font-size:16px!important;line-height:1.5!important}#root .knowledge-screen .knowledge-start{display:flex!important;width:100%!important;margin-top:18px!important;padding:12px 13px!important}#root .knowledge-screen .knowledge-section{margin-bottom:38px!important}#root .knowledge-screen .knowledge-section-heading{margin-bottom:16px!important}#root .knowledge-screen .knowledge-section-heading h2{font-size:22px!important}#root .knowledge-screen .knowledge-section-heading p{font-size:14px!important;line-height:1.5!important}#root .knowledge-screen .situation-grid,#root .knowledge-screen .glossary-grid{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:12px!important;width:100%!important}#root .knowledge-screen button.situation-card,#root .knowledge-screen .knowledge-more button.situation-card{display:grid!important;grid-template-columns:48px minmax(0,1fr)!important;grid-template-rows:auto!important;align-items:start!important;column-gap:14px!important;row-gap:0!important;width:100%!important;min-width:0!important;min-height:0!important;padding:17px!important;border-radius:17px!important;text-align:left!important}#root .knowledge-screen .situation-icon{grid-column:1!important;grid-row:1!important;width:48px!important;height:48px!important;min-width:48px!important;flex-basis:48px!important;border-radius:14px!important}#root .knowledge-screen .situation-copy{grid-column:2!important;grid-row:1!important;display:flex!important;width:100%!important;min-width:0!important;gap:6px!important;text-align:left!important}#root .knowledge-screen .situation-copy strong{font-size:16px!important;line-height:1.3!important;text-align:left!important}#root .knowledge-screen .situation-copy small{font-size:14px!important;line-height:1.45!important;text-align:left!important}#root .knowledge-screen .situation-action{margin-top:3px!important;padding-top:3px!important;font-size:14px!important}#root .knowledge-screen .glossary-section{padding-top:32px!important}#root .knowledge-screen .knowledge-subheading{margin-bottom:22px!important}#root .knowledge-screen .glossary-card{min-height:0!important;padding:18px!important}}
