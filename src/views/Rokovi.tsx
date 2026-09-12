@@ -1,6 +1,5 @@
 import type { Dispatch } from "react";
 import { Icon } from "../components/Icon";
-import { NavBar } from "../components/NavBar";
 import { STRINGS } from "../i18n";
 import { fmtDate } from "../lib/dates";
 import { buildSmartDeadlines, calendarHref, deadlinePhase, daysSigned, type SmartDeadline } from "../lib/deadlines";
@@ -27,12 +26,12 @@ function DeadlineCard({ item, lang, dispatch, authority }: { item: SmartDeadline
 
 export function Rokovi({ state, dispatch }: { state: AppState; dispatch: Dispatch<Action> }) {
   const S = STRINGS[state.lang!]; const lang = state.lang!; const C = copy(lang);
-  if (!state.profile) return <><div className="screen empty-state"><Icon name="calendar" size={42}/><h1 className="disp">{S.rokovi.needProfileTitle}</h1><p>{S.rokovi.needProfileText}</p><button className="btn btn-primary" onClick={()=>dispatch({type:"NAV",view:"onboarding"})}>{S.kompas.startLabel}</button></div><NavBar active="rokovi" lang={lang} onNav={(view)=>dispatch({type:"NAV",view})}/></>;
+  if (!state.profile) return <div className="screen empty-state"><Icon name="calendar" size={42}/><h1 className="disp">{S.rokovi.needProfileTitle}</h1><p>{S.rokovi.needProfileText}</p><button className="btn btn-primary" onClick={()=>dispatch({type:"NAV",view:"onboarding"})}>{S.kompas.startLabel}</button></div>;
   const items = buildSmartDeadlines(state.profile, lang); const active = items.filter(i => daysSigned(i.date) >= -30); const authority = getLocalAuthority(state.profile, lang);
   const groups = { overdue: active.filter(i => deadlinePhase(i.date) === "overdue"), now: active.filter(i => deadlinePhase(i.date) === "now"), soon: active.filter(i => deadlinePhase(i.date) === "soon"), later: active.filter(i => deadlinePhase(i.date) === "later") };
   const renderGroup = (title:string, list:SmartDeadline[]) => list.length ? <section className="smart-deadline-section"><div className="deadline-group-title">{title}</div><div className="smart-deadline-list">{list.map(item=><DeadlineCard key={item.id} item={item} lang={lang} dispatch={dispatch} authority={authority}/>)}</div></section> : null;
-  return <><div className="screen deadlines-screen smart-deadlines-screen"><div className="page-heading smart-deadline-heading"><div><div className="eyebrow">Ausländerleben</div><h1 className="disp">{S.rokovi.title}</h1><p>{C.intro}</p><div className="deadline-legend"><span className="deadline-legend-item legal"><Icon name="flag" size={15}/>{C.legal}</span><span className="deadline-legend-item recommended"><Icon name="calendar" size={15}/>{C.recommended}</span></div></div></div>
+  return <div className="screen deadlines-screen smart-deadlines-screen"><div className="page-heading smart-deadline-heading"><div><div className="eyebrow">Ausländerleben</div><h1 className="disp">{S.rokovi.title}</h1><p>{C.intro}</p><div className="deadline-legend"><span className="deadline-legend-item legal"><Icon name="flag" size={15}/>{C.legal}</span><span className="deadline-legend-item recommended"><Icon name="calendar" size={15}/>{C.recommended}</span></div></div></div>
     {active.length ? <>{renderGroup(C.overdue, groups.overdue)}{renderGroup(C.now, groups.now)}{renderGroup(C.soon, groups.soon)}{renderGroup(C.later, groups.later)}</> : <section className="deadline-empty-panel card"><div className="deadline-empty-main"><div className="smart-empty-icon"><Icon name="calendar" size={26}/></div><div><div className="eyebrow">{C.how}</div><h2 className="disp">{C.noDeadlines}</h2><p>{C.noDeadlinesText}</p><button className="deadline-empty-cta" onClick={()=>dispatch({type:"EDIT_PROFILE"})}>{C.addDate} →</button></div></div><div className="deadline-empty-steps"><div><span>1</span><strong>{C.step1}</strong></div><div><span>2</span><strong>{C.step2}</strong></div><div><span>3</span><strong>{C.step3}</strong></div></div></section>}
     <div className="smart-rule-note"><Icon name="book" size={17}/><span>{C.ruleNote}</span></div>
-  </div><NavBar active="rokovi" lang={lang} onNav={(view)=>dispatch({type:"NAV",view})}/></>;
+  </div>;
 }
