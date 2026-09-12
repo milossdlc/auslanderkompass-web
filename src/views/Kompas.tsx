@@ -1,6 +1,5 @@
 import type { Dispatch } from "react";
 import { Icon } from "../components/Icon";
-import { NavBar } from "../components/NavBar";
 import { AreaCard } from "../components/AreaCard";
 import { BenefitCard } from "../components/BenefitCard";
 import { ActionPlan } from "../components/ActionPlan";
@@ -49,8 +48,7 @@ export function Kompas({ state, dispatch }: { state: AppState; dispatch: Dispatc
   const focus = getPersonalFocus(profile, state.lang!);
   const profileLabel = de ? "Profil" : en ? "Profile" : sr ? "Profil" : S.nav.profile;
 
-  return <>
-    <div className="screen dashboard-screen">
+  return <div className="screen dashboard-screen">
       <div className="page-heading dashboard-heading"><div><div className="eyebrow">Ausländerleben</div><h1 className="disp">{de ? "Heute" : en ? "Today" : sr ? "Danas" : S.kompas.title}</h1><p>{de ? "Dein persönlicher Überblick: zuerst das Wichtigste, dann die nächsten konkreten Schritte." : en ? "Your personal overview: what matters most first, followed by clear next actions." : sr ? "Tvoj lični pregled: prvo ono što je najvažnije, zatim jasni sledeći koraci." : S.kompas.heroText}</p></div><button className="profile-header-button" aria-label={profileLabel} title={profileLabel} onClick={() => dispatch({ type: "NAV", view: "profile" })}><Icon name="passport" size={20}/><span>{profileLabel}</span></button></div>
 
       {stale && <button className="stale-profile-card" onClick={() => dispatch({ type: "NAV", view: "profile" })}><div className="stale-icon"><Icon name="passport" size={20}/></div><div><strong>{de ? "Profil vervollständigen" : en ? "Complete your profile" : sr ? "Dopuni profil" : S.kompas.profileSaved}</strong><span>{de ? "Ergänze oder prüfe wichtige Datumsangaben, damit persönliche Fristen aktuell bleiben." : en ? "Add or review important dates so personal deadlines stay current." : sr ? "Dodaj ili proveri važne datume kako bi lični rokovi ostali ažurni." : S.kompas.noDateYet}</span></div><span className="stale-cta">{de ? "Profil prüfen" : en ? "Review profile" : sr ? "Proveri profil" : "Profile"} →</span></button>}
@@ -70,7 +68,5 @@ export function Kompas({ state, dispatch }: { state: AppState; dispatch: Dispatc
       </div>
 
       <section className="life-section"><div className="section-title-row"><h2 className="disp">{de ? "Deine Themen" : en ? "Your topics" : sr ? "Tvoje teme" : S.kompas.areasHeading}</h2></div><div className="areas-grid">{areas.map((a) => <AreaCard key={a.id} area={a} lang={state.lang!} onOpen={(id) => dispatch({ type: "OPEN_AREA", id: id as AreaId })}/>)}</div></section>
-    </div>
-    <NavBar active="kompas" lang={state.lang!} onNav={(view) => dispatch({ type: "NAV", view })}/>
-  </>;
+    </div>;
 }
