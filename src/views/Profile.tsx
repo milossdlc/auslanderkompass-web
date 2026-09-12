@@ -1,6 +1,5 @@
 import type { Dispatch } from "react";
 import { Icon } from "../components/Icon";
-import { NavBar } from "../components/NavBar";
 import { STRINGS } from "../i18n";
 import type { AppState } from "../types";
 import type { Action } from "../state/store";
@@ -16,7 +15,7 @@ const LABELS = {
 export function ProfileView({ state, dispatch }: { state: AppState; dispatch: Dispatch<Action> }) {
   const S=STRINGS[state.lang!];
   const L=state.lang==="de"?LABELS.de:state.lang==="sr"?LABELS.sr:LABELS.en;
-  if(!state.profile) return <><div className="screen empty-state"><Icon name="passport" size={42}/><h1 className="disp">{L.title}</h1><p>{L.intro}</p><button className="btn btn-primary" onClick={()=>dispatch({type:"NAV",view:"onboarding"})}>{S.kompas.startLabel}</button></div><NavBar active="profile" lang={state.lang!} onNav={(view)=>dispatch({type:"NAV",view})}/></>;
+  if(!state.profile) return <div className="screen empty-state"><Icon name="passport" size={42}/><h1 className="disp">{L.title}</h1><p>{L.intro}</p><button className="btn btn-primary" onClick={()=>dispatch({type:"NAV",view:"onboarding"})}>{S.kompas.startLabel}</button></div>;
   const p=state.profile;
   const permit=S.onboarding.boravak.options.find(o=>o.key===p.boravak.permitType)?.label??L.missing;
   const work=S.onboarding.work.options.find(o=>o.key===p.work)?.label??L.missing;
@@ -26,8 +25,7 @@ export function ProfileView({ state, dispatch }: { state: AppState; dispatch: Di
   const percent = Math.round((completed/required.length)*100);
   const complete = percent===100;
   const row=(label:string,value:string,missing=false)=><div className="profile-row" key={label}><span>{label}</span><strong className={missing?"profile-missing":""}>{value}{missing&&<em> · {L.add}</em>}</strong></div>;
-  return <>
-    <div className="screen profile-screen">
+  return <div className="screen profile-screen">
       <div className="page-heading"><div><div className="eyebrow">Ausländerleben</div><h1 className="disp">{L.title}</h1><p>{L.intro}</p></div></div>
       <div className="profile-summary"><div className="profile-summary-copy"><div className="eyebrow">{complete?L.complete:L.incomplete}</div><strong>{complete?L.complete:L.incomplete}</strong><span>{complete?L.completeText:L.incompleteText}</span></div><div className="profile-summary-badge">{percent}%</div></div>
       <div className="profile-groups">
@@ -41,7 +39,5 @@ export function ProfileView({ state, dispatch }: { state: AppState; dispatch: Di
         <section><h2 className="disp">{L.kidsGroup}</h2><div className="card profile-card">{row(L.kids,p.kids?String(p.kidsCount||1):"0")}{row(L.housing,housing)}{row(L.rent,p.rent!=null?`${p.rent.toLocaleString()} €`:L.missing,p.rent==null)}</div></section>
       </div>
       <div className="profile-actions"><div className="privacy-note"><Icon name="lock" size={18}/><span>{L.privacy}</span></div><button className="btn btn-secondary profile-edit-btn" onClick={()=>dispatch({type:"EDIT_PROFILE"})}>{L.edit} →</button></div>
-    </div>
-    <NavBar active="profile" lang={state.lang!} onNav={(view)=>dispatch({type:"NAV",view})}/>
-  </>;
+    </div>;
 }
