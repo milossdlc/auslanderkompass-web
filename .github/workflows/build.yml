@@ -29,3 +29,5 @@ jobs:
           test -f dist/guide/rundfunkbeitrag-umzug/index.html
           grep -q 'https://auslanderleben.de/guide/anmeldung-deutschland' dist/guide/anmeldung-deutschland/index.html
           grep -q '<h1>' dist/guide/anmeldung-deutschland/index.html
+          grep -q '/guides' dist/index.html
+          grep -q '/guide/anmeldung-deutschland' dist/index.html
