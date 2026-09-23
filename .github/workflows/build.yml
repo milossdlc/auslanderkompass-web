@@ -1,0 +1,31 @@
+name: Build check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Verify SEO artifacts
+        run: |
+          test -f dist/guides/index.html
+          test -f dist/guide/anmeldung-deutschland/index.html
+          test -f dist/guide/steuer-id-deutschland/index.html
+          test -f dist/guide/rundfunkbeitrag-umzug/index.html
+          grep -q 'https://auslanderleben.de/guide/anmeldung-deutschland' dist/guide/anmeldung-deutschland/index.html
+          grep -q '<h1>' dist/guide/anmeldung-deutschland/index.html
