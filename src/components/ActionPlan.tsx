@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Icon } from "./Icon";
 import { buildActionPlan } from "../lib/actionPlan";
 import type { AppState } from "../types";
@@ -9,16 +9,50 @@ import "../styles/actionPlan.css";
 const STORAGE_KEY = "auslanderleben.completedActions";
 
 export function ActionPlan({ state, dispatch }: { state: AppState; dispatch: Dispatch<Action> }) {
-  const [done, setDone] = useState<string[]>([]);
-  useEffect(() => { try { setDone(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]")); } catch { setDone([]); } }, []);
+  const [done, setDone] = useState<string[]>(() => {
+    try {
+      const saved: unknown = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      return Array.isArray(saved) ? saved.filter((id): id is string => typeof id === "string") : [];
+    } catch { return []; }
+  });
   const items = buildActionPlan(state.profile!, state.lang!);
-  const visible = items.filter((item) => !done.includes(item.id));
-  const toggle = (id: string) => { const next = done.includes(id) ? done.filter((x) => x !== id) : [...done, id]; setDone(next); localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); };
+  const completed = items.filter(item => done.includes(item.id)).length;
+  const toggle = (id: string) => {
+    const next = done.includes(id) ? done.filter(x => x !== id) : [...done, id];
+    setDone(next);
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); } catch { /* Keep working when storage is unavailable. */ }
+  };
   const de = state.lang === "de", sr = state.lang === "sr";
-  const doneLabel = de ? "Als erledigt markieren" : sr ? "Označi kao završeno" : "Mark as done";
+  const doneLabel = de ? "Erledigt" : sr ? "Završeno" : "Done";
+  const markLabel = de ? "Als erledigt markieren" : sr ? "Označi kao završeno" : "Mark as done";
+  const progress = de ? `${completed} von ${items.length} erledigt` : sr ? `${completed} od ${items.length} završeno` : `${completed} of ${items.length} complete`;
 
-  return <section className="action-plan card">
-    <div className="action-plan-heading"><div><div className="eyebrow">{de ? "Persönlicher Plan" : sr ? "Lični plan" : "Personal action plan"}</div><h2 className="disp">{de ? "Was du jetzt tun kannst" : sr ? "Šta sada možeš da uradiš" : "What you can do now"}</h2><p className="action-plan-intro">{de ? "Arbeite die Punkte der Reihe nach ab. Öffne zuerst die Details, markiere danach die Aufgabe als erledigt." : sr ? "Idi redom. Prvo otvori detalje, a zatim označi zadatak kao završen." : "Work through these in order. Open the details first, then mark the task as done."}</p></div><span className="action-count">{visible.length}</span></div>
-    {visible.length ? <div className="action-plan-list">{visible.map((item, index) => <div className="action-plan-item" key={item.id}><div className="action-step-number">{index + 1}</div><div className="action-plan-copy"><strong>{item.title}</strong><p>{item.text}</p><div className="action-plan-actions"><button className="action-primary" onClick={() => dispatch({ type: "NAV", view: item.hrefView })}>{item.actionLabel} →</button><button className="action-done" onClick={() => toggle(item.id)}>{doneLabel}</button></div></div></div>)}</div> : <div className="action-plan-empty"><Icon name="check" size={20}/><span>{de ? "Deine aktuellen Aktionen sind erledigt." : sr ? "Tvoje trenutne akcije su završene." : "Your current actions are complete."}</span></div>}
+  return <section className="action-plan card" aria-labelledby="action-plan-title">
+    <div className="action-plan-heading">
+      <div>
+        <div className="eyebrow">{de ? "Deine nächsten Schritte" : sr ? "Tvoji sledeći koraci" : "Your next steps"}</div>
+        <h2 className="disp" id="action-plan-title">{de ? "Ein Schritt nach dem anderen" : sr ? "Korak po korak" : "One step at a time"}</h2>
+        <p className="action-plan-intro">{de ? "Starte mit dem ersten Punkt. Dein Fortschritt wird hier gespeichert." : sr ? "Počni od prvog koraka. Tvoj napredak ostaje sačuvan ovde." : "Start with the first step. Your progress is saved here."}</p>
+      </div>
+      <span className="action-progress-label" aria-live="polite">{progress}</span>
+    </div>
+    <progress className="action-progress" max={items.length || 1} value={completed} aria-label={progress} />
+    <ol className="action-plan-list">
+      {items.map((item, index) => {
+        const isDone = done.includes(item.id);
+        return <li className={`action-plan-item${isDone ? " is-complete" : ""}`} key={item.id}>
+          <span className="action-step-number" aria-hidden="true">{isDone ? <Icon name="check" size={22} /> : String(index + 1).padStart(2, "0")}</span>
+          <div className="action-plan-copy">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <div className="action-plan-actions">
+              <button type="button" className="action-primary" onClick={() => dispatch({ type: "NAV", view: item.hrefView })}>{item.actionLabel}<Icon name="chevron" size={16} /></button>
+              <button type="button" className="action-done" aria-pressed={isDone} aria-label={`${markLabel}: ${item.title}`} onClick={() => toggle(item.id)}><Icon name="check" size={18} />{isDone ? doneLabel : markLabel}</button>
+            </div>
+          </div>
+        </li>;
+      })}
+    </ol>
+    {completed === items.length && <div className="action-plan-empty" role="status"><Icon name="check" size={20} /><span>{de ? "Alles erledigt. Gut gemacht!" : sr ? "Sve je završeno. Bravo!" : "All caught up. Nicely done!"}</span></div>}
   </section>;
 }
