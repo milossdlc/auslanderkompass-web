@@ -223,7 +223,7 @@ export function PublicGuide({ slug, lang, onLangChange }: { slug: string; lang: 
 
     const pageTitle = `${t(guide.title, de)} | Ausländerleben`;
     const pageDescription = t(guide.description, de);
-    const pageUrl = `${window.location.origin}/guide/${guide.slug}`;
+    const pageUrl = `https://auslanderleben.de/guide/${guide.slug}`;
     document.title = pageTitle;
     if (canonical) canonical.href = pageUrl;
     setMeta('meta[name="description"]', "name", "description", pageDescription);
