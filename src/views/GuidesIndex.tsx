@@ -27,10 +27,10 @@ export function GuidesIndex({lang}:{lang:Lang}){
     const description=de?"Praktische Guides zu Aufenthalt, Anmeldung, Arbeit, Familie und Alltag in Deutschland – mit klaren nächsten Schritten und offiziellen Quellen.":"Practical guides for residence, registration, work, family and everyday life in Germany, with clear next steps and official sources.";
     document.title=title;
     const meta=document.querySelector('meta[name="description"]'); if(meta) meta.setAttribute("content",description);
-    const canonical=document.querySelector('link[rel="canonical"]') as HTMLLinkElement|null; if(canonical) canonical.href=`${window.location.origin}/guides`;
+    const canonical=document.querySelector('link[rel="canonical"]') as HTMLLinkElement|null; if(canonical) canonical.href=`https://auslanderleben.de/guides`;
     const robots=document.querySelector('meta[name="robots"]'); if(robots) robots.setAttribute("content","index,follow,max-image-preview:large,max-snippet:-1");
     const id="auslanderleben-guides-index-jsonld"; document.getElementById(id)?.remove();
-    const script=document.createElement("script"); script.id=id; script.type="application/ld+json"; script.textContent=JSON.stringify({"@context":"https://schema.org","@type":"ItemList",name:title,itemListElement:GUIDES.map((g,i)=>({"@type":"ListItem",position:i+1,name:de?g.de:g.en,url:`${window.location.origin}/guide/${g.slug}`}))}); document.head.appendChild(script);
+    const script=document.createElement("script"); script.id=id; script.type="application/ld+json"; script.textContent=JSON.stringify({"@context":"https://schema.org","@type":"ItemList",name:title,itemListElement:GUIDES.map((g,i)=>({"@type":"ListItem",position:i+1,name:de?g.de:g.en,url:`https://auslanderleben.de/guide/${g.slug}`}))}); document.head.appendChild(script);
     return()=>document.getElementById(id)?.remove();
   },[de]);
   const groups=[["aufenthalt",de?"Aufenthalt":"Residence"],["wohnen",de?"Anmeldung & Wohnen":"Registration & housing"],["arbeit",de?"Arbeit":"Work"],["familie",de?"Familie":"Family"],["alltag",de?"Alltag":"Everyday life"]] as const;
