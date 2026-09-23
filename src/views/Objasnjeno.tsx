@@ -37,9 +37,9 @@ function situationCopy(lang: Lang): Copy {
     situations: [
       { title: "Mein Aufenthaltstitel läuft ab", text: "Verlängerung vorbereiten und wichtige Termine im Blick behalten.", icon: "passport", areaItemId: "boravak_permit" },
       { title: "Ich ziehe um", text: "Anmeldung, Adresse und die wichtigsten Stellen nach dem Umzug.", icon: "house", areaItemId: "boravak_anmeldung" },
-      { title: "Ich wechsle meinen Job", text: "Prüfe, was dein Aufenthaltstitel bei einem Arbeitgeberwechsel erlaubt.", icon: "briefcase", areaItemId: "guide_job_change" },
-      { title: "Ich habe meinen Job verloren", text: "Meldungen, Aufenthalt und die nächsten wichtigen Schritte.", icon: "minus", areaItemId: "guide_job_loss" },
-      { title: "Ich möchte dauerhaft bleiben", text: "Niederlassungserlaubnis: Wege und typische Voraussetzungen.", icon: "passport", areaItemId: "guide_permanent" },
+      { title: "Ich wechsle meinen Job", text: "Prüfe, was dein Aufenthaltstitel bei einem Arbeitgeberwechsel erlaubt.", icon: "briefcase", areaItemId: "rad_contract" },
+      { title: "Ich habe meinen Job verloren", text: "Meldungen, Aufenthalt und die nächsten wichtigen Schritte.", icon: "minus", areaItemId: "rad_unemployed" },
+      { title: "Ich möchte dauerhaft bleiben", text: "Niederlassungserlaubnis: Wege und typische Voraussetzungen.", icon: "passport", areaItemId: "boravak_permanent" },
       { title: "Wir bekommen ein Kind", text: "Kindergeld, Behörden und wichtige organisatorische Schritte.", icon: "heart", areaItemId: "porodica_birth" },
     ],
   };
@@ -58,9 +58,9 @@ function situationCopy(lang: Lang): Copy {
     situations: [
       { title: "Ističe mi boravišna dozvola", text: "Pripremi produženje i drži važne datume pod kontrolom.", icon: "passport", areaItemId: "boravak_permit" },
       { title: "Selim se", text: "Anmeldung, promena adrese i najvažnije institucije nakon selidbe.", icon: "house", areaItemId: "boravak_anmeldung" },
-      { title: "Menjam posao", text: "Proveri šta tvoja boravišna dozvola znači za promenu poslodavca.", icon: "briefcase", areaItemId: "guide_job_change" },
-      { title: "Izgubio/la sam posao", text: "Prijave, boravak i prvi sledeći koraci.", icon: "minus", areaItemId: "guide_job_loss" },
-      { title: "Želim trajno da ostanem", text: "Niederlassungserlaubnis: putevi i tipični uslovi.", icon: "passport", areaItemId: "guide_permanent" },
+      { title: "Menjam posao", text: "Proveri šta tvoja boravišna dozvola znači za promenu poslodavca.", icon: "briefcase", areaItemId: "rad_contract" },
+      { title: "Izgubio/la sam posao", text: "Prijave, boravak i prvi sledeći koraci.", icon: "minus", areaItemId: "rad_unemployed" },
+      { title: "Želim trajno da ostanem", text: "Niederlassungserlaubnis: putevi i tipični uslovi.", icon: "passport", areaItemId: "boravak_permanent" },
       { title: "Dobijamo dete", text: "Kindergeld, institucije i važni organizacioni koraci.", icon: "heart", areaItemId: "porodica_birth" },
     ],
   };
@@ -79,9 +79,9 @@ function situationCopy(lang: Lang): Copy {
     situations: [
       { title: "My residence permit is expiring", text: "Prepare for renewal and keep important dates in view.", icon: "passport", areaItemId: "boravak_permit" },
       { title: "I'm moving", text: "Registration, address changes and key offices after a move.", icon: "house", areaItemId: "boravak_anmeldung" },
-      { title: "I'm changing jobs", text: "Check what your residence title means for changing employers.", icon: "briefcase", areaItemId: "guide_job_change" },
-      { title: "I lost my job", text: "Registrations, residence status and the next important steps.", icon: "minus", areaItemId: "guide_job_loss" },
-      { title: "I want to stay permanently", text: "Permanent residence: routes and common requirements.", icon: "passport", areaItemId: "guide_permanent" },
+      { title: "I'm changing jobs", text: "Check what your residence title means for changing employers.", icon: "briefcase", areaItemId: "rad_contract" },
+      { title: "I lost my job", text: "Registrations, residence status and the next important steps.", icon: "minus", areaItemId: "rad_unemployed" },
+      { title: "I want to stay permanently", text: "Permanent residence: routes and common requirements.", icon: "passport", areaItemId: "boravak_permanent" },
       { title: "We're having a child", text: "Kindergeld, authorities and important organisational steps.", icon: "heart", areaItemId: "porodica_birth" },
     ],
   };

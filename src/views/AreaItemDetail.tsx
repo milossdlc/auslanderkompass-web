@@ -4,9 +4,8 @@ import { CloseBar } from "../components/CloseBar";
 import { STRINGS, t } from "../i18n";
 import { daysUntil, fmtDate, isOverdue } from "../lib/dates";
 import { areaItemDef, INSTITUTION_URLS } from "../lib/areaItems";
-import type { AppState, Lang } from "../types";
+import type { AppState, AreaItemDef, Lang } from "../types";
 import type { Action } from "../state/store";
-import { KompasHome } from "./KompasHome";
 import { Kompas } from "./Kompas";
 
 const RESIDENCE_SOURCE="https://www.gesetze-im-internet.de/aufenthg_2004/__81.html";
@@ -33,10 +32,12 @@ function guideFor(id:string,lang:Lang):Guide|null{
 }
 
 export function AreaItemDetail({state,dispatch}:{state:AppState;dispatch:Dispatch<Action>}){
- const S=STRINGS[state.lang!]; if(!state.profile) return <KompasHome state={state} dispatch={dispatch}/>;
- const def=areaItemDef(state.selectedAreaItem); const text=def?S.extra[def.id]:null; const guide=state.selectedAreaItem?guideFor(state.selectedAreaItem,state.lang!):null;
+ const S=STRINGS[state.lang!];
+ const guide=state.selectedAreaItem?guideFor(state.selectedAreaItem,state.lang!):null;
+ const def: AreaItemDef | undefined = areaItemDef(state.selectedAreaItem) ?? (guide ? {id:state.selectedAreaItem!,area:"boravak",kind:"obligation",icon:"book",visible:()=>true} : undefined);
+ const text=def ? S.extra[def.id] ?? (guide ? {name:guide.title,desc:guide.intro,consequence:undefined} : null) : null;
  if(!def||!text){dispatch({type:"NAV",view:"objasnjeno"});return <Kompas state={state} dispatch={dispatch}/>;}
- const deadline=def.kind==="obligation"&&def.deadline?def.deadline(state.profile):null;
+ const deadline=state.profile&&def.kind==="obligation"&&def.deadline?def.deadline(state.profile):null;
  const url=INSTITUTION_URLS[def.id];
  return <><div className="screen"><CloseBar onClose={()=>dispatch({type:"NAV",view:"objasnjeno"})}/><div style={{display:"flex",alignItems:"center",gap:12}}><div style={{width:46,height:46,borderRadius:"6px 16px 6px 6px",background:"var(--primary-soft)",display:"flex",alignItems:"center",justifyContent:"center",color:"var(--primary)"}}><Icon name={def.icon} size={22}/></div><div><div className="disp" style={{fontSize:19,fontWeight:700}}>{guide?.title??text.name}</div><span className="pill pill-info" style={{marginTop:3}}>{guide?.label??(def.kind==="obligation"?S.rokovi.tagObligation:S.rokovi.tagRight)}</span></div></div>{guide?<><div className="card" style={{padding:16,fontSize:14,lineHeight:1.6}}>{guide.intro}</div><div className="card" style={{padding:16,borderColor:"var(--primary)"}}><div className="eyebrow">{guide.legal}</div><p style={{fontSize:13.5,lineHeight:1.6,margin:"8px 0 0"}}>{guide.legalText}</p></div><section><div className="eyebrow" style={{marginBottom:9}}>{guide.label}</div><div style={{display:"flex",flexDirection:"column",gap:9}}>{guide.steps.map((x,i)=><div className="card" key={x} style={{padding:14,display:"flex",gap:12,alignItems:"flex-start"}}><span className="pill pill-info">{i+1}</span><span style={{fontSize:13.5,lineHeight:1.5}}>{x}</span></div>)}</div></section><div className="card" style={{padding:16}}><strong style={{fontSize:13.5}}>{guide.docs}</strong><p style={{fontSize:13,lineHeight:1.55,color:"var(--ink-soft)",margin:"6px 0 0"}}>{guide.docsText}</p></div><div className="card" style={{padding:16,background:"var(--surface-2)"}}><strong style={{fontSize:13.5}}>{guide.planning}</strong><p style={{fontSize:13,lineHeight:1.55,color:"var(--ink-soft)",margin:"6px 0 0"}}>{guide.planningText}</p></div><a href={guide.sourceUrl} target="_blank" rel="noopener noreferrer" className="card" style={{padding:"12px 14px",display:"flex",alignItems:"center",justifyContent:"space-between",textDecoration:"none",color:"inherit"}}><span style={{fontSize:13.5,fontWeight:600,color:"var(--primary)"}}>{guide.source}</span><Icon name="external" size={16}/></a><div style={{fontSize:11.5,color:"var(--ink-faint)"}}>{guide.checked}</div></>:<><div className="card" style={{padding:16}}>{text.desc}</div>{text.consequence&&<div className="card" style={{padding:16}}>{text.consequence}</div>}{deadline&&<div className="card" style={{padding:16}}><div className="mono">{S.rokovi.tagObligation}</div><div>{fmtDate(deadline,state.lang!)}</div><span className={"pill "+(isOverdue(deadline)?"pill-warn":"pill-info")}>{isOverdue(deadline)?S.rokovi.overdue:t(S.rokovi.pill,{d:daysUntil(deadline)})}</span></div>}{url&&<a href={url} target="_blank" rel="noopener noreferrer" className="card" style={{padding:14,textDecoration:"none"}}>{S.benefit.openLink}</a>}</>}<div style={{height:20}}/><div style={{fontSize:11.5,color:"var(--ink-faint)",lineHeight:1.5,paddingBottom:28}}>{S.benefit.disclaimer}</div></div></>;
 }
