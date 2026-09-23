@@ -24,6 +24,21 @@ function escapeAttr(value) {
   return value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 }
 
+function escapeHtml(value) {
+  return value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+}
+
+function seoBody(page) {
+  if (page.path === '/guides') {
+    const links = pages
+      .filter((p) => p.path.startsWith('/guide/'))
+      .map((p) => `<li><a href="${p.path}">${escapeHtml(p.title.replace(' | Ausländerleben',''))}</a></li>`)
+      .join('');
+    return `<main aria-label="Ausländerleben Guides"><h1>Ausländerleben Guides</h1><p>${escapeHtml(page.description)}</p><ul>${links}</ul></main>`;
+  }
+  return `<main aria-label="Ausländerleben Guide"><p><a href="/guides">Ausländerleben Guides</a></p><h1>${escapeHtml(page.title.replace(' | Ausländerleben',''))}</h1><p>${escapeHtml(page.description)}</p></main>`;
+}
+
 function render(page) {
   const canonical = origin + page.path;
   return template
@@ -32,7 +47,8 @@ function render(page) {
     .replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${escapeAttr(page.description)}" />`)
     .replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${escapeAttr(page.title)}" />`)
     .replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${escapeAttr(page.description)}" />`)
-    .replace(/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${canonical}" />`);
+    .replace(/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${canonical}" />`)
+    .replace('<div id="root"></div>', `<div id="root">${seoBody(page)}</div>`);
 }
 
 for (const page of pages) {
