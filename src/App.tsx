@@ -34,6 +34,10 @@ export default function App() {
   const S = STRINGS[lang];
 
   useEffect(() => {
+    captureAcquisition();
+  }, []);
+
+  useEffect(() => {
     document.documentElement.setAttribute("lang", lang);
     document.documentElement.setAttribute("dir", S.dir);
     track({ name: guideSlug || isGuidesIndex ? "public_guide_view" : "app_view", path: window.location.pathname, lang, view: state.view, ...acquisitionContext() });
