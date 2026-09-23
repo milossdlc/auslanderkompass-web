@@ -1,10 +1,10 @@
-import type { Dispatch } from "react";
+import { useEffect, type Dispatch } from "react";
 import { STRINGS, t } from "../i18n";
 import type { AppState } from "../types";
 import type { Action } from "../state/store";
 import { ONBOARDING_STEPS } from "../state/store";
 import { ChoiceButton } from "../components/ChoiceButton";
-import { Icon } from "../components/Icon";
+import { Icon } from "../components/Icon";\nimport { acquisitionContext, track } from "../lib/analytics";
 
 export function Onboarding({ state, dispatch }: { state: AppState; dispatch: Dispatch<Action> }) {
   const S = STRINGS[state.lang!];
@@ -12,7 +12,7 @@ export function Onboarding({ state, dispatch }: { state: AppState; dispatch: Dis
   const step = ONBOARDING_STEPS[state.onboardingStep] || ONBOARDING_STEPS[0];
   const total = ONBOARDING_STEPS.length;
   const idx = state.onboardingStep;
-  const draft = state.draft;
+  const draft = state.draft;\n\n  useEffect(() => {\n    track({ name: "onboarding_start", path: window.location.pathname, lang: state.lang, step: idx + 1, ...acquisitionContext() });\n  }, []);
 
   let title = "";
   let sub = "";
@@ -228,7 +228,11 @@ export function Onboarding({ state, dispatch }: { state: AppState; dispatch: Dis
         <button
           className="btn btn-primary"
           style={{ opacity: canNext ? 1 : 0.45 }}
-          onClick={canNext ? () => dispatch({ type: "ONBOARD_NEXT" }) : undefined}
+          onClick={canNext ? () => {
+            const isFinish = idx === total - 1;
+            track({ name: isFinish ? "onboarding_complete" : "onboarding_step_complete", path: window.location.pathname, lang: state.lang, step: idx + 1, ...acquisitionContext() });
+            dispatch({ type: "ONBOARD_NEXT" });
+          } : undefined}
         >
           {idx === total - 1 ? S.finish : S.next}
         </button>
