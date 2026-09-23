@@ -22,16 +22,26 @@ export function track(event: AnalyticsEvent) {
   } catch { /* analytics must never affect the app */ }
 }
 
+export function captureAcquisition() {
+  try {
+    const q = new URLSearchParams(window.location.search);
+    const source = q.get("utm_source") || q.get("ref") || undefined;
+    const campaign = q.get("utm_campaign") || undefined;
+    if (source) sessionStorage.setItem("rk_acquisition_source", source);
+    if (campaign) sessionStorage.setItem("rk_acquisition_campaign", campaign);
+  } catch { /* optional */ }
+}
+
 export function trackGuideCta(guide: string, lang: string, source = "guide") {
   track({ name: "guide_to_compass", path: window.location.pathname, lang, source, guide });
   try { sessionStorage.setItem("rk_acquisition_source", source); sessionStorage.setItem("rk_acquisition_guide", guide); } catch { /* optional */ }
 }
 
-export function acquisitionContext(): { source?: string; guide?: string } {
+export function acquisitionContext(): { source?: string; guide?: string; campaign?: string } {
   try {
     return {
       source: sessionStorage.getItem("rk_acquisition_source") || undefined,
-      guide: sessionStorage.getItem("rk_acquisition_guide") || undefined,
+      guide: sessionStorage.getItem("rk_acquisition_guide") || undefined,\n      campaign: sessionStorage.getItem("rk_acquisition_campaign") || undefined,
     };
   } catch { return {}; }
 }
