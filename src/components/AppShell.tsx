@@ -12,7 +12,11 @@ export function AppShell({ children, sidebar, topbar }: AppShellProps) {
       {sidebar && <aside className="app-shell-sidebar">{sidebar}</aside>}
       <div className="app-shell-main">
         {topbar && <header className="app-shell-topbar">{topbar}</header>}
-        <main className="app-shell-content">{children}</main>
+        <main className="app-shell-content">
+          {children}
+          {/* The same navigation is shown as a bottom bar on mobile. */}
+          {sidebar}
+        </main>
       </div>
     </div>
   );

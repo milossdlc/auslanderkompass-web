@@ -1,12 +1,12 @@
 import type { Dispatch } from "react";
-import { Icon } from "../components/Icon";
+import { Icon, type IconName } from "../components/Icon";
 import { STRINGS } from "../i18n";
 import { AREA_ORDER } from "../lib/areaItems";
 import type { AppState, AreaId, Lang } from "../types";
 import type { Action } from "../state/store";
 import "../styles/knowledgePolish.css";
 
-type Situation = { title: string; text: string; icon: string; areaItemId: string };
+type Situation = { title: string; text: string; icon: IconName; areaItemId: string };
 
 type Copy = {
   eyebrow: string;
@@ -36,7 +36,7 @@ function situationCopy(lang: Lang): Copy {
     open: "Leitfaden öffnen",
     situations: [
       { title: "Mein Aufenthaltstitel läuft ab", text: "Verlängerung vorbereiten und wichtige Termine im Blick behalten.", icon: "passport", areaItemId: "boravak_permit" },
-      { title: "Ich ziehe um", text: "Anmeldung, Adresse und die wichtigsten Stellen nach dem Umzug.", icon: "home", areaItemId: "boravak_anmeldung" },
+      { title: "Ich ziehe um", text: "Anmeldung, Adresse und die wichtigsten Stellen nach dem Umzug.", icon: "house", areaItemId: "boravak_anmeldung" },
       { title: "Ich wechsle meinen Job", text: "Prüfe, was dein Aufenthaltstitel bei einem Arbeitgeberwechsel erlaubt.", icon: "briefcase", areaItemId: "guide_job_change" },
       { title: "Ich habe meinen Job verloren", text: "Meldungen, Aufenthalt und die nächsten wichtigen Schritte.", icon: "minus", areaItemId: "guide_job_loss" },
       { title: "Ich möchte dauerhaft bleiben", text: "Niederlassungserlaubnis: Wege und typische Voraussetzungen.", icon: "passport", areaItemId: "guide_permanent" },
@@ -57,7 +57,7 @@ function situationCopy(lang: Lang): Copy {
     open: "Otvori vodič",
     situations: [
       { title: "Ističe mi boravišna dozvola", text: "Pripremi produženje i drži važne datume pod kontrolom.", icon: "passport", areaItemId: "boravak_permit" },
-      { title: "Selim se", text: "Anmeldung, promena adrese i najvažnije institucije nakon selidbe.", icon: "home", areaItemId: "boravak_anmeldung" },
+      { title: "Selim se", text: "Anmeldung, promena adrese i najvažnije institucije nakon selidbe.", icon: "house", areaItemId: "boravak_anmeldung" },
       { title: "Menjam posao", text: "Proveri šta tvoja boravišna dozvola znači za promenu poslodavca.", icon: "briefcase", areaItemId: "guide_job_change" },
       { title: "Izgubio/la sam posao", text: "Prijave, boravak i prvi sledeći koraci.", icon: "minus", areaItemId: "guide_job_loss" },
       { title: "Želim trajno da ostanem", text: "Niederlassungserlaubnis: putevi i tipični uslovi.", icon: "passport", areaItemId: "guide_permanent" },
@@ -78,7 +78,7 @@ function situationCopy(lang: Lang): Copy {
     open: "Open guide",
     situations: [
       { title: "My residence permit is expiring", text: "Prepare for renewal and keep important dates in view.", icon: "passport", areaItemId: "boravak_permit" },
-      { title: "I'm moving", text: "Registration, address changes and key offices after a move.", icon: "home", areaItemId: "boravak_anmeldung" },
+      { title: "I'm moving", text: "Registration, address changes and key offices after a move.", icon: "house", areaItemId: "boravak_anmeldung" },
       { title: "I'm changing jobs", text: "Check what your residence title means for changing employers.", icon: "briefcase", areaItemId: "guide_job_change" },
       { title: "I lost my job", text: "Registrations, residence status and the next important steps.", icon: "minus", areaItemId: "guide_job_loss" },
       { title: "I want to stay permanently", text: "Permanent residence: routes and common requirements.", icon: "passport", areaItemId: "guide_permanent" },
@@ -93,7 +93,7 @@ export function Objasnjeno({ state, dispatch }: { state: AppState; dispatch: Dis
   const groups: (AreaId | null)[] = [null, ...AREA_ORDER];
   const renderSituation = (item: Situation) => (
     <button type="button" key={item.title} className="situation-card" onClick={() => dispatch({ type: "OPEN_AREA_ITEM", id: item.areaItemId })}>
-      <span className="situation-icon"><Icon name={item.icon as any} size={30} /></span>
+      <span className="situation-icon"><Icon name={item.icon} size={30} /></span>
       <span className="situation-copy">
         <strong>{item.title}</strong>
         <small>{item.text}</small>
@@ -111,17 +111,17 @@ export function Objasnjeno({ state, dispatch }: { state: AppState; dispatch: Dis
         <div className="knowledge-start"><Icon name="compass" size={20} /><span>{C.hint}</span></div>
       </header>
 
-      <section className="knowledge-section knowledge-popular">
+      <section className="knowledge-section knowledge-popular" aria-labelledby="common-situations">
         <div className="knowledge-section-heading">
-          <div><div className="eyebrow">{C.popular}</div><h2>{C.popular}</h2></div>
+          <h2 id="common-situations">{C.popular}</h2>
           <p>{C.popularIntro}</p>
         </div>
         <div className="situation-grid situation-grid-popular">{C.situations.slice(0, 3).map(renderSituation)}</div>
       </section>
 
-      <section className="knowledge-section knowledge-more">
+      <section className="knowledge-section knowledge-more" aria-labelledby="more-situations">
         <div className="knowledge-section-heading">
-          <div><div className="eyebrow">{C.all}</div><h2>{C.all}</h2></div>
+          <h2 id="more-situations">{C.all}</h2>
           <p>{C.allIntro}</p>
         </div>
         <div className="situation-grid situation-grid-secondary">{C.situations.slice(3).map(renderSituation)}</div>
