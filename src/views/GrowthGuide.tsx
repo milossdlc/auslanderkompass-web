@@ -1,9 +1,11 @@
 import { useEffect } from "react";
-import type { Lang } from "../types";\nimport { trackGuideCta } from "../lib/analytics";
+import type { Lang } from "../types";
+import { trackGuideCta } from "../lib/analytics";
 import "../styles/publicGuidePolish.css";
 
 type L={de:string;en:string}; type FAQ={q:L;a:L}; type Source={label:string;url:string};
-type Guide={slug:string;title:L;description:L;summary:L;timing:L;steps:L[];checklist:L[];mistakes:L[];faq:FAQ[];sources:Source[]};\ntype RelatedLink={slug:string;label:L};
+type Guide={slug:string;title:L;description:L;summary:L;timing:L;steps:L[];checklist:L[];mistakes:L[];faq:FAQ[];sources:Source[]};
+type RelatedLink={slug:string;label:L};
 const x=(de:string,en:string):L=>({de,en}); const tx=(v:L,de:boolean)=>de?v.de:v.en;
 export const GROWTH_GUIDE_SLUGS=["fiktionsbescheinigung","wohnungsgeberbestaetigung","blue-card-jobwechsel","kindergeld-auslaender","krankenversicherung-deutschland","steuer-id-deutschland","rundfunkbeitrag-umzug"] as const;
 const G:Guide[]=[

@@ -6,6 +6,7 @@ export type AnalyticsEvent = {
   source?: string;
   guide?: string;
   step?: number;
+  campaign?: string;
 };
 
 /**
@@ -41,7 +42,8 @@ export function acquisitionContext(): { source?: string; guide?: string; campaig
   try {
     return {
       source: sessionStorage.getItem("rk_acquisition_source") || undefined,
-      guide: sessionStorage.getItem("rk_acquisition_guide") || undefined,\n      campaign: sessionStorage.getItem("rk_acquisition_campaign") || undefined,
+      guide: sessionStorage.getItem("rk_acquisition_guide") || undefined,
+      campaign: sessionStorage.getItem("rk_acquisition_campaign") || undefined,
     };
   } catch { return {}; }
 }
