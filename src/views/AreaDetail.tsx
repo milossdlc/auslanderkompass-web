@@ -1,7 +1,6 @@
 import type { Dispatch } from "react";
 import { Icon } from "../components/Icon";
 import { CloseBar } from "../components/CloseBar";
-import { NavBar } from "../components/NavBar";
 import { BenefitCard } from "../components/BenefitCard";
 import { AreaItemCard } from "../components/AreaItemCard";
 import { STRINGS } from "../i18n";
@@ -96,7 +95,7 @@ export function AreaDetail({ state, dispatch }: { state: AppState; dispatch: Dis
           {S.benefit.disclaimer}
         </div>
       </div>
-      <NavBar active={null} lang={state.lang!} onNav={(view) => dispatch({ type: "NAV", view })} />
+
     </>
   );
 }

@@ -1,6 +1,5 @@
 import type { Dispatch } from "react";
 import { Icon } from "../components/Icon";
-import { NavBar } from "../components/NavBar";
 import { STRINGS } from "../i18n";
 import type { AppState } from "../types";
 import type { Action } from "../state/store";
@@ -35,6 +34,6 @@ export function KompasHome({ state, dispatch }: { state: AppState; dispatch: Dis
       <div className="welcome-start-note"><strong>{isDe ? "Dauert nur wenige Minuten." : isSr ? "Potrebno je samo nekoliko minuta." : "Takes only a few minutes."}</strong> {isDe ? "Danach erhältst du deinen persönlichen Today-Bereich." : isSr ? "Posle toga dobijaš svoj lični Today pregled." : "Then you get your personal Today dashboard."}</div>
       <a className="welcome-public-guides" href="/guides">{isDe ? "Alle öffentlichen Guides ansehen" : isSr ? "Pogledaj sve javne vodiče" : "Browse all public guides"} →</a>
     </div>
-    <NavBar active="kompas" lang={state.lang!} onNav={(view)=>dispatch({type:"NAV",view})}/>
+
   </>;
 }

@@ -1,7 +1,6 @@
 import type { Dispatch } from "react";
 import { Icon } from "../components/Icon";
 import { CloseBar } from "../components/CloseBar";
-import { NavBar } from "../components/NavBar";
 import { STRINGS, t } from "../i18n";
 import { fmtDate, parseISO } from "../lib/dates";
 import { toneClass } from "../lib/tone";
@@ -163,7 +162,7 @@ export function BenefitDetail({ state, dispatch }: { state: AppState; dispatch: 
           {S.benefit.disclaimer}
         </div>
       </div>
-      <NavBar active={null} lang={state.lang!} onNav={(view) => dispatch({ type: "NAV", view })} />
+
     </>
   );
 }
