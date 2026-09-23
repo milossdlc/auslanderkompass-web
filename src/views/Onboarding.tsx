@@ -16,7 +16,7 @@ export function Onboarding({ state, dispatch }: { state: AppState; dispatch: Dis
   const draft = state.draft;
 
   useEffect(() => {
-    track({ name: "onboarding_start", path: window.location.pathname, lang: state.lang, step: idx + 1, ...acquisitionContext() });
+    track({ name: "onboarding_start", path: window.location.pathname, lang: state.lang ?? undefined, step: idx + 1, ...acquisitionContext() });
   }, []);
 
   let title = "";
@@ -235,7 +235,7 @@ export function Onboarding({ state, dispatch }: { state: AppState; dispatch: Dis
           style={{ opacity: canNext ? 1 : 0.45 }}
           onClick={canNext ? () => {
             const isFinish = idx === total - 1;
-            track({ name: isFinish ? "onboarding_complete" : "onboarding_step_complete", path: window.location.pathname, lang: state.lang, step: idx + 1, ...acquisitionContext() });
+            track({ name: isFinish ? "onboarding_complete" : "onboarding_step_complete", path: window.location.pathname, lang: state.lang ?? undefined, step: idx + 1, ...acquisitionContext() });
             dispatch({ type: "ONBOARD_NEXT" });
           } : undefined}
         >
