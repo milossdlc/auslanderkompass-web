@@ -39,8 +39,39 @@ function seoBody(page) {
   return `<main aria-label="Ausländerleben Guide"><p><a href="/guides">Ausländerleben Guides</a></p><h1>${escapeHtml(page.title.replace(' | Ausländerleben',''))}</h1><p>${escapeHtml(page.description)}</p></main>`;
 }
 
+function structuredData(page) {
+  const canonical = origin + page.path;
+  if (page.path === '/guides') {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: page.title,
+      description: page.description,
+      url: canonical,
+      isPartOf: { '@type': 'WebSite', name: 'Ausländerleben', url: origin + '/' }
+    };
+  }
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: page.title.replace(' | Ausländerleben',''),
+    description: page.description,
+    url: canonical,
+    isPartOf: { '@type': 'WebSite', name: 'Ausländerleben', url: origin + '/' },
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Ausländerleben', item: origin + '/' },
+        { '@type': 'ListItem', position: 2, name: 'Guides', item: origin + '/guides' },
+        { '@type': 'ListItem', position: 3, name: page.title.replace(' | Ausländerleben',''), item: canonical }
+      ]
+    }
+  };
+}
+
 function render(page) {
   const canonical = origin + page.path;
+  const jsonLd = JSON.stringify(structuredData(page)).replaceAll('<', '\\u003c');
   return template
     .replace(/<title>[^<]*<\/title>/, `<title>${page.title}</title>`)
     .replace(/<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${canonical}" />`)
@@ -48,6 +79,7 @@ function render(page) {
     .replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${escapeAttr(page.title)}" />`)
     .replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${escapeAttr(page.description)}" />`)
     .replace(/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${canonical}" />`)
+    .replace('</head>', `<script type="application/ld+json">${jsonLd}</script></head>`)
     .replace('<div id="root"></div>', `<div id="root">${seoBody(page)}</div>`);
 }
 
