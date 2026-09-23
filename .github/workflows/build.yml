@@ -31,3 +31,6 @@ jobs:
           grep -q '<h1>' dist/guide/anmeldung-deutschland/index.html
           grep -q '/guides' dist/index.html
           grep -q '/guide/anmeldung-deutschland' dist/index.html
+          grep -q 'application/ld+json' dist/guide/anmeldung-deutschland/index.html
+          grep -q 'BreadcrumbList' dist/guide/anmeldung-deutschland/index.html
+          ! grep -q 'pages.dev' dist/guide/anmeldung-deutschland/index.html
