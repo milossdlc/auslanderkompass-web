@@ -15,7 +15,7 @@ import { ProfileView } from "./views/Profile";
 import { PublicGuide } from "./views/PublicGuide";
 import { GrowthGuide, isGrowthGuide } from "./views/GrowthGuide";
 import { GuidesIndex } from "./views/GuidesIndex";
-import { track } from "./lib/analytics";
+import { acquisitionContext, captureAcquisition, track } from "./lib/analytics";
 import type { Lang } from "./types";
 
 function publicGuideSlug(pathname: string): string | null {
@@ -36,7 +36,7 @@ export default function App() {
   useEffect(() => {
     document.documentElement.setAttribute("lang", lang);
     document.documentElement.setAttribute("dir", S.dir);
-    track({ name: guideSlug || isGuidesIndex ? "public_guide_view" : "app_view", path: window.location.pathname, lang, view: state.view });
+    track({ name: guideSlug || isGuidesIndex ? "public_guide_view" : "app_view", path: window.location.pathname, lang, view: state.view, ...acquisitionContext() });
   }, [lang, S.dir, state.view, guideSlug, isGuidesIndex]);
 
   const onLangChange = (l: Lang) => dispatch({ type: "SET_LANG", lang: l });
