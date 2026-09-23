@@ -57,4 +57,20 @@ for (const page of pages) {
   await writeFile(out, render(page), 'utf8');
 }
 
-console.log(`Prerendered ${pages.length} SEO route shells.`);
+const rootLinks = [
+  '/guides',
+  '/guide/anmeldung-deutschland',
+  '/guide/aufenthaltstitel-verlaengern',
+  '/guide/steuer-id-deutschland',
+  '/guide/wohnungsgeberbestaetigung',
+  '/guide/rundfunkbeitrag-umzug'
+];
+const rootBody = `<main aria-label="Ausländerleben"><h1>Ausländerleben – Dein persönlicher Wegweiser für Deutschland</h1><p>Praktische Orientierung zu Aufenthalt, Anmeldung, Arbeit, Familie und Alltag in Deutschland.</p><nav aria-label="Beliebte Guides"><ul>${rootLinks.map((path) => {
+  const page = pages.find((p) => p.path === path);
+  const label = path === '/guides' ? 'Alle Guides' : page?.title.replace(' | Ausländerleben','') || path;
+  return `<li><a href="${path}">${escapeHtml(label)}</a></li>`;
+}).join('')}</ul></nav></main>`;
+const rootHtml = template.replace('<div id="root"></div>', `<div id="root">${rootBody}</div>`);
+await writeFile(join('dist', 'index.html'), rootHtml, 'utf8');
+
+console.log(`Prerendered ${pages.length} SEO route shells plus the home discovery shell.`);
