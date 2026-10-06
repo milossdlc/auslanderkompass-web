@@ -43,14 +43,14 @@ export function AreaDetail({ state, dispatch }: { state: AppState; dispatch: Dis
           >
             <Icon name={AREA_ICONS[area.id]} size={22} />
           </div>
-          <div className="disp" style={{ fontSize: 20, fontWeight: 700 }}>
+          <h1 className="disp" style={{ fontSize: 20, fontWeight: 700, margin: 0 }}>
             {area.name}
-          </div>
+          </h1>
         </div>
 
-        <div className="disp" style={{ fontSize: 14, fontWeight: 700, color: "var(--primary)", marginTop: 4 }}>
+        <h2 className="disp" style={{ fontSize: 14, fontWeight: 700, color: "var(--primary)", marginTop: 4, marginBottom: 0 }}>
           {S.kompas.rightsHeading}
-        </div>
+        </h2>
         <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
           {area.rights.map((r) =>
             isBenefit(r) ? (
@@ -71,9 +71,9 @@ export function AreaDetail({ state, dispatch }: { state: AppState; dispatch: Dis
           )}
         </div>
 
-        <div className="disp" style={{ fontSize: 14, fontWeight: 700, color: "var(--accent)", marginTop: 8 }}>
+        <h2 className="disp" style={{ fontSize: 14, fontWeight: 700, color: "var(--accent)", marginTop: 8, marginBottom: 0 }}>
           {S.kompas.obligationsHeading}
-        </div>
+        </h2>
         {area.obligations.length ? (
           <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
             {area.obligations.map((o) => (

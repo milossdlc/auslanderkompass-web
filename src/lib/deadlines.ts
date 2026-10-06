@@ -116,3 +116,24 @@ export function calendarHref(item: SmartDeadline): string {
 export function daysSigned(d: Date): number {
   return Math.ceil((d.getTime() - Date.now()) / 86400000);
 }
+
+/** Copy for the case where an expiry date IS saved but is too far in the past
+ *  to produce any upcoming/recent deadline card. Without this, screens would
+ *  claim the date is missing even though the profile shows it. */
+export function expiredPermitCopy(lang: Lang) {
+  if (lang === "de") return {
+    title: "Dein gespeichertes Ablaufdatum liegt in der Vergangenheit",
+    text: "Das Datum deines Aufenthaltstitels ist gespeichert, liegt aber mehr als 30 Tage zurück, daher zeigen wir keine Frist an. Wenn du inzwischen einen neuen Titel hast, aktualisiere das Datum im Profil.",
+    cta: "Ablaufdatum aktualisieren",
+  };
+  if (lang === "sr") return {
+    title: "Sačuvani datum isteka je u prošlosti",
+    text: "Datum isteka boravišne dozvole je sačuvan, ali je prošlo više od 30 dana, pa ne prikazujemo rok. Ako si u međuvremenu dobio/la novu dozvolu, ažuriraj datum u profilu.",
+    cta: "Ažuriraj datum isteka",
+  };
+  return {
+    title: "Your saved expiry date is in the past",
+    text: "Your residence permit expiry date is saved, but it is more than 30 days ago, so we show no deadline for it. If you have a newer permit since, update the date in your profile.",
+    cta: "Update expiry date",
+  };
+}

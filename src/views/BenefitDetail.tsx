@@ -46,9 +46,9 @@ export function BenefitDetail({ state, dispatch }: { state: AppState; dispatch: 
             <Icon name={b.icon} size={22} />
           </div>
           <div>
-            <div className="disp" style={{ fontSize: 20, fontWeight: 700 }}>
+            <h1 className="disp" style={{ fontSize: 20, fontWeight: 700, margin: 0 }}>
               {b.name}
-            </div>
+            </h1>
             <span className={"pill " + toneClass(b.tone)} style={{ marginTop: 3 }}>
               {b.status}
             </span>
@@ -90,9 +90,9 @@ export function BenefitDetail({ state, dispatch }: { state: AppState; dispatch: 
           </button>
         )}
 
-        <div className="disp" style={{ fontSize: 15, fontWeight: 700, marginTop: 6 }}>
+        <h2 className="disp" style={{ fontSize: 15, fontWeight: 700, marginTop: 6, marginBottom: 0 }}>
           {S.benefit.nextSteps}
-        </div>
+        </h2>
         <div className="card" style={{ padding: 16, fontSize: 13.5, lineHeight: 1.55, color: "var(--ink)" }}>
           {S.benefitApply[b.id]}
         </div>
