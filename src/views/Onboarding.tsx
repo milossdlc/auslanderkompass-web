@@ -38,22 +38,26 @@ export function Onboarding({ state, dispatch }: { state: AppState; dispatch: Dis
           />
         ))}
         <div className="card" style={{ padding: "14px 16px", marginTop: 2 }}>
-          <label className="field-label">{O.boravak.arrivalLabel}</label>
+          <label className="field-label" htmlFor="onboarding-arrival-date">{O.boravak.arrivalLabel}</label>
           <input
+            id="onboarding-arrival-date"
+            aria-describedby="onboarding-arrival-hint"
             type="date"
             value={draft.arrivalDate || ""}
             onChange={(e) => dispatch({ type: "SET_ARRIVAL_DATE", value: e.target.value })}
           />
-          <div className="field-hint">{O.boravak.arrivalHint}</div>
+          <div className="field-hint" id="onboarding-arrival-hint">{O.boravak.arrivalHint}</div>
         </div>
         <div className="card" style={{ padding: "14px 16px", marginTop: 2 }}>
-          <label className="field-label">{O.boravak.expiryLabel}</label>
+          <label className="field-label" htmlFor="onboarding-expiry-date">{O.boravak.expiryLabel}</label>
           <input
+            id="onboarding-expiry-date"
+            aria-describedby="onboarding-expiry-hint"
             type="date"
             value={draft.permitExpiryDate || ""}
             onChange={(e) => dispatch({ type: "SET_PERMIT_EXPIRY_DATE", value: e.target.value })}
           />
-          <div className="field-hint">{O.boravak.expiryHint}</div>
+          <div className="field-hint" id="onboarding-expiry-hint">{O.boravak.expiryHint}</div>
         </div>
       </>
     );
@@ -75,8 +79,9 @@ export function Onboarding({ state, dispatch }: { state: AppState; dispatch: Dis
         ))}
         {draft.work === "employed" && (
           <div className="card" style={{ padding: "14px 16px", marginTop: 2 }}>
-            <label className="field-label">{O.work.incomeLabel}</label>
+            <label className="field-label" htmlFor="onboarding-income">{O.work.incomeLabel}</label>
             <input
+              id="onboarding-income"
               type="number"
               inputMode="numeric"
               placeholder={O.work.incomePlaceholder}
@@ -157,8 +162,9 @@ export function Onboarding({ state, dispatch }: { state: AppState; dispatch: Dis
         ))}
         {draft.housing === "renting" && (
           <div className="card" style={{ padding: "14px 16px", marginTop: 2 }}>
-            <label className="field-label">{O.housing.rentLabel}</label>
+            <label className="field-label" htmlFor="onboarding-rent">{O.housing.rentLabel}</label>
             <input
+              id="onboarding-rent"
               type="number"
               inputMode="numeric"
               placeholder={O.housing.rentPlaceholder}
@@ -170,8 +176,9 @@ export function Onboarding({ state, dispatch }: { state: AppState; dispatch: Dis
           </div>
         )}
         <div className="card location-card" style={{ padding: "14px 16px", marginTop: 2 }}>
-          <label className="field-label">{state.lang === "de" ? "Stadt — optional" : "City — optional"}</label>
+          <label className="field-label" htmlFor="onboarding-city">{state.lang === "de" ? "Stadt — optional" : "City — optional"}</label>
           <input
+            id="onboarding-city"
             type="text"
             placeholder={state.lang === "de" ? "z. B. Hamburg" : "e.g. Hamburg"}
             value={draft.city ?? ""}
@@ -180,8 +187,9 @@ export function Onboarding({ state, dispatch }: { state: AppState; dispatch: Dis
           <div className="field-hint">{state.lang === "de" ? "Hilft uns später, zuständige Behörden und lokale Informationen anzuzeigen." : "Helps us show relevant local authorities and information later."}</div>
         </div>
         <div className="card location-card" style={{ padding: "14px 16px", marginTop: 2 }}>
-          <label className="field-label">{state.lang === "de" ? "Bundesland — optional" : "Federal state — optional"}</label>
+          <label className="field-label" htmlFor="onboarding-bundesland">{state.lang === "de" ? "Bundesland — optional" : "Federal state — optional"}</label>
           <input
+            id="onboarding-bundesland"
             type="text"
             placeholder={state.lang === "de" ? "z. B. Hamburg" : "e.g. Hamburg"}
             value={draft.bundesland ?? ""}
@@ -222,9 +230,9 @@ export function Onboarding({ state, dispatch }: { state: AppState; dispatch: Dis
       >
         {t(S.step, { n: idx + 1, total })}
       </div>
-      <div className="disp" style={{ fontSize: 24, fontWeight: 700, lineHeight: 1.25 }}>
+      <h1 className="disp" style={{ fontSize: 24, fontWeight: 700, lineHeight: 1.25, margin: 0 }}>
         {title}
-      </div>
+      </h1>
       <div style={{ fontSize: 13.5, color: "var(--ink-soft)", marginBottom: 4 }}>{sub}</div>
       {idx === 0 && <div className="privacy-note"><Icon name="lock" size={17}/><span>{state.lang === "de" ? "Deine Angaben bleiben in diesem Browser auf deinem Gerät gespeichert." : "Your answers stay stored in this browser on your device."}</span></div>}
       <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>{body}</div>
