@@ -21,7 +21,7 @@ type Guide = {
 
 const t = (value: LocalText, de: boolean) => de ? value.de : value.en;
 
-const GUIDES: Guide[] = [
+export const GUIDES: Guide[] = [
   {
     slug: "aufenthaltstitel-verlaengern",
     title: { de: "Aufenthaltstitel verlängern in Deutschland", en: "Residence permit renewal in Germany" },

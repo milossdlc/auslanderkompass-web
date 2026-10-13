@@ -20,6 +20,25 @@ const pages = [
 
 const template = await readFile(join('dist', 'index.html'), 'utf8');
 
+// Full guide text for the static HTML. Loaded through Vite's SSR module loader so the
+// guide data stays in ONE place (the TSX files). Any failure falls back to the short
+// shells below, so a problem here can never break the build or the deploy.
+const guideData = new Map();
+try {
+  const { createServer } = await import('vite');
+  const vite = await createServer({ appType: 'custom', logLevel: 'silent', server: { middlewareMode: true, hmr: false } });
+  try {
+    const pub = await vite.ssrLoadModule('/src/views/PublicGuide.tsx');
+    const growth = await vite.ssrLoadModule('/src/views/GrowthGuide.tsx');
+    for (const g of [...(pub.GUIDES ?? []), ...(growth.GROWTH_GUIDES_DATA ?? [])]) guideData.set(g.slug, g);
+  } finally {
+    await vite.close();
+  }
+} catch (error) {
+  console.warn('Guide content not added to static HTML (falling back to short shells):', error?.message ?? error);
+}
+
+
 function escapeAttr(value) {
   return value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 }
@@ -36,7 +55,28 @@ function seoBody(page) {
       .join('');
     return `<main aria-label="Ausländerleben Guides"><h1>Ausländerleben Guides</h1><p>${escapeHtml(page.description)}</p><ul>${links}</ul></main>`;
   }
+  const guide = guideData.get(page.path.replace('/guide/', ''));
+  if (guide) return guideBody(page, guide);
   return `<main aria-label="Ausländerleben Guide"><p><a href="/guides">Ausländerleben Guides</a></p><h1>${escapeHtml(page.title.replace(' | Ausländerleben',''))}</h1><p>${escapeHtml(page.description)}</p></main>`;
+}
+
+function guideSection(lang, g) {
+  const T = lang === 'de'
+    ? { summary: 'Kurz erklärt', timing: 'Frist und Zeitpunkt', steps: 'Schritte', checklist: 'Checkliste', mistakes: 'Häufige Fehler', faq: 'Häufige Fragen', sources: 'Offizielle Quellen' }
+    : { summary: 'In short', timing: 'Deadline and timing', steps: 'Steps', checklist: 'Checklist', mistakes: 'Common mistakes', faq: 'FAQ', sources: 'Official sources' };
+  const list = (items) => `<ul>${items.map((i) => `<li>${escapeHtml(i[lang])}</li>`).join('')}</ul>`;
+  return `<section lang="${lang}"><h2>${escapeHtml(g.title[lang])}</h2><p>${escapeHtml(g.summary[lang])}</p>`
+    + `<h3>${T.timing}</h3><p>${escapeHtml(g.timing[lang])}</p>`
+    + `<h3>${T.steps}</h3><ol>${g.steps.map((i) => `<li>${escapeHtml(i[lang])}</li>`).join('')}</ol>`
+    + `<h3>${T.checklist}</h3>${list(g.checklist)}`
+    + `<h3>${T.mistakes}</h3>${list(g.mistakes)}`
+    + (g.faq.length ? `<h3>${T.faq}</h3>${g.faq.map((f) => `<h4>${escapeHtml(f.q[lang])}</h4><p>${escapeHtml(f.a[lang])}</p>`).join('')}` : '')
+    + (g.sources.length ? `<h3>${T.sources}</h3><ul>${g.sources.map((s) => `<li><a href="${escapeAttr(s.url)}" rel="noopener noreferrer">${escapeHtml(s.label)}</a></li>`).join('')}</ul>` : '')
+    + '</section>';
+}
+
+function guideBody(page, g) {
+  return `<main aria-label="Ausländerleben Guide"><p><a href="/guides">Ausländerleben Guides</a></p><h1>${escapeHtml(page.title.replace(' | Ausländerleben',''))}</h1><p>${escapeHtml(page.description)}</p>${guideSection('de', g)}${guideSection('en', g)}</main>`;
 }
 
 function structuredData(page) {
