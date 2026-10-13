@@ -21,7 +21,7 @@ type Guide = {
 
 const t = (value: LocalText, de: boolean) => de ? value.de : value.en;
 
-const GUIDES: Guide[] = [
+export const GUIDES: Guide[] = [
   {
     slug: "aufenthaltstitel-verlaengern",
     title: { de: "Aufenthaltstitel verlängern in Deutschland", en: "Residence permit renewal in Germany" },
@@ -124,7 +124,7 @@ const GUIDES: Guide[] = [
   },
   {
     slug: "arbeitslos-in-deutschland",
-    title: { de: "Arbeitslos in Deutschland: Arbeitsuchend melden, arbeitslos melden, nächste Schritte", en: "Unemployed in Germany: job-seeker registration, unemployment registration and next steps" },
+    title: { de: "Arbeitslos in Deutschland: Arbeitsuchend melden, arbeitslos melden, nächste Schritte", en: "Unemployed in Germany: how to register as a job seeker, register as unemployed and next steps" },
     description: { de: "Job verloren oder Kündigung erhalten? Wann du dich arbeitsuchend und arbeitslos melden solltest und welche Unterlagen du bereithältst.", en: "Lost your job or received notice? When to register as job-seeking and unemployed, and which documents to keep ready." },
     summary: { de: "Arbeitsuchendmeldung und Arbeitslosmeldung sind zwei verschiedene Schritte. Die Bundesagentur für Arbeit empfiehlt die Arbeitsuchendmeldung spätestens drei Monate vor Ende des Jobs oder innerhalb von drei Tagen, wenn du erst kurzfristig davon erfährst.", en: "Job-seeker registration and unemployment registration are two different steps. The Federal Employment Agency says to register as job-seeking at least three months before employment ends, or within three days if you only learn about the end at short notice." },
     timing: { de: "Die Arbeitslosmeldung ersetzt die Arbeitsuchendmeldung nicht. Die Arbeitslosmeldung sollte spätestens am ersten Tag ohne Beschäftigung erfolgen; sie kann frühestens drei Monate vorher vorgenommen werden.", en: "Unemployment registration does not replace job-seeker registration. You should register as unemployed no later than the first day without employment; registration can be made up to three months in advance." },

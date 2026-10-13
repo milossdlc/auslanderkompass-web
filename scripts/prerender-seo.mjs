@@ -7,18 +7,37 @@ const pages = [
   { path: '/guide/aufenthaltstitel-verlaengern', title: 'Aufenthaltstitel verlängern in Deutschland | Ausländerleben', description: 'Aufenthaltstitel verlängern: wann du anfangen solltest, welche Unterlagen häufig gebraucht werden und was bei einem rechtzeitigen Antrag wichtig ist.' },
   { path: '/guide/anmeldung-deutschland', title: 'Anmeldung in Deutschland: Frist, Unterlagen und Ablauf | Ausländerleben', description: 'Anmeldung nach dem Einzug: Zwei-Wochen-Frist, Wohnungsgeberbestätigung, Meldebehörde und typische Fehler einfach erklärt.' },
   { path: '/guide/jobwechsel-aufenthaltstitel', title: 'Jobwechsel mit Aufenthaltstitel: Was du vorher prüfen solltest | Ausländerleben', description: 'Jobwechsel mit Aufenthaltstitel: Beschäftigungsauflagen, Zusatzblatt, Arbeitgeberbindung und wichtige Schritte vor dem Wechsel.' },
-  { path: '/guide/arbeitslos-in-deutschland', title: 'Arbeitslos in Deutschland: nächste Schritte | Ausländerleben', description: 'Was nach Jobverlust wichtig ist: arbeitsuchend melden, arbeitslos melden und aufenthaltsrechtliche Folgen prüfen.' },
+  { path: '/guide/arbeitslos-in-deutschland', title: 'Arbeitsuchend melden in Deutschland: Register as job seeker | Ausländerleben', description: 'Was nach Jobverlust wichtig ist: arbeitsuchend melden, arbeitslos melden und aufenthaltsrechtliche Folgen prüfen. In English: how to register as a job seeker in Germany and what to do next.' },
   { path: '/guide/niederlassungserlaubnis-blue-card', title: 'Niederlassungserlaubnis mit Blue Card | Ausländerleben', description: 'Niederlassungserlaubnis mit EU Blue Card: 21 oder 27 Monate, Sprachkenntnisse und weitere Voraussetzungen im Überblick.' },
-  { path: '/guide/fiktionsbescheinigung', title: 'Fiktionsbescheinigung: Bedeutung, Antrag und was weiter gilt | Ausländerleben', description: 'Was eine Fiktionsbescheinigung ist, wann sie relevant wird und warum ein rechtzeitig gestellter Aufenthaltstitel-Antrag wichtig ist.' },
-  { path: '/guide/wohnungsgeberbestaetigung', title: 'Wohnungsgeberbestätigung: Was du für die Anmeldung brauchst | Ausländerleben', description: 'Wer die Wohnungsgeberbestätigung ausstellt, welche Angaben hineingehören und warum der Mietvertrag nicht dasselbe Dokument ist.' },
+  { path: '/guide/fiktionsbescheinigung', title: 'Fiktionsbescheinigung: Bedeutung, Antrag (meaning in English) | Ausländerleben', description: 'Was eine Fiktionsbescheinigung ist, wann sie relevant wird und warum ein rechtzeitig gestellter Aufenthaltstitel-Antrag wichtig ist. In English: Fiktionsbescheinigung meaning, application and what continues.' },
+  { path: '/guide/wohnungsgeberbestaetigung', title: 'Wohnungsgeberbestätigung: Bedeutung und Anmeldung (meaning in English) | Ausländerleben', description: 'Wer die Wohnungsgeberbestätigung ausstellt, welche Angaben hineingehören und warum der Mietvertrag nicht dasselbe Dokument ist. In English: Wohnungsgeberbestätigung meaning and what you need for registration.' },
   { path: '/guide/blue-card-jobwechsel', title: 'Blue Card Jobwechsel: Was im ersten Jahr gilt | Ausländerleben', description: 'Arbeitgeberwechsel mit Blauer Karte EU: Mitteilung im ersten Beschäftigungsjahr und Prüfung der Blue-Card-Voraussetzungen.' },
-  { path: '/guide/kindergeld-auslaender', title: 'Kindergeld für Ausländer in Deutschland 2026 | Ausländerleben', description: 'Kindergeld 2026: 259 Euro pro Kind und Monat. Was ausländische Familien zu Voraussetzungen, Aufenthalt und Antrag prüfen sollten.' },
+  { path: '/guide/kindergeld-auslaender', title: 'Kindergeld für Ausländer in Deutschland 2026 | Ausländerleben', description: 'Kindergeld 2026: 259 Euro pro Kind und Monat. Was ausländische Familien zu Voraussetzungen, Aufenthalt, Antrag und Kindern im EU-Ausland prüfen sollten.' },
   { path: '/guide/krankenversicherung-deutschland', title: 'Krankenversicherung in Deutschland | Ausländerleben', description: 'Gesetzliche oder private Krankenversicherung, Versicherungspflicht und Familienversicherung: Orientierung für Neuankömmlinge.' },
   { path: '/guide/steuer-id-deutschland', title: 'Steuer-ID in Deutschland: nach Anmeldung erhalten oder wiederfinden | Ausländerleben', description: 'Wann die Steuer-ID nach der ersten Anmeldung kommt, wo du sie findest und was du tun kannst, wenn der Brief ausbleibt.' },
   { path: '/guide/rundfunkbeitrag-umzug', title: 'Rundfunkbeitrag nach Umzug: anmelden, ändern oder abmelden | Ausländerleben', description: 'Was nach einem Umzug beim Rundfunkbeitrag zu tun ist, wie die Beitragsnummer funktioniert und was bei WG oder Zusammenzug wichtig ist.' }
 ];
 
 const template = await readFile(join('dist', 'index.html'), 'utf8');
+
+// Full guide text for the static HTML. Loaded through Vite's SSR module loader so the
+// guide data stays in ONE place (the TSX files). Any failure falls back to the short
+// shells below, so a problem here can never break the build or the deploy.
+const guideData = new Map();
+try {
+  const { createServer } = await import('vite');
+  const vite = await createServer({ appType: 'custom', logLevel: 'silent', server: { middlewareMode: true, hmr: false } });
+  try {
+    const pub = await vite.ssrLoadModule('/src/views/PublicGuide.tsx');
+    const growth = await vite.ssrLoadModule('/src/views/GrowthGuide.tsx');
+    for (const g of [...(pub.GUIDES ?? []), ...(growth.GROWTH_GUIDES_DATA ?? [])]) guideData.set(g.slug, g);
+  } finally {
+    await vite.close();
+  }
+} catch (error) {
+  console.warn('Guide content not added to static HTML (falling back to short shells):', error?.message ?? error);
+}
+
 
 function escapeAttr(value) {
   return value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
@@ -36,7 +55,28 @@ function seoBody(page) {
       .join('');
     return `<main aria-label="Ausländerleben Guides"><h1>Ausländerleben Guides</h1><p>${escapeHtml(page.description)}</p><ul>${links}</ul></main>`;
   }
+  const guide = guideData.get(page.path.replace('/guide/', ''));
+  if (guide) return guideBody(page, guide);
   return `<main aria-label="Ausländerleben Guide"><p><a href="/guides">Ausländerleben Guides</a></p><h1>${escapeHtml(page.title.replace(' | Ausländerleben',''))}</h1><p>${escapeHtml(page.description)}</p></main>`;
+}
+
+function guideSection(lang, g) {
+  const T = lang === 'de'
+    ? { summary: 'Kurz erklärt', timing: 'Frist und Zeitpunkt', steps: 'Schritte', checklist: 'Checkliste', mistakes: 'Häufige Fehler', faq: 'Häufige Fragen', sources: 'Offizielle Quellen' }
+    : { summary: 'In short', timing: 'Deadline and timing', steps: 'Steps', checklist: 'Checklist', mistakes: 'Common mistakes', faq: 'FAQ', sources: 'Official sources' };
+  const list = (items) => `<ul>${items.map((i) => `<li>${escapeHtml(i[lang])}</li>`).join('')}</ul>`;
+  return `<section lang="${lang}"><h2>${escapeHtml(g.title[lang])}</h2><p>${escapeHtml(g.summary[lang])}</p>`
+    + `<h3>${T.timing}</h3><p>${escapeHtml(g.timing[lang])}</p>`
+    + `<h3>${T.steps}</h3><ol>${g.steps.map((i) => `<li>${escapeHtml(i[lang])}</li>`).join('')}</ol>`
+    + `<h3>${T.checklist}</h3>${list(g.checklist)}`
+    + `<h3>${T.mistakes}</h3>${list(g.mistakes)}`
+    + (g.faq.length ? `<h3>${T.faq}</h3>${g.faq.map((f) => `<h4>${escapeHtml(f.q[lang])}</h4><p>${escapeHtml(f.a[lang])}</p>`).join('')}` : '')
+    + (g.sources.length ? `<h3>${T.sources}</h3><ul>${g.sources.map((s) => `<li><a href="${escapeAttr(s.url)}" rel="noopener noreferrer">${escapeHtml(s.label)}</a></li>`).join('')}</ul>` : '')
+    + '</section>';
+}
+
+function guideBody(page, g) {
+  return `<main aria-label="Ausländerleben Guide"><p><a href="/guides">Ausländerleben Guides</a></p><h1>${escapeHtml(page.title.replace(' | Ausländerleben',''))}</h1><p>${escapeHtml(page.description)}</p>${guideSection('de', g)}${guideSection('en', g)}</main>`;
 }
 
 function structuredData(page) {
