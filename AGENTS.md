@@ -12,18 +12,24 @@
 Status svih proizvoda vodi se u Portfolio OS-u (https://portfolio-os.milos-sdlc.workers.dev),
 ne u dokumentima. Ovaj repo je proizvod: **Ausländerleben**.
 
-1. Pre rada pročitaj šta piše za proizvod (sledeća aktivnost, otvoreni zadaci, spisak beleški):
-   `curl -sS -X POST "$PORTFOLIO_OS_API" -H "Authorization: Bearer $PORTFOLIO_OS_KEY" -H "content-type: application/json" -d '{"action":"product","product":"Ausländerleben"}'`
+Pozivi idu preko ove funkcije (ključ: u Claude cloud sesijama ga dodaje mrežna tajna okruženja i agent ga
+ne vidi; u drugim alatima je u promenljivoj `PORTFOLIO_OS_KEY`):
+
+```sh
+pos() { curl -sS -X POST https://yhgvivzjwcqwmrvbbrfv.supabase.co/functions/v1/agent \
+  ${PORTFOLIO_OS_KEY:+-H "Authorization: Bearer $PORTFOLIO_OS_KEY"} -H "content-type: application/json" -d "$1"; }
+```
+
+1. Pre rada pročitaj stanje proizvoda (sledeća aktivnost, otvoreni zadaci, spisak beleški):
+   `pos '{"action":"product","product":"Ausländerleben"}'`
    Opšta pravila (marketing, promocija, objava, način rada…) žive u beleškama Portfolio OS-a, ne u repou.
-   Iz `notes_index` pročitaj samo one koje se tiču zadatka: `-d '{"action":"note","note":"<naslov>"}'`
-   (traženje: `{"action":"notes","query":"marketing"}`). Uvek važe beleške „Pravila“ i „Jedan način rada“.
+   Iz `notes_index` pročitaj samo one koje se tiču zadatka: `pos '{"action":"note","note":"<naslov>"}'`
+   (traženje: `pos '{"action":"notes","query":"marketing"}'`). Uvek važe beleške „Pravila“ i „Jedan način rada“.
 2. Posle rada upiši jedan red u dnevnik: šta je urađeno, commit, otvoreni nalazi.
-   `-d '{"action":"log","product":"Ausländerleben","text":"…"}'`
+   `pos '{"action":"log","product":"Ausländerleben","text":"…"}'`
 3. Ako se promenila faza ili sledeći korak: `update_product` (status, next_action,
    next_action_due); zadatak koji si završio: `update_task` sa `"status":"gotovo"`.
 
-`PORTFOLIO_OS_API=https://yhgvivzjwcqwmrvbbrfv.supabase.co/functions/v1/agent`.
-`PORTFOLIO_OS_KEY` je tajna okruženja — nikad je ne ispisuj, ne loguj i ne commit-uj.
-Ako API nije dostupan (nema mreže ili ključa), na kraju odgovora napiši blok
-`Portfolio OS: <proizvod> — <šta je urađeno> — sledeće: <…>` da ga Milos prosledi.
+Ključ se nikad ne ispisuje, ne loguje i ne commit-uje. Ako API vrati grešku (nema mreže ili ključa),
+na kraju odgovora napiši blok `Portfolio OS: <proizvod> — <šta je urađeno> — sledeće: <…>` da ga Milos prosledi.
 Sve akcije: `docs/agent-api.md` u repou milossdlc/portfolio-os.
