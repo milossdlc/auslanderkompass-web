@@ -52,20 +52,8 @@ export function detectDefaultLang(): Lang {
   } catch {
     /* ignore */
   }
-  const nav = ((navigator.language || "") + "").toLowerCase();
-  const map: [RegExp, Lang][] = [
-    [/^sr|^bs|^hr/, "sr"],
-    [/^ar/, "ar"],
-    [/^tr/, "tr"],
-    [/^uk/, "uk"],
-    [/^ru/, "ru"],
-    [/^fa|^pes/, "fa"],
-    [/^de/, "de"],
-    [/^en/, "en"],
-  ];
-  for (const [re, lang] of map) {
-    if (re.test(nav)) return lang;
-  }
+  // German is the default for every new visitor, regardless of browser language
+  // (Milos, 04.11.2026). Only a language the visitor picked themselves overrides it.
   return "de";
 }
 

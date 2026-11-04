@@ -20,4 +20,8 @@ grep -q 'application/ld+json' dist/guide/anmeldung-deutschland/index.html
 grep -q 'BreadcrumbList' dist/guide/anmeldung-deutschland/index.html
 ! grep -q 'pages.dev' dist/guide/anmeldung-deutschland/index.html
 echo "✓ SEO artefakti"
+
+# Podrazumevani jezik je nemački, bez obzira na jezik browsera (Milos, 04.11.2026)
+if grep -q 'navigator.language' src/i18n/index.ts; then echo "✗ jezik browsera ne sme da bira jezik"; exit 1; fi
+echo "✓ podrazumevani jezik: de"
 echo "✓ verify prošao"
