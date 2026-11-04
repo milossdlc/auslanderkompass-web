@@ -19,6 +19,14 @@ grep -q '/guide/anmeldung-deutschland' dist/index.html
 grep -q 'application/ld+json' dist/guide/anmeldung-deutschland/index.html
 grep -q 'BreadcrumbList' dist/guide/anmeldung-deutschland/index.html
 ! grep -q 'pages.dev' dist/guide/anmeldung-deutschland/index.html
+# Vodiči za ugovore i osiguranja (04.11.2026): svaka stranica ima pun tekst, izvore i stoji u sitemap-u
+for s in vertraege-kuendigen-wechseln internet-vertrag-wechseln handyvertrag-wechseln strom-gas-anbieter-wechseln kfz-versicherung-wechseln haftpflichtversicherung-deutschland girokonto-wechseln mietkaution-deutschland; do
+  f="dist/guide/$s/index.html"
+  test -f "$f" || { echo "✗ nema $f"; exit 1; }
+  grep -q 'Offizielle Quellen' "$f" || { echo "✗ $s nema pun tekst sa izvorima"; exit 1; }
+  grep -q "https://auslanderleben.de/guide/$s<" public/sitemap.xml || { echo "✗ $s nije u sitemap.xml"; exit 1; }
+  grep -q "/guide/$s" dist/guides/index.html || { echo "✗ $s nije na /guides"; exit 1; }
+done
 echo "✓ SEO artefakti"
 
 # Podrazumevani jezik je nemački, bez obzira na jezik browsera (Milos, 04.11.2026)

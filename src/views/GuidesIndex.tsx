@@ -4,8 +4,16 @@ import { track, trackGuideCta } from "../lib/analytics";
 import "../styles/publicGuidePolish.css";
 import "../styles/guideHub.css";
 
-type GuideCard = { slug:string; de:string; en:string; group:"aufenthalt"|"wohnen"|"arbeit"|"familie"|"alltag"; descDe:string; descEn:string };
+type GuideCard = { slug:string; de:string; en:string; group:"aufenthalt"|"wohnen"|"arbeit"|"familie"|"alltag"|"vertraege"; descDe:string; descEn:string };
 const GUIDES:GuideCard[]=[
+  {slug:"vertraege-kuendigen-wechseln",de:"Verträge kündigen und wechseln",en:"Cancelling and switching contracts",group:"vertraege",descDe:"Fristen, Kündigungsbutton, Sonderkündigungsrecht und die richtige Reihenfolge.",descEn:"Notice periods, cancellation button, special rights and the right order."},
+  {slug:"kfz-versicherung-wechseln",de:"Kfz-Versicherung wechseln",en:"Switching car insurance",group:"vertraege",descDe:"Stichtag 30. November und Sonderkündigung nach Beitragserhöhung.",descEn:"The 30 November deadline and cancelling after a premium increase."},
+  {slug:"strom-gas-anbieter-wechseln",de:"Strom- und Gasanbieter wechseln",en:"Switching electricity and gas",group:"vertraege",descDe:"Raus aus der Grundversorgung, Fristen und Preiserhöhungen.",descEn:"Leaving default supply, notice periods and price increases."},
+  {slug:"internet-vertrag-wechseln",de:"Internetvertrag wechseln",en:"Switching your internet contract",group:"vertraege",descDe:"Laufzeit, monatliche Kündigung, Umzug und zu langsames Internet.",descEn:"Term, monthly cancellation, moving and slow internet."},
+  {slug:"handyvertrag-wechseln",de:"Handyvertrag wechseln",en:"Switching your mobile contract",group:"vertraege",descDe:"Kündigung, kostenlose Rufnummernmitnahme und Prepaid für den Start.",descEn:"Cancelling, free number porting and prepaid to start."},
+  {slug:"haftpflichtversicherung-deutschland",de:"Private Haftpflichtversicherung",en:"Personal liability insurance",group:"vertraege",descDe:"Warum fast jeder sie hat, was sie abdeckt und wie du wechselst.",descEn:"Why almost everyone has it, what it covers and how to switch."},
+  {slug:"girokonto-wechseln",de:"Girokonto wechseln",en:"Switching your bank account",group:"vertraege",descDe:"Gesetzliche Kontowechselhilfe mit Fristen der Banken.",descEn:"The legal account-switching service and bank deadlines."},
+  {slug:"mietkaution-deutschland",de:"Mietkaution",en:"Rental deposit",group:"wohnen",descDe:"Höchstens drei Kaltmieten, Zahlung in drei Raten, Rückzahlung.",descEn:"At most three months' base rent, three instalments, repayment."},
   {slug:"aufenthaltstitel-verlaengern",de:"Aufenthaltstitel verlängern",en:"Residence permit renewal",group:"aufenthalt",descDe:"Fristen, typische Unterlagen und rechtzeitiger Antrag.",descEn:"Timing, common documents and applying before expiry."},
   {slug:"fiktionsbescheinigung",de:"Fiktionsbescheinigung",en:"Fiktionsbescheinigung",group:"aufenthalt",descDe:"Was sie bedeutet und was nach einem Antrag weiter gilt.",descEn:"What it means and what continues after an application."},
   {slug:"niederlassungserlaubnis-blue-card",de:"Niederlassungserlaubnis mit Blue Card",en:"Permanent residence with EU Blue Card",group:"aufenthalt",descDe:"21 oder 27 Monate, Sprache und weitere Voraussetzungen.",descEn:"21 or 27 months, language and other requirements."},
@@ -33,7 +41,7 @@ export function GuidesIndex({lang}:{lang:Lang}){
     const script=document.createElement("script"); script.id=id; script.type="application/ld+json"; script.textContent=JSON.stringify({"@context":"https://schema.org","@type":"ItemList",name:title,itemListElement:GUIDES.map((g,i)=>({"@type":"ListItem",position:i+1,name:de?g.de:g.en,url:`https://auslanderleben.de/guide/${g.slug}`}))}); document.head.appendChild(script);
     return()=>document.getElementById(id)?.remove();
   },[de]);
-  const groups=[["aufenthalt",de?"Aufenthalt":"Residence"],["wohnen",de?"Anmeldung & Wohnen":"Registration & housing"],["arbeit",de?"Arbeit":"Work"],["familie",de?"Familie":"Family"],["alltag",de?"Alltag":"Everyday life"]] as const;
+  const groups=[["aufenthalt",de?"Aufenthalt":"Residence"],["wohnen",de?"Anmeldung & Wohnen":"Registration & housing"],["arbeit",de?"Arbeit":"Work"],["familie",de?"Familie":"Family"],["vertraege",de?"Verträge & Versicherungen":"Contracts & insurance"],["alltag",de?"Alltag":"Everyday life"]] as const;
   return <div className="public-guide-shell">
     <header className="public-guide-topbar"><a className="public-guide-brand" href="/">Ausländerleben</a><div className="public-guide-controls"><a className="public-home-btn" href="/">{de?"Startseite":"Home"}</a></div></header>
     <main className="public-guide public-guides-index">
