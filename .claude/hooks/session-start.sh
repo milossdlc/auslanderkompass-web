@@ -12,9 +12,14 @@ API="${PORTFOLIO_OS_API:-https://yhgvivzjwcqwmrvbbrfv.supabase.co/functions/v1/a
 # na main crven, to je prvi zadatak ove sesije, pre nove funkcije. Bez gh ili mreže se preskače.
 repo=$(git -C "$dir" remote get-url origin 2>/dev/null | sed -E 's#.*github\.com[:/]##; s#\.git$##; s#/$##')
 if [ -n "$repo" ] && command -v gh >/dev/null 2>&1; then
+  # Isključeni workflow-i (npr. pauziran proizvod) se ne broje.
+  active=$(timeout 10 gh workflow list -R "$repo" --json name,state 2>/dev/null \
+    | jq -c '[.[] | select(.state == "active") | .name]' 2>/dev/null)
   red=$(timeout 10 gh run list -R "$repo" -b main -L 30 \
-    --json workflowName,status,conclusion,url,createdAt 2>/dev/null | jq -r '
-      [.[] | select(.status == "completed")] | group_by(.workflowName)
+    --json workflowName,status,conclusion,url,createdAt 2>/dev/null | jq -r --argjson active "${active:-null}" '
+      [.[] | select(.status == "completed")
+           | select($active == null or (.workflowName as $w | $active | index($w)))]
+      | group_by(.workflowName)
       | map(max_by(.createdAt)) | .[]
       | select(.conclusion == "failure" or .conclusion == "timed_out" or .conclusion == "startup_failure")
       | "  - \(.workflowName): \(.conclusion) (\(.createdAt[:10])) \(.url)"' 2>/dev/null)
